@@ -1,0 +1,40 @@
+#footer {
+    height: auto;
+    overflow:hidden;
+    
+    .footer-wrap{
+        width: 100vw;
+        height: 200px; 
+        padding: $rowPad;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        transform: translateY(0);
+        transform-origin: bottom;
+        background-color: $primary-highlight;
+        color: $primary-highlight-fore;
+        font-size: 100%;
+        transition: transform 0.5s; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        &.rollupBtm,
+        &.rollupBtm.rollupTop  {
+            transform: translateY(0); }
+        
+        &.rollupTop {
+            transform: translateY(100%); }
+
+        .contact-card {
+            text-align: center;
+            
+            a {
+                line-height: 30px; }
+        }
+    }
+}
+#footer .footer-wrap.rollupBtm
+#footer .footer-wrap.rollupBtm.rollupTop  {
+    transform: translateY(0); }

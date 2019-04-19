@@ -1,0 +1,165 @@
+#header {
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0; }
+
+#header .header-wrap {
+    width: 100%;
+    min-height: 125px;
+    padding: $rowPad;
+    background-color: $primary-highlight;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(5px + 1.5vmin);
+    color: $primary-highlight-fore;
+    line-height:1.1;
+    transition: height 0.5s, background 0.5s;
+    
+    .logos-ticker {
+        width: 75px;
+        height: 75px;
+        position: relative; }
+    
+    div[class*="logo-"] {
+        width: 100%;
+        height:100%;
+        position: absolute;
+        font-size: 16px;
+        text-align: center;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0) translateX(-1000%);
+        opacity: 0;
+        transition: transform 1s, opacity 0.15s; }
+    
+    div[class*="logo-"].active {
+        transform: scale(1) translateX(0);
+        opacity: 1; }
+    
+    div[class*="logo-"] i {
+        width: 60px;
+        height: 60px;
+        font-size: 60px; }
+    
+    .fa-jquery::before{
+        content: '';
+        width: 60px;
+        height: 60px;
+        background-image: url("../img/jquery-svg.svg");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: block; }
+    
+    .logo-JS span::before{
+        content: 'Vanilla';
+        margin-right: 5%;
+        font-size: 2vmin; }
+    
+    .contact-card {
+        width: 300px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        transition: width 0.5s;
+        
+        h2 {  
+            width: 300px;
+            cursor: pointer; }
+        
+        div:not(.navBtn) > div:not(.navBtn) {
+            width: 300px;
+            text-align: right;
+            overflow: hidden;
+            transition: width 0.33s, font-size 0.15s; }
+        
+        #navBtn {
+            width: 0;
+            height: 0;
+            position: fixed;
+            right: 0;
+            color: inherit;
+            opacity: 0;
+            transition: width 0.5s 0.33s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+            
+            div{  
+                width: 50px;
+                height: 0; 
+                border: 1px solid;
+                transition: transform 0.5s, opacity 0.4s 0.1s}
+        }
+    }
+
+}
+
+#header .header-wrap.rollupTop {
+    min-height: 55px;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    background-color: transparent;
+    font-size: calc(5px + 1vmin);
+    
+    .logos-ticker {
+        height: 40px; }
+    
+    div[class*="logo-"],
+    .logo-JS span::before{
+        font-size: 12px; }
+      
+    .fa-jquery::before,
+    div[class*="logo-"] i {
+        width: 25px;
+        height: 25px;
+        font-size: 25px; }
+    
+    .contact-card {
+        width: calc(100% - 50px);
+        flex-direction: row; 
+        
+        h2 {
+            width:auto; }
+        
+        > div {
+            height: 50px; }
+        
+        > div > div:not(.navBtn) {
+            width: 0;
+            height: 0;
+            transition: width 0s 0.33s; }
+
+        #navBtn {
+            width: 320px;
+            height: 50px;
+            opacity: 1; 
+        
+            &.open {
+                div:nth-child(1) {
+                    transform: rotate(320deg) translate(-10px,13px);
+                }
+
+                div:nth-child(2) {
+                    transform: rotate(-640deg);
+                    opacity: 0;
+                }
+
+                div:nth-child(3) {
+                    transform: rotate(-320deg) translate(-10px,-13px);
+                }
+            }
+        }
+    }
+}
+

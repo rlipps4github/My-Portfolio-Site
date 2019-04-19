@@ -1,0 +1,42 @@
+#nav {
+    width: 100vw;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    background-color: $primary-highlight;
+    color: $secondary-highlight-fore;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.5s 0.33s, height 0.5s;
+
+    &:hover {
+        background-color: $secondary-highlight; }
+    
+    a { 
+        min-width: 100px;
+        height: 50px;
+        padding: 25px 1vw;
+        font-size: inherit;
+        font-weight: bold;
+        text-align: center;
+        line-height: 0;
+        transition: font-size 0.25s;
+    
+        &:hover{
+            font-size: 110%; }
+    }
+}
+
+#nav.rollupTop {
+    width: 320px;
+    height: 0;
+    position: fixed;
+    flex-direction: column;
+    overflow: hidden;
+
+    &.open{
+        height: 150px;
+    }
+}

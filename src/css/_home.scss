@@ -1,0 +1,13 @@
+#section-content.home {
+    
+    &::after{
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: url("../img/home-bg.png") center no-repeat;
+        background-size: cover;
+        filter: blur(1.2px) grayscale(1);
+        opacity: 0.33;
+        display: block; }
+}

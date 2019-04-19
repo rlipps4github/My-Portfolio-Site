@@ -1,0 +1,13 @@
+#section-content.resume {
+    
+    &::after{
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: url("https://picsum.photos/1024/800?image=4") center no-repeat;
+        background-size: cover;
+        filter: blur(1.2px) grayscale(1);
+        opacity: 0.33;
+        display: block; }
+}
