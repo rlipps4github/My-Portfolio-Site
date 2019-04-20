@@ -5,7 +5,7 @@ class Resume extends Component {
     render() {
     
         return (
-            <div id="section-content" className="resume">Resume Section</div>
+            <div id="section-content" className="resume container">Resume Section</div>
         )
     
     }

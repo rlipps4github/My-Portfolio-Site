@@ -5,7 +5,7 @@ class History extends Component {
     render() {
     
         return (
-            <div id="section-content" className="history">History Section</div>
+            <div id="section-content" className="history container">History Section</div>
         )
     
     }

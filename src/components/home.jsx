@@ -5,7 +5,7 @@ class Home extends Component {
     render() {
     
         return (
-            <div id="section-content" className="home">Home Section</div>
+            <div id="section-content" className="home container">Home Section</div>
         )
     
     }

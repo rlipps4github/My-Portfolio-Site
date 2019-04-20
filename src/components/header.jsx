@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 function HeadLogo(props) {
+    let thisIcon = props.ico
     let thisLabel = props.lbl
     let thisClass = props.active
     return(
-        React.createElement('div', {className: 'logo-'+thisLabel+' '+thisClass}, 
-            React.createElement('i', {className: 'fab fa-'+thisLabel.toLowerCase()}),
+        React.createElement('div', {className: 'logo-'+thisIcon+' '+thisClass}, 
+            React.createElement('i', {className: 'fab fa-'+thisIcon}),
             React.createElement('span',null, thisLabel),
         )
     )
@@ -16,7 +17,8 @@ class LogoCarousel extends Component {
     renderLogo(i) {
         return(
             React.createElement(HeadLogo, {
-                lbl: this.props.arr[i].toString(),
+                ico: this.props.arr[i][0].toString(),
+                lbl: this.props.arr[i][1].toString(),
                 active: i===this.props.idx ? 'active' : '',
                 key: i,
             })
@@ -65,7 +67,7 @@ class Header extends Component {
     
     render() {
         return (
-            <header id="header">
+            <header id="header" className="container">
                 <div className={'header-wrap '+this.props.atTop}>
                     <LogoCarousel len={this.state.logoLen} arr={this.state.logoArr} idx={this.state.logoIdx} />
                     <div className="contact-card">

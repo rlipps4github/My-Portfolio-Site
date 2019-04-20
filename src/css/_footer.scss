@@ -35,6 +35,36 @@
         }
     }
 }
-#footer .footer-wrap.rollupBtm
-#footer .footer-wrap.rollupBtm.rollupTop  {
+
+#footer .footer-wrap.rollupBtm,
+#footer .footer-wrap.rollupBtm.rollupTop {
     transform: translateY(0); }
+
+#footer.tablet,
+#footer.mobile {
+    .footer-wrap{
+        height: 50px; 
+        background: none;
+
+        .contact-card {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            
+            a {
+                line-height: 0;
+                font-size: 0;
+            
+                i {
+                    font-size: 18px;
+                }
+            }
+        }
+        
+        &.rollupTop {
+            transform: translateY(0); }
+    }
+}

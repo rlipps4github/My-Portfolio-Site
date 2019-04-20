@@ -10,11 +10,25 @@ import Home from './components/home'
 import History from './components/history'
 import Resume from './components/resume'
 import Footer from './components/footer'
+import { isNumber } from 'util';
 
 let _animationScroll = false, _preventScroll = false // to enforce proper scroll animation & event control
 
 function setRoute(navIdx) { // click nav by index
     document.getElementById('nav').getElementsByTagName('a')[navIdx].click()
+}
+
+function setSCrollNav(h=0,p=0) {
+    const scrollDiv = parseInt((p/h)*100)
+    const scrollIdx = (Math.round(scrollDiv/25)*25)/25
+    const scrollNavs = document.getElementById('scrollNav-wrap').getElementsByClassName('scrollNav')
+    const scrollNavTarget = document.getElementById('scrollNav-wrap').getElementsByClassName('scrollNav')[scrollIdx]
+    const navTarget = scrollNavTarget.dataset['idx']
+    for (let i=0; i<scrollNavs.length; i++) {
+        scrollNavs[i].classList.remove('active')
+    }
+    document.getElementById('scrollNav-wrap').getElementsByClassName('scrollNav')[scrollIdx].classList.add('active')
+    if (typeof navTarget !== 'undefined') setRoute(navTarget)
 }
 
 function scrollToSection(navIdx,navCnt) { //scroll to section by index
@@ -93,24 +107,99 @@ class MainWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            device: 'mobile',
+            scrollPosition: 0,
             sectOffset: 0,
-            logos: ['HTML5','CSS3','JS','PHP','jQuery','SASS','LESS','React','Node','Apple','Linux','Windows','Adobe','AWS','Bootstrap'],
-            links: [['Home','/'],['History','/history'],['Resume','/resume']],
+            logos: [
+                ['html5','HTML5'],
+                ['css3-alt','CSS3'],
+                ['js','Vanilla JS'],
+                ['php',''],
+                ['jquery','jQuery'],
+                ['sass',''],
+                ['less',''],
+                ['react','React'],
+                ['node-js','Node'],
+                ['apple','Mac'],
+                ['linux','Linux'],
+                ['windows','Windows'],
+                ['adobe','Adobe'],
+                ['aws',''],
+                ['bootstrap','Bootstrap']
+            ],
+            links: [
+                ['Home','/'],
+                ['History','/history'],
+                ['Resume','/resume']
+            ],
             atTop: '',
             atBottom: '',
             activeSectIdx: 0,
             sectInViewIdx: 0,
+            footLinks: ['',''],
         }
     }
     
     componentDidMount() {
+        // custom resize
+        this.customResponse()
+        window.addEventListener('resize', this.customResponse)
+        // scroll control
         this.getYOffset()
         window.addEventListener('scroll', this.getYOffset)
     }
 
     componentWillUnmount() {
+        window.removeEventListener('resize', this.customResponse)
         window.removeEventListener('scroll', this.getYOffset)
     }  
+
+    customResponse = () => { // provides section/componenent level response awareness
+        // get lower breakpoints
+        let deviceArray = {desktop: 1200, laptop: 900, tablet: 600}
+        // get responsive container
+        let responsiveElements = document.getElementsByClassName('container')
+        let currentWidth = window.innerWidth, currentDevice = null
+        switch (true) {
+            case currentWidth >= deviceArray['desktop']: 
+                currentDevice = 'desktop'
+                break
+            case currentWidth >= deviceArray['laptop']: 
+                currentDevice = 'laptop'
+                break
+            case currentWidth >= deviceArray['tablet']:
+                currentDevice = 'tablet'
+                break
+            default:
+                currentDevice = 'mobile'
+        } 
+        if (responsiveElements.length && currentDevice !== this.state.device) {
+            this.setState({
+                device: currentDevice,
+            })
+            for (let el=0; el<responsiveElements.length; el++) {
+                let thisElement = responsiveElements[el]
+                let thisWidth = thisElement.offsetWidth
+                thisElement.classList.remove('desktop')
+                thisElement.classList.remove('laptop')
+                thisElement.classList.remove('tablet')
+                thisElement.classList.remove('mobile')
+                switch (true) {
+                    case thisWidth >= deviceArray['desktop']: 
+                        thisElement.classList.add('desktop')
+                        break
+                    case thisWidth >= deviceArray['laptop']: 
+                        thisElement.classList.add('laptop')
+                        break
+                    case thisWidth >= deviceArray['tablet']:
+                        thisElement.classList.add('tablet')
+                        break
+                    default:
+                        thisElement.classList.add('mobile')
+                } 
+            }
+        }
+    }
     
     handleNavClick = (e) => { // user clicks main nav item 
         scrollToSection(e.target.getAttribute('data-idx'),this.state.links.length)
@@ -149,11 +238,13 @@ class MainWrapper extends React.Component {
                     overSectIdx = currentScroll+sectionHt/3 > sectionHt*s && currentScroll < sectionHt*(s+1) ? s : overSectIdx
                     currSectIdx = activeSectOffset > sectionHt*s && activeSectOffset < sectionHt*(s+1) ? s : currSectIdx
                 }
-                if (overSectIdx !== currSectIdx) { 
+            /*    if (overSectIdx !== currSectIdx) { 
                     setRoute(overSectIdx) 
                     currSectIdx = overSectIdx
-                }
+                }*/
+                setSCrollNav(windowScrollHt,currentScroll)
                 this.setState({
+                    scrollPosition: currentScroll,
                     sectOffset: sectionHt,
                     atTop: currentAtTop,
                     atBottom: currentAtBottom,

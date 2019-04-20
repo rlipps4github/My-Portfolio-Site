@@ -4,10 +4,12 @@
         content: '';
         width: 100%;
         height: 100%;
-        position: absolute;
+        position: fixed;
+        top: 0;
+        left: 0;
         background: url("../img/home-bg.png") center no-repeat;
         background-size: cover;
-        filter: blur(1.2px) grayscale(1);
+        filter: blur(2px) grayscale(1);
         opacity: 0.33;
         display: block; }
 }
