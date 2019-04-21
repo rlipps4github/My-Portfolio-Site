@@ -10,7 +10,6 @@ import Home from './components/home'
 import History from './components/history'
 import Resume from './components/resume'
 import Footer from './components/footer'
-import { isNumber } from 'util';
 
 let _animationScroll = false, _preventScroll = false // to enforce proper scroll animation & event control
 
@@ -43,7 +42,7 @@ function scrollToSection(navIdx,navCnt) { //scroll to section by index
         _preventScroll = true
         scrollIt(
             document.getElementById('main').getElementsByTagName('section')[navIdx],
-            1000,
+            250,
             'easeInOutCubic',
             () => _preventScroll = false
         )
@@ -71,19 +70,19 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
         easeOutQuint(t) { return 1 + (--t) * t * t * t * t },
         easeInOutQuint(t) { return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t }
     }
-    const start = window.pageYOffset;
-    const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
-    const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-    const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop;
-    const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+    const start = window.pageYOffset
+    const startTime = 'now' in window.performance ? performance.now() : new Date().getTime()
+    const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight)
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
+    const destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop
+    const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset)
 
     if ('requestAnimationFrame' in window === false) {
-        window.scroll(0, destinationOffsetToScroll);
+        window.scroll(0, destinationOffsetToScroll)
         if (callback) {
-            callback();
+            callback()
         }
-        return;
+        return
     }
 
     function scroll() {
@@ -113,7 +112,7 @@ class MainWrapper extends React.Component {
             logos: [
                 ['html5','HTML5'],
                 ['css3-alt','CSS3'],
-                ['js','Vanilla JS'],
+                ['js','VanillaJS'],
                 ['php',''],
                 ['jquery','jQuery'],
                 ['sass',''],
@@ -122,7 +121,7 @@ class MainWrapper extends React.Component {
                 ['node-js','Node'],
                 ['apple','Mac'],
                 ['linux','Linux'],
-                ['windows','Windows'],
+                ['windows','PC'],
                 ['adobe','Adobe'],
                 ['aws',''],
                 ['bootstrap','Bootstrap']
@@ -134,17 +133,15 @@ class MainWrapper extends React.Component {
             ],
             atTop: '',
             atBottom: '',
-            activeSectIdx: 0,
-            sectInViewIdx: 0,
             footLinks: ['',''],
         }
     }
     
     componentDidMount() {
-        // custom resize
+        // custom resizer
         this.customResponse()
         window.addEventListener('resize', this.customResponse)
-        // scroll control
+        // scroll controller
         this.getYOffset()
         window.addEventListener('scroll', this.getYOffset)
     }
@@ -154,20 +151,18 @@ class MainWrapper extends React.Component {
         window.removeEventListener('scroll', this.getYOffset)
     }  
 
-    customResponse = () => { // provides section/componenent level response awareness
-        // get lower breakpoints
-        let deviceArray = {desktop: 1200, laptop: 900, tablet: 600}
-        // get responsive container
+    customResponse = () => { // provides seperate display, section & componenent level awareness for response
+        let breakPoints = {desktop: 1200, laptop: 900, tablet: 600}
         let responsiveElements = document.getElementsByClassName('container')
         let currentWidth = window.innerWidth, currentDevice = null
         switch (true) {
-            case currentWidth >= deviceArray['desktop']: 
+            case currentWidth >= breakPoints['desktop']: 
                 currentDevice = 'desktop'
                 break
-            case currentWidth >= deviceArray['laptop']: 
+            case currentWidth >= breakPoints['laptop']: 
                 currentDevice = 'laptop'
                 break
-            case currentWidth >= deviceArray['tablet']:
+            case currentWidth >= breakPoints['tablet']:
                 currentDevice = 'tablet'
                 break
             default:
@@ -180,18 +175,15 @@ class MainWrapper extends React.Component {
             for (let el=0; el<responsiveElements.length; el++) {
                 let thisElement = responsiveElements[el]
                 let thisWidth = thisElement.offsetWidth
-                thisElement.classList.remove('desktop')
-                thisElement.classList.remove('laptop')
-                thisElement.classList.remove('tablet')
-                thisElement.classList.remove('mobile')
+                thisElement.classList.remove('desktop','laptop','tablet','mobile')
                 switch (true) {
-                    case thisWidth >= deviceArray['desktop']: 
+                    case thisWidth >= breakPoints['desktop']: 
                         thisElement.classList.add('desktop')
                         break
-                    case thisWidth >= deviceArray['laptop']: 
+                    case thisWidth >= breakPoints['laptop']: 
                         thisElement.classList.add('laptop')
                         break
-                    case thisWidth >= deviceArray['tablet']:
+                    case thisWidth >= breakPoints['tablet']:
                         thisElement.classList.add('tablet')
                         break
                     default:
@@ -229,31 +221,18 @@ class MainWrapper extends React.Component {
                 const windowScrollHt = document.body.offsetHeight - (window.innerHeight-100)
                 const currentAtTop = window.pageYOffset > 10 ? 'rollupTop' : ''
                 const currentAtBottom = windowScrollHt-window.pageYOffset < 10 ? 'rollupBtm' : ''
-                const activeSect = document.getElementById('section-content').parentNode
-                const activeSectOffset = activeSect.offsetTop
                 const currentScroll = window.pageYOffset
                 const sectionHt = window.innerHeight
-                let overSectIdx = 0, currSectIdx = 0
-                for (let s=0; s<this.state.links.length; s++) {
-                    overSectIdx = currentScroll+sectionHt/3 > sectionHt*s && currentScroll < sectionHt*(s+1) ? s : overSectIdx
-                    currSectIdx = activeSectOffset > sectionHt*s && activeSectOffset < sectionHt*(s+1) ? s : currSectIdx
-                }
-            /*    if (overSectIdx !== currSectIdx) { 
-                    setRoute(overSectIdx) 
-                    currSectIdx = overSectIdx
-                }*/
                 setSCrollNav(windowScrollHt,currentScroll)
                 this.setState({
                     scrollPosition: currentScroll,
                     sectOffset: sectionHt,
                     atTop: currentAtTop,
                     atBottom: currentAtBottom,
-                    activeSectIdx: currSectIdx,
-                    sectInViewIdx: overSectIdx,
                 })
-                _animationScroll = false;
+                _animationScroll = false
             })
-            _animationScroll = true;
+            _animationScroll = true
         }
     }
 
@@ -261,9 +240,23 @@ class MainWrapper extends React.Component {
         return(
             <Router>
                 <Header handler={this.toggleNavBtn} nameHandler={() => setRoute(0)} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links}> 
-                    <Nav handler={this.handleNavClick} atTop={this.state.atTop} links={this.state.links} sectOffset={this.state.sectOffset} activeSectIdx={this.state.activeSectIdx} sectInViewIdx={this.state.sectInViewIdx} />
+                    <Nav handler={this.handleNavClick}  atTop={this.state.atTop} links={this.state.links} sectOffset={this.state.sectOffset}  />
                 </Header>
                 <main id="main">
+                    <article className={this.state.atTop}>
+                        <div className="row row-pad">
+                            <div className="col col-desk-6 col-lap-6 col-mob-12 column-pad">
+                                <header>
+                                    <h1>Welcome!</h1>
+                                    <p>My name is Ron Lipps and I am a Web Developer. I specialize on the front end but I </p>
+                                </header>
+                            </div>
+                            <div className="col col-desk-6 col-lap-6 col-mob-12 column-pad">
+                                
+                                <p>My mission is to stop the degradation of our planet's natural environment, and build a future in which humans live in harmony with nature.</p>
+                            </div>
+                        </div>
+                    </article>
                     <section><Route exact path='/' component={Home} /></section>
                     <section><Route exact path='/history' component={History} /></section>
                     <section><Route exact path='/resume' component={Resume} /></section> 

@@ -19,9 +19,10 @@ time, mark, audio, video {
   box-sizing: border-box; }
 
 /* HTML5 */
-article, aside, details, figcaption, figure,
+div, main, article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-  display: block; }
+  display: block;
+  box-sizing: border-box; }
 
 /* VARIABLES */
 /*colors*/
@@ -41,11 +42,14 @@ body {
   body::-webkit-scrollbar {
     display: none; }
 
+h1, h2, h3, h4 {
+  margin-bottom: 20px; }
+
+h5, h6, p {
+  margin-bottom: 15px; }
+
 #header, #nav, #footer {
   z-index: 200; }
-
-#main {
-  margin: 100px 0; }
 
 section {
   width: 100vw;
@@ -77,6 +81,7 @@ q:before, q:after {
   content: '';
   content: none; }
 
+.button,
 button {
   background-color: transparent;
   outline: none;
@@ -92,201 +97,241 @@ code {
 
 /* HEADINGS */
 /* GRID */
-#root h1 {
-  font-size: 26px;
-  font-family: "Dosis", Verdana, sans-serif;
-  letter-spacing: 1.5px; }
-#root h2 {
-  font-size: 22px;
-  font-family: "Dosis", Verdana, sans-serif;
-  letter-spacing: 1.5px; }
-#root h3 {
-  font-size: 18px;
-  font-family: "Dosis", Verdana, sans-serif;
-  letter-spacing: 1.5px; }
-#root h4 {
-  font-size: 14px;
-  font-family: "Dosis", Verdana, sans-serif;
-  letter-spacing: 1.5px; }
-#root h5 {
-  font-size: 10px;
-  font-family: "Dosis", Verdana, sans-serif;
-  letter-spacing: 1.5px; }
-#root h6 {
-  font-size: 6px;
-  font-family: "Dosis", Verdana, sans-serif;
-  letter-spacing: 1.5px; }
-#root .col-mob-1 {
-  width: 8.3333333333%; }
-#root .col-mob-2 {
-  width: 16.6666666667%; }
-#root .col-mob-3 {
-  width: 25%; }
-#root .col-mob-4 {
-  width: 33.3333333333%; }
-#root .col-mob-5 {
-  width: 41.6666666667%; }
-#root .col-mob-6 {
-  width: 50%; }
-#root .col-mob-7 {
-  width: 58.3333333333%; }
-#root .col-mob-8 {
-  width: 66.6666666667%; }
-#root .col-mob-9 {
-  width: 75%; }
-#root .col-mob-10 {
-  width: 83.3333333333%; }
-#root .col-mob-11 {
-  width: 91.6666666667%; }
-#root .col-mob-12 {
-  width: 100%; }
-@media screen and (min-width: 600px) {
+#root {
+  width: 100%;
+  margin: 100px 0; }
+  #root #main {
+    width: 100%;
+    max-width: 1400px;
+    padding: 3vw 5vw;
+    margin: 0 auto; }
+  #root .row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center; }
+    #root .row::before, #root .row::after {
+      content: '';
+      clear: both; }
+    #root .row .col {
+      float: left; }
   #root h1 {
-    font-size: 34px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h2 {
-    font-size: 30px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h3 {
     font-size: 26px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
-  #root h4 {
+  #root h2 {
     font-size: 22px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
-  #root h5 {
+  #root h3 {
     font-size: 18px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
-  #root h6 {
+  #root h4 {
     font-size: 14px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
-  #root .col-tab-1 {
-    width: 8.3333333333%; }
-  #root .col-tab-2 {
-    width: 16.6666666667%; }
-  #root .col-tab-3 {
-    width: 25%; }
-  #root .col-tab-4 {
-    width: 33.3333333333%; }
-  #root .col-tab-5 {
-    width: 41.6666666667%; }
-  #root .col-tab-6 {
-    width: 50%; }
-  #root .col-tab-7 {
-    width: 58.3333333333%; }
-  #root .col-tab-8 {
-    width: 66.6666666667%; }
-  #root .col-tab-9 {
-    width: 75%; }
-  #root .col-tab-10 {
-    width: 83.3333333333%; }
-  #root .col-tab-11 {
-    width: 91.6666666667%; }
-  #root .col-tab-12 {
-    width: 100%; } }
-@media screen and (min-width: 900px) {
-  #root h1 {
-    font-size: 42px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h2 {
-    font-size: 36px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h3 {
-    font-size: 30px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h4 {
-    font-size: 24px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
   #root h5 {
-    font-size: 18px;
+    font-size: 10px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
   #root h6 {
-    font-size: 12px;
+    font-size: 6px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
-  #root .col-lap-1 {
+  #root .col-mob-1 {
     width: 8.3333333333%; }
-  #root .col-lap-2 {
+  #root .col-mob-2 {
     width: 16.6666666667%; }
-  #root .col-lap-3 {
+  #root .col-mob-3 {
     width: 25%; }
-  #root .col-lap-4 {
+  #root .col-mob-4 {
     width: 33.3333333333%; }
-  #root .col-lap-5 {
+  #root .col-mob-5 {
     width: 41.6666666667%; }
-  #root .col-lap-6 {
+  #root .col-mob-6 {
     width: 50%; }
-  #root .col-lap-7 {
+  #root .col-mob-7 {
     width: 58.3333333333%; }
-  #root .col-lap-8 {
+  #root .col-mob-8 {
     width: 66.6666666667%; }
-  #root .col-lap-9 {
+  #root .col-mob-9 {
     width: 75%; }
-  #root .col-lap-10 {
+  #root .col-mob-10 {
     width: 83.3333333333%; }
-  #root .col-lap-11 {
+  #root .col-mob-11 {
     width: 91.6666666667%; }
-  #root .col-lap-12 {
-    width: 100%; } }
-@media screen and (min-width: 1200px) {
-  #root h1 {
-    font-size: 42px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h2 {
-    font-size: 36px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h3 {
-    font-size: 30px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h4 {
-    font-size: 24px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h5 {
-    font-size: 18px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root h6 {
-    font-size: 12px;
-    font-family: "Dosis", Verdana, sans-serif;
-    letter-spacing: 1.5px; }
-  #root .col-desk-1 {
-    width: 8.3333333333%; }
-  #root .col-desk-2 {
-    width: 16.6666666667%; }
-  #root .col-desk-3 {
-    width: 25%; }
-  #root .col-desk-4 {
-    width: 33.3333333333%; }
-  #root .col-desk-5 {
-    width: 41.6666666667%; }
-  #root .col-desk-6 {
-    width: 50%; }
-  #root .col-desk-7 {
-    width: 58.3333333333%; }
-  #root .col-desk-8 {
-    width: 66.6666666667%; }
-  #root .col-desk-9 {
-    width: 75%; }
-  #root .col-desk-10 {
-    width: 83.3333333333%; }
-  #root .col-desk-11 {
-    width: 91.6666666667%; }
-  #root .col-desk-12 {
-    width: 100%; } }
+  #root .col-mob-12 {
+    width: 100%; }
+  @media screen and (min-width: 600px) {
+    #root h1 {
+      font-size: 34px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h2 {
+      font-size: 30px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h3 {
+      font-size: 26px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h4 {
+      font-size: 22px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h5 {
+      font-size: 18px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h6 {
+      font-size: 14px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root .col-tab-1 {
+      width: 8.3333333333%; }
+    #root .col-tab-2 {
+      width: 16.6666666667%; }
+    #root .col-tab-3 {
+      width: 25%; }
+    #root .col-tab-4 {
+      width: 33.3333333333%; }
+    #root .col-tab-5 {
+      width: 41.6666666667%; }
+    #root .col-tab-6 {
+      width: 50%; }
+    #root .col-tab-7 {
+      width: 58.3333333333%; }
+    #root .col-tab-8 {
+      width: 66.6666666667%; }
+    #root .col-tab-9 {
+      width: 75%; }
+    #root .col-tab-10 {
+      width: 83.3333333333%; }
+    #root .col-tab-11 {
+      width: 91.6666666667%; }
+    #root .col-tab-12 {
+      width: 100%; } }
+  @media screen and (min-width: 900px) {
+    #root h1 {
+      font-size: 42px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h2 {
+      font-size: 36px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h3 {
+      font-size: 30px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h4 {
+      font-size: 24px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h5 {
+      font-size: 18px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h6 {
+      font-size: 12px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root .col-lap-1 {
+      width: 8.3333333333%; }
+    #root .col-lap-2 {
+      width: 16.6666666667%; }
+    #root .col-lap-3 {
+      width: 25%; }
+    #root .col-lap-4 {
+      width: 33.3333333333%; }
+    #root .col-lap-5 {
+      width: 41.6666666667%; }
+    #root .col-lap-6 {
+      width: 50%; }
+    #root .col-lap-7 {
+      width: 58.3333333333%; }
+    #root .col-lap-8 {
+      width: 66.6666666667%; }
+    #root .col-lap-9 {
+      width: 75%; }
+    #root .col-lap-10 {
+      width: 83.3333333333%; }
+    #root .col-lap-11 {
+      width: 91.6666666667%; }
+    #root .col-lap-12 {
+      width: 100%; } }
+  @media screen and (min-width: 1200px) {
+    #root h1 {
+      font-size: 42px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h2 {
+      font-size: 36px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h3 {
+      font-size: 30px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h4 {
+      font-size: 24px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h5 {
+      font-size: 18px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root h6 {
+      font-size: 12px;
+      font-family: "Dosis", Verdana, sans-serif;
+      letter-spacing: 1.5px; }
+    #root .col-desk-1 {
+      width: 8.3333333333%; }
+    #root .col-desk-2 {
+      width: 16.6666666667%; }
+    #root .col-desk-3 {
+      width: 25%; }
+    #root .col-desk-4 {
+      width: 33.3333333333%; }
+    #root .col-desk-5 {
+      width: 41.6666666667%; }
+    #root .col-desk-6 {
+      width: 50%; }
+    #root .col-desk-7 {
+      width: 58.3333333333%; }
+    #root .col-desk-8 {
+      width: 66.6666666667%; }
+    #root .col-desk-9 {
+      width: 75%; }
+    #root .col-desk-10 {
+      width: 83.3333333333%; }
+    #root .col-desk-11 {
+      width: 91.6666666667%; }
+    #root .col-desk-12 {
+      width: 100%; } }
+  #root .column-pad {
+    padding-left: calc(20px + 2vmin);
+    padding-right: calc(20px + 2vmin); }
+  #root .row-pad {
+    padding: 3vw 5vw; }
+  #root article {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.5s;
+    z-index: 10; }
+    #root article.rollupTop {
+      opacity: 0;
+      z-index: -1; }
+  #root article:not(.rollupTop) + section #section-content {
+    filter: blur(4px); }
 
 #header {
   width: 100vw;
@@ -294,65 +339,50 @@ code {
   top: 0;
   left: 0; }
 
-#header .header-wrap.rollupTop, #header.tablet .header-wrap,
-#header.mobile .header-wrap {
+#header .header-wrap.rollupTop {
   min-height: 55px;
   padding-top: 1vh;
   padding-bottom: 1vh;
   background-color: transparent;
   font-size: calc(5px + 1vmin); }
-  #header .header-wrap.rollupTop .logos-ticker, #header.tablet .header-wrap .logos-ticker,
-  #header.mobile .header-wrap .logos-ticker {
+  #header .header-wrap.rollupTop .logos-ticker {
     height: 40px; }
-  #header .header-wrap.rollupTop div[class*="logo-"], #header.tablet .header-wrap div[class*="logo-"],
-  #header.mobile .header-wrap div[class*="logo-"],
-  #header .header-wrap.rollupTop .logo-JS span::before,
-  #header.tablet .header-wrap .logo-JS span::before,
-  #header.mobile .header-wrap .logo-JS span::before {
+  #header .header-wrap.rollupTop div[class*="logo-"],
+  #header .header-wrap.rollupTop .logo-JS span::before {
     font-size: 12px; }
-  #header .header-wrap.rollupTop .fa-jquery::before, #header.tablet .header-wrap .fa-jquery::before,
-  #header.mobile .header-wrap .fa-jquery::before,
-  #header .header-wrap.rollupTop div[class*="logo-"] i,
-  #header.tablet .header-wrap div[class*="logo-"] i,
-  #header.mobile .header-wrap div[class*="logo-"] i {
+  #header .header-wrap.rollupTop .fa-jquery::before,
+  #header .header-wrap.rollupTop div[class*="logo-"] i {
     width: 25px;
     height: 25px;
     font-size: 25px; }
-  #header .header-wrap.rollupTop .contact-card, #header.tablet .header-wrap .contact-card,
-  #header.mobile .header-wrap .contact-card {
+  #header .header-wrap.rollupTop .contact-card {
     width: calc(100% - 50px);
     flex-direction: row; }
-    #header .header-wrap.rollupTop .contact-card h2, #header.tablet .header-wrap .contact-card h2,
-    #header.mobile .header-wrap .contact-card h2 {
+    #header .header-wrap.rollupTop .contact-card h2 {
       width: auto; }
-    #header .header-wrap.rollupTop .contact-card > div, #header.tablet .header-wrap .contact-card > div,
-    #header.mobile .header-wrap .contact-card > div {
+    #header .header-wrap.rollupTop .contact-card > div {
       height: 50px; }
-    #header .header-wrap.rollupTop .contact-card > div > div:not(.navBtn), #header.tablet .header-wrap .contact-card > div > div:not(.navBtn),
-    #header.mobile .header-wrap .contact-card > div > div:not(.navBtn) {
+    #header .header-wrap.rollupTop .contact-card > div > div:not(.navBtn) {
       width: 0;
       height: 0;
       transition: width 0s 0.33s; }
-    #header .header-wrap.rollupTop .contact-card #navBtn, #header.tablet .header-wrap .contact-card #navBtn,
-    #header.mobile .header-wrap .contact-card #navBtn {
-      width: 320px;
+    #header .header-wrap.rollupTop .contact-card #navBtn {
+      width: 50px;
       height: 50px;
+      transform: scale(0.75);
       opacity: 1; }
-      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(1), #header.tablet .header-wrap .contact-card #navBtn.open div:nth-child(1),
-      #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(1) {
+      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(1) {
         transform: rotate(320deg) translate(-10px, 13px); }
-      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(2), #header.tablet .header-wrap .contact-card #navBtn.open div:nth-child(2),
-      #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(2) {
-        transform: rotate(-640deg);
+      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(2) {
+        transform: scale(20) rotate(-640deg);
         opacity: 0; }
-      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(3), #header.tablet .header-wrap .contact-card #navBtn.open div:nth-child(3),
-      #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(3) {
+      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(3) {
         transform: rotate(-320deg) translate(-10px, -13px); }
 
 #header .header-wrap {
   width: 100%;
   min-height: 125px;
-  padding: 3vh 5vw;
+  padding: 3vw 5vw;
   background-color: #222222;
   display: flex;
   flex-direction: row;
@@ -361,7 +391,7 @@ code {
   font-size: calc(5px + 1.5vmin);
   color: #D6D1E6;
   line-height: 1.1;
-  transition: height 0.5s, background 0.5s; }
+  transition: height 0.5s, background-color 0.5s; }
   #header .header-wrap .logos-ticker {
     width: 75px;
     height: 75px;
@@ -376,11 +406,11 @@ code {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: scale(0) translateX(-1000%);
+    transform: scale(0);
     opacity: 0;
     transition: transform 1s, opacity 0.15s; }
   #header .header-wrap div[class*="logo-"].active {
-    transform: scale(1) translateX(0);
+    transform: scale(1);
     opacity: 1; }
   #header .header-wrap div[class*="logo-"] i {
     width: 60px;
@@ -406,6 +436,7 @@ code {
     transition: width 0.5s; }
     #header .header-wrap .contact-card h2 {
       width: 300px;
+      margin: 0;
       cursor: pointer; }
     #header .header-wrap .contact-card div:not(.navBtn) > div:not(.navBtn) {
       width: 300px;
@@ -415,7 +446,7 @@ code {
     #header .header-wrap .contact-card #navBtn {
       width: 0;
       height: 0;
-      position: fixed;
+      position: absolute;
       right: 0;
       color: inherit;
       opacity: 0;
@@ -431,18 +462,13 @@ code {
         border: 1px solid;
         transition: transform 0.5s, opacity 0.4s 0.1s; }
 
-#header.tablet .header-wrap .contact-card #navBtn,
-#header.mobile .header-wrap .contact-card #navBtn {
-  width: 50px;
-  position: absolute; }
-
 #footer {
   height: auto;
   overflow: hidden; }
   #footer .footer-wrap {
     width: 100vw;
     height: 200px;
-    padding: 3vh 5vw;
+    padding: 3vw 5vw;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -509,14 +535,13 @@ code {
   #header #nav:hover {
     background-color: #68566D; }
   #header #nav.rollupTop {
-    width: 320px;
     height: 0;
-    border: 0;
+    border-width: 0;
     position: fixed;
-    flex-direction: column;
     overflow: hidden; }
     #header #nav.rollupTop.open {
-      height: 150px; }
+      height: 50px;
+      border-width: 1px 0; }
   #header #nav a {
     min-width: 100px;
     height: 50px;
@@ -534,11 +559,12 @@ code {
   height: 50vh;
   position: fixed;
   top: 25vh;
-  right: 20px;
+  right: 7.5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center; }
+  align-items: center;
+  z-index: 300; }
   #header #scrollNav-wrap .scrollNav {
     width: 0;
     height: 0;
@@ -564,26 +590,7 @@ code {
   #header #scrollNav-wrap .scrollNav.mid {
     width: 0;
     height: 0;
-    border: 3px solid; }
-
-#header.tablet #nav,
-#header.mobile #nav {
-  width: 100vw;
-  height: 0;
-  border-width: 0;
-  flex-direction: row;
-  overflow: hidden; }
-  #header.tablet #nav.rollupTop,
-  #header.mobile #nav.rollupTop {
-    width: 100vw; }
-  #header.tablet #nav.open,
-  #header.mobile #nav.open {
-    height: 50px;
-    border-width: 1px 0; }
-
-#header.tablet #scrollNav-wrap
-#header.mobile #scrollNav-wrap {
-  display: none; }
+    border: 2px solid; }
 
 #section-content.home::after {
   content: '';
@@ -623,5 +630,17 @@ code {
   filter: blur(1.2px) grayscale(1);
   opacity: 0.33;
   display: block; }
+#section-content.resume > * {
+  z-index: 10; }
+#section-content.resume #resume {
+  width: 80%;
+  height: 70%;
+  cursor: ns-resize; }
+#section-content.resume .button {
+  padding: 10px 15px;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 9vh;
+  background-color: #222222; }
 
 /*# sourceMappingURL=index.css.map */

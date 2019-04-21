@@ -17,15 +17,14 @@
         background-color: $secondary-highlight; }
 
     &.rollupTop {
-        width: 320px;
         height: 0;
-        border: 0;
+        border-width: 0;
         position: fixed;
-        flex-direction: column;
         overflow: hidden;
     
         &.open{
-            height: 150px; }
+            height: 50px;
+            border-width: 1px 0; } 
     }
     
     a { 
@@ -48,11 +47,12 @@
     height: 50vh;
     position: fixed;
     top: 25vh;
-    right: 20px;
+    right: 7.5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    z-index: 300;
 
     .scrollNav{
         width: 0;
@@ -85,28 +85,7 @@
     .scrollNav.mid {
         width: 0;
         height: 0;
-        border: 3px solid;
+        border: 2px solid;
     }
 }
 
-#header.tablet #nav,
-#header.mobile #nav {
-    width: 100vw;
-    height: 0;
-    border-width: 0;
-    flex-direction: row;
-    overflow: hidden;
-
-    &.rollupTop {
-        width: 100vw;
-    }
-    
-    &.open{
-        height: 50px;
-        border-width: 1px 0; } 
-}
-
-#header.tablet #scrollNav-wrap
-#header.mobile #scrollNav-wrap {
-    display: none;
-}

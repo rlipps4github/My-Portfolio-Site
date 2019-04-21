@@ -29,7 +29,7 @@
         flex-direction: row; 
         
         h2 {
-            width:auto; }
+            width: auto; }
         
         > div {
             height: 50px; }
@@ -40,8 +40,9 @@
             transition: width 0s 0.33s; }
 
         #navBtn {
-            width: 320px;
+            width: 50px;
             height: 50px;
+            transform: scale(0.75);
             opacity: 1; 
         
             &.open {
@@ -50,7 +51,7 @@
                 }
 
                 div:nth-child(2) {
-                    transform: rotate(-640deg);
+                    transform: scale(20) rotate(-640deg);
                     opacity: 0;
                 }
 
@@ -74,7 +75,7 @@
     font-size: calc(5px + 1.5vmin);
     color: $primary-highlight-fore;
     line-height:1.1;
-    transition: height 0.5s, background 0.5s;
+    transition: height 0.5s, background-color 0.5s;
     
     .logos-ticker {
         width: 75px;
@@ -91,12 +92,12 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transform: scale(0) translateX(-1000%);
+        transform: scale(0);
         opacity: 0;
         transition: transform 1s, opacity 0.15s; }
     
     div[class*="logo-"].active {
-        transform: scale(1) translateX(0);
+        transform: scale(1);
         opacity: 1; }
     
     div[class*="logo-"] i {
@@ -126,6 +127,7 @@
         
         h2 {  
             width: 300px;
+            margin: 0;
             cursor: pointer; }
         
         div:not(.navBtn) > div:not(.navBtn) {
@@ -137,7 +139,7 @@
         #navBtn {
             width: 0;
             height: 0;
-            position: fixed;
+            position: absolute;
             right: 0;
             color: inherit;
             opacity: 0;
@@ -160,18 +162,4 @@
         @extend %rolledUp;
     }
 
-}
-
-#header.tablet .header-wrap,
-#header.mobile .header-wrap {
-    @extend %rolledUp;
-
-    &.rollupTop {
-    }
-    
-    .contact-card {
-        #navBtn {
-            width: 50px;
-            position: absolute; }
-    }
 }

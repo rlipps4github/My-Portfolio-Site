@@ -50,6 +50,7 @@ class Nav extends Component {
                 scrollLinks.push( 
                     <div 
                         key={'scrl-nav'+k} 
+                        onClick={this.props.handler}
                         data-idx={i}
                         className="scrollNav"
                     >{this.state.links[i][0]}</div>
