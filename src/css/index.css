@@ -83,10 +83,19 @@ q:before, q:after {
 
 .button,
 button {
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 0;
   background-color: transparent;
   outline: none;
-  border: 0;
-  cursor: pointer; }
+  cursor: pointer;
+  transition: 0.33s; }
+
+.primary-button {
+  background-color: #222222;
+  color: #D6D1E6; }
+  .primary-button:hover {
+    background-color: #68566D; }
 
 table {
   border-collapse: collapse;
@@ -531,7 +540,7 @@ code {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  transition: width 0.5s 0.33s, height 0.5s, background-color 0.5s; }
+  transition: height 0.5s, background-color 0.5s; }
   #header #nav:hover {
     background-color: #68566D; }
   #header #nav.rollupTop {
@@ -636,11 +645,5 @@ code {
   width: 80%;
   height: 70%;
   cursor: ns-resize; }
-#section-content.resume .button {
-  padding: 10px 15px;
-  border-radius: 2px;
-  position: absolute;
-  bottom: 9vh;
-  background-color: #222222; }
 
 /*# sourceMappingURL=index.css.map */

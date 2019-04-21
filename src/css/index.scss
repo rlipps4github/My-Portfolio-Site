@@ -105,10 +105,21 @@ q:before, q:after {
 
 .button,
 button {
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 0;
     background-color: transparent;
     outline: none;
-    border: 0;
-    cursor: pointer; }
+    cursor: pointer;
+    transition: 0.33s; }
+
+.primary-button {
+    background-color: $primary-highlight;
+    color: $primary-highlight-fore;
+    
+    &:hover {
+        background-color: $secondary-highlight; }
+}
 
 table {
 	border-collapse: collapse;
