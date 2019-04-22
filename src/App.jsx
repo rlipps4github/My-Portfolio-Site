@@ -133,7 +133,12 @@ class MainWrapper extends React.Component {
             ],
             atTop: '',
             atBottom: '',
-            footLinks: ['',''],
+            footLinks: [
+                ['linkedin','Linkedin','https://www.linkedin.com/in/ron-lipps-ab324171/'],
+                ['github','GitHub','https://github.com/rlipps4github'],
+                ['codepen','CodePen','https://codepen.io/rlipps4pens/'],
+                ['envelope','Email','mailto:rdl.work@gmail.com'],
+            ],
         }
     }
     
@@ -236,24 +241,34 @@ class MainWrapper extends React.Component {
         }
     }
 
+    handleFooterCollapseClick = (e) => {
+        e.preventDefault()
+        const currScrollPos = window.pageYOffset
+        const targetScrollPos = currScrollPos === 0 ? currScrollPos+50 : currScrollPos-150 
+        _preventScroll = true
+        window.scrollTo(0,targetScrollPos)
+        _preventScroll = false
+    }
+
     render() {
         return(
             <Router>
                 <Header handler={this.toggleNavBtn} nameHandler={() => setRoute(0)} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links}> 
-                    <Nav handler={this.handleNavClick}  atTop={this.state.atTop} links={this.state.links} sectOffset={this.state.sectOffset}  />
+                    <Nav handler={this.handleNavClick} atTop={this.state.atTop} links={this.state.links} sectOffset={this.state.sectOffset}  />
                 </Header>
                 <main id="main">
                     <article className={this.state.atTop}>
                         <div className="row row-pad">
-                            <div className="col col-desk-6 col-lap-6 col-mob-12 column-pad">
+                            <div className="col col-mob-12 column-pad text-center">
                                 <header>
                                     <h1>Welcome!</h1>
-                                    <p>My name is Ron Lipps and I am a Web Developer. I specialize on the front end but I </p>
+                                    <h4>My name is Ron and I am a Web Developer,<br />specializing in Front End scripting but<br />equally comfortable in a Full Stack role.</h4>
+                                    <h4>Scroll down to check out my work<br />and thank you for visiting!</h4>
+                                    <button 
+                                        onClick={this.handleFooterCollapseClick} 
+                                        className="welcomeButton fas fa-arrow-circle-down"
+                                    ></button>
                                 </header>
-                            </div>
-                            <div className="col col-desk-6 col-lap-6 col-mob-12 column-pad">
-                                
-                                <p>My mission is to stop the degradation of our planet's natural environment, and build a future in which humans live in harmony with nature.</p>
                             </div>
                         </div>
                     </article>
@@ -261,7 +276,7 @@ class MainWrapper extends React.Component {
                     <section><Route exact path='/history' component={History} /></section>
                     <section><Route exact path='/resume' component={Resume} /></section> 
                 </main>
-                <Footer atTop={this.state.atTop} atBottom={this.state.atBottom} />
+                <Footer handler={this.handleFooterCollapseClick} atTop={this.state.atTop} atBottom={this.state.atBottom} links={this.state.footLinks} />
             </Router>
         )
     }

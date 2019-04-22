@@ -1,16 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Footer extends Component {
+    
+    renderLinks(i) {
+        const theIcon = i[0]
+        const theLabel = i[1]
+        const theLink = i[2]
+        const theTarget = theLink.includes('http') ? '_blank' : '_self'
+        const theRel = theTarget === '_blank' ? 'noopener noreferrer' : '' 
+        const iconPrefix = theIcon === 'envelope' ? 'fas fa-' : 'fab fa-'
+        return (
+            <div key={i}>
+                <a href={theLink} target={theTarget} rel={theRel}>
+                    <i className={iconPrefix+theIcon}></i>&nbsp;&nbsp;{theLabel}
+                </a>
+            </div>
+        )
+    }
     
     render() {
         return (
             <footer id="footer" className="container">
                 <div className={'footer-wrap '+this.props.atTop+' '+this.props.atBottom}>
                     <div className="contact-card">
-                        <div><a href="https://www.linkedin.com/in/ron-lipps-ab324171/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i> Linkedin</a></div>
-                        <div><a href="https://github.com/rlipps4github" target="_blank" rel="noopener noreferrer"><i className="fab fa-github"></i> Github</a></div>
-                        <div><a href="https://codepen.io/rlipps4pens/" target="_blank" rel="noopener noreferrer"><i className="fab fa-codepen"></i> CodePen</a></div>
-                        <div><a href="mailto:rdl.work@gmail.com" ><i className="fas fa-envelope"></i> rdl.work@gmail.com</a></div>
+                        <button 
+                            onClick={this.props.handler} 
+                            className="closeFooter fas fa-arrow-circle-down"
+                        ></button>
+                        {
+                            this.props.links.map( (key,val) => {
+                                return this.renderLinks(key)
+                            })
+                        }
                     </div>
                 </div>
             </footer>

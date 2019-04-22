@@ -56,9 +56,9 @@
 
     .scrollNav{
         width: 0;
-        height: 0;
+        height: 33%;
         border: 5px solid;
-        border-radius: 50%;
+        border-radius: 5px;
         position: relative;
         font-size: 0;
         line-height: 0;
@@ -67,25 +67,19 @@
         transition: text-indent 1s;
         
         &.active {
+            border-color: $secondary-highlight;
             text-indent: -80px;
-        
-            &::before {
-                content: '';
-                width: 12px;
-                height: 12px;
-                border: 2px solid;
-                border-radius: 50%;
-                position: absolute;
-                top: -8px; 
-                left: -8px}
-
+            &.mid {
+                box-shadow: 0 0 5px 5px $secondary-highlight;
+                z-index: 1; }
         }
+
     }
 
     .scrollNav.mid {
         width: 0;
         height: 0;
-        border: 2px solid;
+        border: 0;
     }
 }
 

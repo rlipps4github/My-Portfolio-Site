@@ -5,10 +5,10 @@ function HeadLogo(props) {
     let thisLabel = props.lbl
     let thisClass = props.active
     return(
-        React.createElement('div', {className: 'logo-'+thisIcon+' '+thisClass}, 
-            React.createElement('i', {className: 'fab fa-'+thisIcon}),
-            React.createElement('span',null, thisLabel),
-        )
+        <div className={'logo-'+thisIcon+' '+thisClass} >
+            <i className={'fab fa-'+thisIcon}></i>
+            <span>{thisLabel}</span>
+        </div>
     )
 }
 
@@ -17,10 +17,10 @@ class LogoCarousel extends Component {
     renderLogo(i) {
         return(
             React.createElement(HeadLogo, {
+                key: i,
                 ico: this.props.arr[i][0].toString(),
                 lbl: this.props.arr[i][1].toString(),
                 active: i===this.props.idx ? 'active' : '',
-                key: i,
             })
         )
     }
@@ -28,8 +28,8 @@ class LogoCarousel extends Component {
     render() {
         return(
             React.createElement('div', {className: 'logos-ticker'}, 
-                this.props.arr.map((val,key) => {
-                    return this.renderLogo(key)
+                this.props.arr.map((key,val) => {
+                    return this.renderLogo(val)
                 })
             )
         )

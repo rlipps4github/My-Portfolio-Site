@@ -47,16 +47,16 @@
         
             &.open {
                 div:nth-child(1) {
-                    transform: rotate(320deg) translate(-10px,13px);
+                    transform: rotate(-45deg) translate(-10px,13px);
                 }
 
                 div:nth-child(2) {
-                    transform: scale(20) rotate(-640deg);
+                    transform: rotate(-210deg);
                     opacity: 0;
                 }
 
                 div:nth-child(3) {
-                    transform: rotate(-320deg) translate(-10px,-13px);
+                    transform: rotate(45deg) translate(-10px,-13px);
                 }
             }
         }

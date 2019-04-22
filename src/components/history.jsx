@@ -5,7 +5,10 @@ class History extends Component {
     render() {
     
         return (
-            <div id="section-content" className="history container">History Section</div>
+            <div id="section-content" className="history container">
+                <div className="content-wrap">History Section</div>
+                <div className="content-background"></div>
+            </div>
         )
     
     }

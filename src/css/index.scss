@@ -72,20 +72,54 @@ h5, h6, p {
     z-index: 200; }
 
 section {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     margin: 50px 0;
     z-index: 1;
 
     #section-content{
         width: 100vw;
-        height: 100vh; 
+        height: 100vh;
         position: fixed;
         top: 0;
         left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center; }
+        perspective: 1px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -ms-overflow-style: none;  // IE 10+
+        scrollbar-width: none;  // Firefox
+        &::-webkit-scrollbar { 
+            display: none; }  // Safari and Chrome
+        
+        .content-wrap{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateZ(0);
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            z-index: 2;
+        }
+
+        .content-background{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateZ(-1px) scale(2);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            opacity: 0.33;
+            display: block;
+            z-index: 1;
+        }
+    }
+
 }
 
 a {
@@ -120,6 +154,9 @@ button {
     &:hover {
         background-color: $secondary-highlight; }
 }
+
+.text-center {
+    text-align: center; }
 
 table {
 	border-collapse: collapse;
@@ -226,16 +263,21 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
         align-items: center;
         opacity: 1;
         transition: opacity 0.5s;
-        z-index: 10;
 
         &.rollupTop {
             opacity: 0;
             z-index: -1;
         }
+
+        .welcomeButton{
+            color: inherit; 
+            font-size: 25px;
+            cursor: pointer; }
     }
 
     article:not(.rollupTop) + section #section-content {
-        filter: blur(4px);
+        filter: blur(10px);
+        z-index: -1;
     }
 
 }

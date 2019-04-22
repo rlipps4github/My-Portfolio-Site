@@ -1,15 +1,7 @@
 #section-content.history {
+
+    .content-background{
+        background-image: url("../img/history-bg.jpg");
+        filter: grayscale(1); }
     
-    &::after{
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: url("../img/history-bg.jpg") center no-repeat;
-        background-size: cover;
-        filter: blur(1.2px) grayscale(1);
-        opacity: 0.33;
-        display: block; }
 }

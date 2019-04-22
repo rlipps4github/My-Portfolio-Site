@@ -52,7 +52,7 @@ h5, h6, p {
   z-index: 200; }
 
 section {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   margin: 50px 0;
   z-index: 1; }
@@ -62,9 +62,37 @@ section {
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center; }
+    perspective: 1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none; }
+    section #section-content::-webkit-scrollbar {
+      display: none; }
+    section #section-content .content-wrap {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: translateZ(0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2; }
+    section #section-content .content-background {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: translateZ(-1px) scale(2);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      opacity: 0.33;
+      display: block;
+      z-index: 1; }
 
 a {
   color: inherit;
@@ -96,6 +124,9 @@ button {
   color: #D6D1E6; }
   .primary-button:hover {
     background-color: #68566D; }
+
+.text-center {
+  text-align: center; }
 
 table {
   border-collapse: collapse;
@@ -334,13 +365,17 @@ code {
     justify-content: center;
     align-items: center;
     opacity: 1;
-    transition: opacity 0.5s;
-    z-index: 10; }
+    transition: opacity 0.5s; }
     #root article.rollupTop {
       opacity: 0;
       z-index: -1; }
+    #root article .welcomeButton {
+      color: inherit;
+      font-size: 25px;
+      cursor: pointer; }
   #root article:not(.rollupTop) + section #section-content {
-    filter: blur(4px); }
+    filter: blur(10px);
+    z-index: -1; }
 
 #header {
   width: 100vw;
@@ -381,12 +416,12 @@ code {
       transform: scale(0.75);
       opacity: 1; }
       #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(1) {
-        transform: rotate(320deg) translate(-10px, 13px); }
+        transform: rotate(-45deg) translate(-10px, 13px); }
       #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(2) {
-        transform: scale(20) rotate(-640deg);
+        transform: rotate(-210deg);
         opacity: 0; }
       #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(3) {
-        transform: rotate(-320deg) translate(-10px, -13px); }
+        transform: rotate(45deg) translate(-10px, -13px); }
 
 #header .header-wrap {
   width: 100%;
@@ -491,14 +526,30 @@ code {
     flex-direction: column;
     justify-content: center;
     align-items: center; }
-    #footer .footer-wrap.rollupBtm, #footer .footer-wrap.rollupBtm.rollupTop {
-      transform: translateY(0); }
-    #footer .footer-wrap.rollupTop {
-      transform: translateY(100%); }
     #footer .footer-wrap .contact-card {
+      position: relative;
       text-align: center; }
       #footer .footer-wrap .contact-card a {
-        line-height: 30px; }
+        line-height: 30px;
+        transform: scale(1);
+        transform-origin: center;
+        transition: transform 0.33s; }
+        #footer .footer-wrap .contact-card a:hover {
+          transform: scale(1.15); }
+      #footer .footer-wrap .contact-card button.closeFooter {
+        color: inherit;
+        font-size: 25px;
+        transition: transform 1s 0.5s;
+        display: none; }
+    #footer .footer-wrap.rollupBtm, #footer .footer-wrap.rollupBtm.rollupTop {
+      transform: translateY(0); }
+      #footer .footer-wrap.rollupBtm button.closeFooter, #footer .footer-wrap.rollupBtm.rollupTop button.closeFooter {
+        display: block;
+        transform: rotate(0); }
+    #footer .footer-wrap.rollupTop {
+      transform: translateY(100%); }
+      #footer .footer-wrap.rollupTop button.closeFooter {
+        transform: rotate(180deg); }
 
 #footer .footer-wrap.rollupBtm,
 #footer .footer-wrap.rollupBtm.rollupTop {
@@ -523,9 +574,9 @@ code {
       #footer.tablet .footer-wrap .contact-card a i,
       #footer.mobile .footer-wrap .contact-card a i {
         font-size: 18px; }
-  #footer.tablet .footer-wrap.rollupTop,
-  #footer.mobile .footer-wrap.rollupTop {
-    transform: translateY(0); }
+    #footer.tablet .footer-wrap .contact-card button.closeFooter,
+    #footer.mobile .footer-wrap .contact-card button.closeFooter {
+      display: none; }
 
 #header #nav {
   width: 100vw;
@@ -576,9 +627,9 @@ code {
   z-index: 300; }
   #header #scrollNav-wrap .scrollNav {
     width: 0;
-    height: 0;
+    height: 33%;
     border: 5px solid;
-    border-radius: 50%;
+    border-radius: 5px;
     position: relative;
     font-size: 0;
     line-height: 0;
@@ -586,64 +637,31 @@ code {
     cursor: pointer;
     transition: text-indent 1s; }
     #header #scrollNav-wrap .scrollNav.active {
+      border-color: #68566D;
       text-indent: -80px; }
-      #header #scrollNav-wrap .scrollNav.active::before {
-        content: '';
-        width: 12px;
-        height: 12px;
-        border: 2px solid;
-        border-radius: 50%;
-        position: absolute;
-        top: -8px;
-        left: -8px; }
+      #header #scrollNav-wrap .scrollNav.active.mid {
+        box-shadow: 0 0 5px 5px #68566D;
+        z-index: 1; }
   #header #scrollNav-wrap .scrollNav.mid {
     width: 0;
     height: 0;
-    border: 2px solid; }
+    border: 0; }
 
-#section-content.home::after {
-  content: '';
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: url("../img/home-bg.png") center no-repeat;
-  background-size: cover;
-  filter: blur(2px) grayscale(1);
-  opacity: 0.33;
-  display: block; }
+#section-content.home .content-background {
+  background-image: url("../img/home-bg.png");
+  filter: blur(2px) grayscale(1); }
 
-#section-content.history::after {
-  content: '';
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: url("../img/history-bg.jpg") center no-repeat;
-  background-size: cover;
-  filter: blur(1.2px) grayscale(1);
-  opacity: 0.33;
-  display: block; }
+#section-content.history .content-background {
+  background-image: url("../img/history-bg.jpg");
+  filter: grayscale(1); }
 
-#section-content.resume::after {
-  content: '';
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: url("https://picsum.photos/1024/800?image=4") center no-repeat;
-  background-size: cover;
-  filter: blur(1.2px) grayscale(1);
-  opacity: 0.33;
-  display: block; }
-#section-content.resume > * {
-  z-index: 10; }
-#section-content.resume #resume {
+#section-content.resume .content-background {
+  background-image: url("https://picsum.photos/id/4/1280/900");
+  filter: grayscale(1); }
+#section-content.resume .content-wrap #resume {
   width: 80%;
   height: 70%;
+  z-index: 10;
   cursor: ns-resize; }
 
 /*# sourceMappingURL=index.css.map */

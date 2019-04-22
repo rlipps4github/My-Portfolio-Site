@@ -29,10 +29,10 @@ class Nav extends Component {
     }
 
     renderScrollLinks = () => {
-        let scrollLinks = [], k = 0, m = 1
+        let scrollLinks = [], theHtml, k = 0, m = 1
         for (let i=0; i<this.state.links.length; i++) {
             if (i !== this.state.links.length-1) { 
-                scrollLinks.push( 
+                theHtml = 
                     <>
                     <div 
                         key={'scrl-nav'+k} 
@@ -45,17 +45,16 @@ class Nav extends Component {
                         className="scrollNav mid"
                     ></div>
                     </>
-                )
             } else {
-                scrollLinks.push( 
+                theHtml = 
                     <div 
                         key={'scrl-nav'+k} 
                         onClick={this.props.handler}
                         data-idx={i}
                         className="scrollNav"
                     >{this.state.links[i][0]}</div>
-                )
             }
+            scrollLinks.push(theHtml)
             k += 2
             m += 2
         }      

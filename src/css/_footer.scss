@@ -19,19 +19,43 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        
-        &.rollupBtm,
-        &.rollupBtm.rollupTop  {
-            transform: translateY(0); }
-        
-        &.rollupTop {
-            transform: translateY(100%); }
 
         .contact-card {
+            position: relative;
             text-align: center;
             
             a {
-                line-height: 30px; }
+                line-height: 30px;
+                transform: scale(1);
+                transform-origin: center;
+                transition: transform 0.33s;
+
+                &:hover {
+                    transform: scale(1.15)}
+            
+            }
+
+            button.closeFooter {
+                color: inherit; 
+                font-size: 25px;
+                transition: transform 1s 0.5s;
+                display: none; }
+        }
+        
+        &.rollupBtm,
+        &.rollupBtm.rollupTop {
+            transform: translateY(0); 
+        
+            button.closeFooter {
+                display: block;
+                transform: rotate(0); }
+        }
+        
+        &.rollupTop {
+            transform: translateY(100%); 
+        
+            button.closeFooter {
+                transform: rotate(180deg); }
         }
     }
 }
@@ -42,7 +66,8 @@
 
 #footer.tablet,
 #footer.mobile {
-    .footer-wrap{
+    
+    .footer-wrap {
         height: 50px; 
         background: none;
 
@@ -59,12 +84,12 @@
                 font-size: 0;
             
                 i {
-                    font-size: 18px;
-                }
+                    font-size: 18px; }
             }
+
+            button.closeFooter {
+                display: none; }
         }
-        
-        &.rollupTop {
-            transform: translateY(0); }
     }
+
 }
