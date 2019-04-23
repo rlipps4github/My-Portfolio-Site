@@ -55,6 +55,7 @@
             transform: translateY(100%); 
         
             button.closeFooter {
+                display: block;
                 transform: rotate(180deg); }
         }
     }

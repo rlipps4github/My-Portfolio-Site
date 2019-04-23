@@ -50,7 +50,7 @@ class Header extends Component {
     }
     
     componentDidMount() {
-        setInterval(this.advanceIdx, 5000)
+        setInterval(this.advanceIdx, 2000)
         this.advanceIdx()
     }
     
@@ -68,7 +68,7 @@ class Header extends Component {
     render() {
         return (
             <header id="header" className="container">
-                <div className={'header-wrap '+this.props.atTop}>
+                <div className={'header-wrap '+ (this.props.atTop ? 'rollupTop' : '')}>
                     <LogoCarousel len={this.state.logoLen} arr={this.state.logoArr} idx={this.state.logoIdx} />
                     <div className="contact-card">
                         <h2 onClick={this.props.nameHandler}>Ron&nbsp;Lipps</h2>

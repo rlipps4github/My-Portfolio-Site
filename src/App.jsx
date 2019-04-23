@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Route,
 } from 'react-router-dom'
+import { spring ,AnimatedSwitch } from 'react-router-transition';
 
 import Header from './components/header'
 import Nav from './components/nav'
@@ -14,6 +15,11 @@ import Footer from './components/footer'
 let _animationScroll = false, _preventScroll = false // to enforce proper scroll animation & event control
 
 function setRoute(navIdx) { // click nav by index
+    let navItems = document.getElementById('nav').getElementsByTagName('a')
+    for (let n=0; n<navItems.length; n++) {
+        if (navItems[n].classList) navItems[n].classList.remove()
+    }
+    document.getElementById('nav').getElementsByTagName('a')[navIdx].setAttribute('class','active')
     document.getElementById('nav').getElementsByTagName('a')[navIdx].click()
 }
 
@@ -50,7 +56,6 @@ function scrollToSection(navIdx,navCnt) { //scroll to section by index
 }
 
 /*
-*   Nice scrollIt animation by Pawel Grzybek
 *   https://codepen.io/pawelgrzybek/pen/ZeomJB 2016.07.25 - 2
 *   Updated and ES6 friendly - rdl041819
 */
@@ -102,6 +107,39 @@ function scrollIt(destination, duration = 200, easing = 'linear', callback) {
     scroll()
 }
 
+/*
+*   ROUTING SWITCH ANIMATION
+*/
+
+function mapStyles(styles) {
+    return {
+        opacity: styles.opacity,
+        transform: `scale(${styles.scale})`,
+    };
+}
+
+function bounce(val) {
+    return spring(val, {
+        stiffness: 330,
+        damping: 22,
+    });
+}
+
+const bounceTransition = {
+    atEnter: {
+        opacity: 0,
+        scale: 1.2,
+    },
+    atLeave: {
+        opacity: bounce(0),
+        scale: bounce(0.8),
+    },
+    atActive: {
+        opacity: bounce(1),
+        scale: bounce(1),
+    },
+};
+
 class MainWrapper extends React.Component {    
     constructor(props) {
         super(props);
@@ -131,8 +169,8 @@ class MainWrapper extends React.Component {
                 ['History','/history'],
                 ['Resume','/resume']
             ],
-            atTop: '',
-            atBottom: '',
+            atTop: true,
+            atBottom: false,
             footLinks: [
                 ['linkedin','Linkedin','https://www.linkedin.com/in/ron-lipps-ab324171/'],
                 ['github','GitHub','https://github.com/rlipps4github'],
@@ -173,7 +211,7 @@ class MainWrapper extends React.Component {
             default:
                 currentDevice = 'mobile'
         } 
-        if (responsiveElements.length && currentDevice !== this.state.device) {
+        //if (responsiveElements.length && currentDevice !== this.state.device) {
             this.setState({
                 device: currentDevice,
             })
@@ -195,7 +233,7 @@ class MainWrapper extends React.Component {
                         thisElement.classList.add('mobile')
                 } 
             }
-        }
+        //}
     }
     
     handleNavClick = (e) => { // user clicks main nav item 
@@ -224,8 +262,8 @@ class MainWrapper extends React.Component {
             this.toggleNavBtn('off')
             window.requestAnimationFrame(() => {
                 const windowScrollHt = document.body.offsetHeight - (window.innerHeight-100)
-                const currentAtTop = window.pageYOffset > 10 ? 'rollupTop' : ''
-                const currentAtBottom = windowScrollHt-window.pageYOffset < 10 ? 'rollupBtm' : ''
+                const currentAtTop = window.pageYOffset > 10 ? true : false
+                const currentAtBottom = windowScrollHt-window.pageYOffset < 10 ? true : false
                 const currentScroll = window.pageYOffset
                 const sectionHt = window.innerHeight
                 setSCrollNav(windowScrollHt,currentScroll)
@@ -257,13 +295,13 @@ class MainWrapper extends React.Component {
                     <Nav handler={this.handleNavClick} atTop={this.state.atTop} links={this.state.links} sectOffset={this.state.sectOffset}  />
                 </Header>
                 <main id="main">
-                    <article className={this.state.atTop}>
+                    <article className={this.state.atTop ? 'rollupTop' : ''}>
                         <div className="row row-pad">
                             <div className="col col-mob-12 column-pad text-center">
                                 <header>
                                     <h1>Welcome!</h1>
-                                    <h4>My name is Ron and I am a Web Developer,<br />specializing in Front End scripting but<br />equally comfortable in a Full Stack role.</h4>
-                                    <h4>Scroll down to check out my work<br />and thank you for visiting!</h4>
+                                    <p>My name is Ron and I am a Web Developer<br />specializing in Front End work but with<br />the desire to perform a Full Stack role.</p>
+                                    <p>Scroll down to check out my work<br />and thank you for visiting!</p>
                                     <button 
                                         onClick={this.handleFooterCollapseClick} 
                                         className="welcomeButton fas fa-arrow-circle-down"
@@ -272,13 +310,31 @@ class MainWrapper extends React.Component {
                             </div>
                         </div>
                     </article>
-                    <section><Route exact path='/' component={Home} /></section>
-                    <section><Route exact path='/history' component={History} /></section>
-                    <section><Route exact path='/resume' component={Resume} /></section> 
+                    <section></section>
+                    <section>
+                        <AnimatedSwitch
+                            atEnter={bounceTransition.atEnter}
+                            atLeave={bounceTransition.atLeave}
+                            atActive={bounceTransition.atActive}
+                            mapStyles={mapStyles}
+                            className="switch-wrapper"
+                        >
+                            <Route exact path='/' render={() => (
+                                <Home handleView={this.state.device} />
+                            )} />
+                            <Route path='/history' render={() => (
+                                <History handleView={this.state.device} />
+                            )} />
+                            <Route path='/resume' render={() => (
+                                <Resume handleView={this.state.device} />
+                            )} />
+                        </AnimatedSwitch>
+                    </section>
+                    <section></section>
                 </main>
                 <Footer handler={this.handleFooterCollapseClick} atTop={this.state.atTop} atBottom={this.state.atBottom} links={this.state.footLinks} />
             </Router>
-        )
+        )  
     }
 }
 

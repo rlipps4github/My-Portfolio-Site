@@ -37,14 +37,19 @@
         > div > div:not(.navBtn) {
             width: 0;
             height: 0;
-            transition: width 0s 0.33s; }
+            transition: all 0s 0.33s; }
 
         #navBtn {
             width: 50px;
             height: 50px;
-            transform: scale(0.75);
+            transform: scale(0.75,0.66);
             opacity: 1; 
+            transition: all 0.75s;
         
+            &:hover {
+                transform: scale(0.75,0.75);
+            }
+
             &.open {
                 div:nth-child(1) {
                     transform: rotate(-45deg) translate(-10px,13px);
@@ -163,3 +168,6 @@
     }
 
 }
+
+#header.mobile .header-wrap {
+    @extend %rolledUp; }

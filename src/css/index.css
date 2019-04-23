@@ -51,49 +51,6 @@ h5, h6, p {
 #header, #nav, #footer {
   z-index: 200; }
 
-section {
-  width: 100%;
-  height: 100vh;
-  margin: 50px 0;
-  z-index: 1; }
-  section #section-content {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    perspective: 1px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none; }
-    section #section-content::-webkit-scrollbar {
-      display: none; }
-    section #section-content .content-wrap {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      transform: translateZ(0);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2; }
-    section #section-content .content-background {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      transform: translateZ(-1px) scale(2);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-      opacity: 0.33;
-      display: block;
-      z-index: 1; }
-
 a {
   color: inherit;
   text-decoration: none; }
@@ -369,13 +326,67 @@ code {
     #root article.rollupTop {
       opacity: 0;
       z-index: -1; }
+    #root article p {
+      font-size: calc(14px + 1vmin); }
     #root article .welcomeButton {
       color: inherit;
       font-size: 25px;
       cursor: pointer; }
-  #root article:not(.rollupTop) + section #section-content {
+  #root article:not(.rollupTop) + section + section * {
     filter: blur(10px);
     z-index: -1; }
+  #root section {
+    width: 100%;
+    height: 100vh;
+    margin: 50px 0;
+    z-index: 1; }
+    #root section .switch-wrapper,
+    #root section .switch-wrapper > div {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0; }
+    #root section #section-content {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      perspective: 1px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none; }
+      #root section #section-content::-webkit-scrollbar {
+        display: none; }
+      #root section #section-content .content-wrap {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2; }
+      #root section #section-content .content-background {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.33;
+        display: block;
+        z-index: 1; }
+      #root section #section-content.mobile .content-wrap,
+      #root section #section-content.mobile .content-background {
+        width: 100vw;
+        height: 100vh;
+        right: auto;
+        bottom: auto; }
 
 #header {
   width: 100vw;
@@ -383,44 +394,49 @@ code {
   top: 0;
   left: 0; }
 
-#header .header-wrap.rollupTop {
+#header .header-wrap.rollupTop, #header.mobile .header-wrap {
   min-height: 55px;
   padding-top: 1vh;
   padding-bottom: 1vh;
   background-color: transparent;
   font-size: calc(5px + 1vmin); }
-  #header .header-wrap.rollupTop .logos-ticker {
+  #header .header-wrap.rollupTop .logos-ticker, #header.mobile .header-wrap .logos-ticker {
     height: 40px; }
-  #header .header-wrap.rollupTop div[class*="logo-"],
-  #header .header-wrap.rollupTop .logo-JS span::before {
+  #header .header-wrap.rollupTop div[class*="logo-"], #header.mobile .header-wrap div[class*="logo-"],
+  #header .header-wrap.rollupTop .logo-JS span::before,
+  #header.mobile .header-wrap .logo-JS span::before {
     font-size: 12px; }
-  #header .header-wrap.rollupTop .fa-jquery::before,
-  #header .header-wrap.rollupTop div[class*="logo-"] i {
+  #header .header-wrap.rollupTop .fa-jquery::before, #header.mobile .header-wrap .fa-jquery::before,
+  #header .header-wrap.rollupTop div[class*="logo-"] i,
+  #header.mobile .header-wrap div[class*="logo-"] i {
     width: 25px;
     height: 25px;
     font-size: 25px; }
-  #header .header-wrap.rollupTop .contact-card {
+  #header .header-wrap.rollupTop .contact-card, #header.mobile .header-wrap .contact-card {
     width: calc(100% - 50px);
     flex-direction: row; }
-    #header .header-wrap.rollupTop .contact-card h2 {
+    #header .header-wrap.rollupTop .contact-card h2, #header.mobile .header-wrap .contact-card h2 {
       width: auto; }
-    #header .header-wrap.rollupTop .contact-card > div {
+    #header .header-wrap.rollupTop .contact-card > div, #header.mobile .header-wrap .contact-card > div {
       height: 50px; }
-    #header .header-wrap.rollupTop .contact-card > div > div:not(.navBtn) {
+    #header .header-wrap.rollupTop .contact-card > div > div:not(.navBtn), #header.mobile .header-wrap .contact-card > div > div:not(.navBtn) {
       width: 0;
       height: 0;
-      transition: width 0s 0.33s; }
-    #header .header-wrap.rollupTop .contact-card #navBtn {
+      transition: all 0s 0.33s; }
+    #header .header-wrap.rollupTop .contact-card #navBtn, #header.mobile .header-wrap .contact-card #navBtn {
       width: 50px;
       height: 50px;
-      transform: scale(0.75);
-      opacity: 1; }
-      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(1) {
+      transform: scale(0.75, 0.66);
+      opacity: 1;
+      transition: all 0.75s; }
+      #header .header-wrap.rollupTop .contact-card #navBtn:hover, #header.mobile .header-wrap .contact-card #navBtn:hover {
+        transform: scale(0.75, 0.75); }
+      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(1), #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(1) {
         transform: rotate(-45deg) translate(-10px, 13px); }
-      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(2) {
+      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(2), #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(2) {
         transform: rotate(-210deg);
         opacity: 0; }
-      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(3) {
+      #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(3), #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(3) {
         transform: rotate(45deg) translate(-10px, -13px); }
 
 #header .header-wrap {
@@ -549,6 +565,7 @@ code {
     #footer .footer-wrap.rollupTop {
       transform: translateY(100%); }
       #footer .footer-wrap.rollupTop button.closeFooter {
+        display: block;
         transform: rotate(180deg); }
 
 #footer .footer-wrap.rollupBtm,
@@ -592,16 +609,6 @@ code {
   justify-content: center;
   align-items: center;
   transition: height 0.5s, background-color 0.5s; }
-  #header #nav:hover {
-    background-color: #68566D; }
-  #header #nav.rollupTop {
-    height: 0;
-    border-width: 0;
-    position: fixed;
-    overflow: hidden; }
-    #header #nav.rollupTop.open {
-      height: 50px;
-      border-width: 1px 0; }
   #header #nav a {
     min-width: 100px;
     height: 50px;
@@ -611,8 +618,20 @@ code {
     text-align: center;
     line-height: 0;
     transition: font-size 0.25s; }
-    #header #nav a:hover {
+    #header #nav a.active, #header #nav a:hover {
       font-size: 110%; }
+  #header #nav:hover {
+    background-color: #68566D; }
+  #header #nav.rollupTop {
+    height: 0;
+    border-width: 0;
+    position: fixed;
+    font-size: 0;
+    overflow: hidden; }
+    #header #nav.rollupTop.open {
+      height: 50px;
+      border-width: 1px 0;
+      font-size: inherit; }
 
 #header #scrollNav-wrap {
   width: 20px;
@@ -627,7 +646,7 @@ code {
   z-index: 300; }
   #header #scrollNav-wrap .scrollNav {
     width: 0;
-    height: 33%;
+    height: 30%;
     border: 5px solid;
     border-radius: 5px;
     position: relative;
@@ -663,5 +682,15 @@ code {
   height: 70%;
   z-index: 10;
   cursor: ns-resize; }
+#section-content.resume .content-wrap #downloadResume {
+  display: none; }
+
+#section-content.resume.mobile .content-wrap #resume {
+  display: none; }
+#section-content.resume.mobile .content-wrap #downloadResume {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; }
 
 /*# sourceMappingURL=index.css.map */

@@ -64,7 +64,7 @@ class Nav extends Component {
     render() {
         return (
             <>
-            <nav id="nav" className={this.props.atTop}>
+            <nav id="nav" className={this.props.atTop ? 'rollupTop' : ''}>
                 {this.renderLinks()}
             </nav>
             <div id="scrollNav-wrap">
