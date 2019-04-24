@@ -29,6 +29,9 @@ footer, header, hgroup, menu, nav, section {
 /*fonts*/
 /*dimensions*/
 /* GLOBAL */
+html, body {
+  overflow: hidden; }
+
 body {
   background-color: #333333;
   color: #F4F4F4;
@@ -332,8 +335,8 @@ code {
       color: inherit;
       font-size: 25px;
       cursor: pointer; }
-  #root article:not(.rollupTop) + section + section * {
-    filter: blur(10px);
+  #root article:not(.rollupTop) + section > * {
+    filter: blur(10px) brightness(0.75);
     z-index: -1; }
   #root section {
     width: 100%;
@@ -532,7 +535,7 @@ code {
     position: fixed;
     left: 0;
     bottom: 0;
-    transform: translateY(0);
+    transform: translateY(100%);
     transform-origin: bottom;
     background-color: #222222;
     color: #D6D1E6;
@@ -555,22 +558,16 @@ code {
       #footer .footer-wrap .contact-card button.closeFooter {
         color: inherit;
         font-size: 25px;
+        transform: rotate(180deg);
         transition: transform 1s 0.5s;
-        display: none; }
-    #footer .footer-wrap.rollupBtm, #footer .footer-wrap.rollupBtm.rollupTop {
-      transform: translateY(0); }
-      #footer .footer-wrap.rollupBtm button.closeFooter, #footer .footer-wrap.rollupBtm.rollupTop button.closeFooter {
-        display: block;
-        transform: rotate(0); }
+        opacity: 0; }
     #footer .footer-wrap.rollupTop {
-      transform: translateY(100%); }
-      #footer .footer-wrap.rollupTop button.closeFooter {
-        display: block;
-        transform: rotate(180deg); }
-
-#footer .footer-wrap.rollupBtm,
-#footer .footer-wrap.rollupBtm.rollupTop {
-  transform: translateY(0); }
+      transform: translateY(0); }
+    #footer .footer-wrap.rollupBtm {
+      transform: translateY(0); }
+      #footer .footer-wrap.rollupBtm button.closeFooter {
+        opacity: 1;
+        transform: rotate(0); }
 
 #footer.tablet .footer-wrap,
 #footer.mobile .footer-wrap {
@@ -644,7 +641,7 @@ code {
   justify-content: space-between;
   align-items: center;
   z-index: 300; }
-  #header #scrollNav-wrap .scrollNav {
+  #header #scrollNav-wrap a {
     width: 0;
     height: 30%;
     border: 5px solid;
@@ -655,10 +652,10 @@ code {
     text-indent: 80px;
     cursor: pointer;
     transition: text-indent 1s; }
-    #header #scrollNav-wrap .scrollNav.active {
+    #header #scrollNav-wrap a.active {
       border-color: #68566D;
       text-indent: -80px; }
-      #header #scrollNav-wrap .scrollNav.active.mid {
+      #header #scrollNav-wrap a.active.mid {
         box-shadow: 0 0 5px 5px #68566D;
         z-index: 1; }
   #header #scrollNav-wrap .scrollNav.mid {
@@ -666,12 +663,12 @@ code {
     height: 0;
     border: 0; }
 
-#section-content.home .content-background {
-  background-image: url("../img/home-bg.png");
+#section-content.about .content-background {
+  background-image: url("../img/about-bg.png");
   filter: blur(2px) grayscale(1); }
 
-#section-content.history .content-background {
-  background-image: url("../img/history-bg.jpg");
+#section-content.samples .content-background {
+  background-image: url("../img/samples-bg.jpg");
   filter: grayscale(1); }
 
 #section-content.resume .content-background {

@@ -1,62 +1,38 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 class Nav extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            links: this.props.links,
-            sectOffset: this.props.sectOffset,
-            activeSectIdx: this.props.activeSectIdx,
-            sectInViewIdx: this.props.sectInViewIdx,
-        }
-    }
     
     renderLinks = () => {   
         let navLinks = []
-        for (let i=0; i<this.state.links.length; i++) {
+        for (let i=0; i<this.props.links.length; i++) {
             navLinks.push( 
-                <Link 
+                <NavLink 
                     key={'nav'+i} 
                     onClick={this.props.handler}
                     data-idx={i}
-                    to={this.state.links[i][1]} 
-                    component={this.state.links[i][0]}
-                >{this.state.links[i][0]}</Link>
+                    activeClassName='active'
+                    exact
+                    to={this.props.links[i][1]} 
+                >{this.props.links[i][0]}</NavLink>
             )
         }
         return navLinks
     }
 
     renderScrollLinks = () => {
-        let scrollLinks = [], theHtml, k = 0, m = 1
-        for (let i=0; i<this.state.links.length; i++) {
-            if (i !== this.state.links.length-1) { 
-                theHtml = 
-                    <>
-                    <div 
-                        key={'scrl-nav'+k} 
-                        onClick={this.props.handler}
-                        data-idx={i}
-                        className="scrollNav"
-                    >{this.state.links[i][0]}</div>
-                    <div 
-                        key={'scrl-nav'+m} 
-                        className="scrollNav mid"
-                    ></div>
-                    </>
-            } else {
-                theHtml = 
-                    <div 
-                        key={'scrl-nav'+k} 
-                        onClick={this.props.handler}
-                        data-idx={i}
-                        className="scrollNav"
-                    >{this.state.links[i][0]}</div>
-            }
-            scrollLinks.push(theHtml)
-            k += 2
-            m += 2
+        let scrollLinks = [], theHtml
+        for (let i=0; i<this.props.links.length; i++) {
+            scrollLinks.push(
+                <NavLink 
+                    key={'scrl-nav'+i} 
+                    onClick={this.props.handler}
+                    data-idx={i}
+                    activeClassName='active'
+                    exact
+                    to={this.props.links[i][1]} 
+                >{this.props.links[i][0]}</NavLink>
+            )
         }      
         return scrollLinks 
     }
@@ -64,7 +40,7 @@ class Nav extends Component {
     render() {
         return (
             <>
-            <nav id="nav" className={this.props.atTop ? 'rollupTop' : ''}>
+            <nav id="nav" className={this.props.atTop ? '' : 'rollupTop'}>
                 {this.renderLinks()}
             </nav>
             <div id="scrollNav-wrap">

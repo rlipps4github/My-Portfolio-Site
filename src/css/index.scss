@@ -48,6 +48,9 @@ $colPad: calc(20px + 2vmin);
 
 /* GLOBAL */
 
+html,body{
+    overflow:hidden; }
+
 body {
     background-color: $default-back;
     color: $default-fore;
@@ -227,8 +230,8 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
             cursor: pointer; }
     }
 
-    article:not(.rollupTop) + section + section * {
-        filter: blur(10px);
+    article:not(.rollupTop) + section > * {
+        filter: blur(10px) brightness(0.75);
         z-index: -1;
     }
 
@@ -309,9 +312,9 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
 
 @import 'nav';
 
-@import 'home';
+@import 'about';
 
-@import 'history';
+@import 'samples';
 
 @import 'resume';
 

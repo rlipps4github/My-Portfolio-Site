@@ -9,7 +9,7 @@
         position: fixed;
         left: 0;
         bottom: 0;
-        transform: translateY(0);
+        transform: translateY(100%);
         transform-origin: bottom;
         background-color: $primary-highlight;
         color: $primary-highlight-fore;
@@ -38,32 +38,24 @@
             button.closeFooter {
                 color: inherit; 
                 font-size: 25px;
+                transform: rotate(180deg);
                 transition: transform 1s 0.5s;
-                display: none; }
-        }
-        
-        &.rollupBtm,
-        &.rollupBtm.rollupTop {
-            transform: translateY(0); 
-        
-            button.closeFooter {
-                display: block;
-                transform: rotate(0); }
+                opacity: 0; }
         }
         
         &.rollupTop {
-            transform: translateY(100%); 
+            transform: translateY(0); 
+        }
+        
+        &.rollupBtm {
+            transform: translateY(0); 
         
             button.closeFooter {
-                display: block;
-                transform: rotate(180deg); }
+                opacity: 1;
+                transform: rotate(0); }
         }
     }
 }
-
-#footer .footer-wrap.rollupBtm,
-#footer .footer-wrap.rollupBtm.rollupTop {
-    transform: translateY(0); }
 
 #footer.tablet,
 #footer.mobile {

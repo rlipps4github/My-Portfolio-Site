@@ -68,7 +68,7 @@ class Header extends Component {
     render() {
         return (
             <header id="header" className="container">
-                <div className={'header-wrap '+ (this.props.atTop ? 'rollupTop' : '')}>
+                <div className={'header-wrap '+ (this.props.atTop ? '' : 'rollupTop')}>
                     <LogoCarousel len={this.state.logoLen} arr={this.state.logoArr} idx={this.state.logoIdx} />
                     <div className="contact-card">
                         <h2 onClick={this.props.nameHandler}>Ron&nbsp;Lipps</h2>
