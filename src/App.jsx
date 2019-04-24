@@ -16,7 +16,7 @@ let _scrollTimeout = null // to enforce proper scroll animation & event control
 
 /* CLICK ROUTING */
 
-function setRoute(navIdx) { // function to click router links when scroll is detected
+function setRoute(navIdx) { // function to click router links when mouse scroll is detected
     document.getElementById('nav').getElementsByTagName('a')[navIdx].click()
 }
 
@@ -25,7 +25,7 @@ function setRoute(navIdx) { // function to click router links when scroll is det
 function mapStyles(styles) {
     return {
         opacity: styles.opacity,
-        transform: `scale(${styles.scale})`, //translateY(${styles.left}vw)
+        transform: `scale(${styles.scale})`,
     };
 }
 
@@ -172,13 +172,11 @@ class MainWrapper extends React.Component {
 
     }
 
-    handleScroll = (direction) => {
+    handleScroll = (direction) => { // take mouse scroll direction and increment route accordingly
         clearTimeout(_scrollTimeout)
         _scrollTimeout = setTimeout(() => { 
-            console.log('from '+this.state.atSection)
             let newAtTop = false, newAtBtm = false, newAtSection = null
             if (direction === 'up') {
-                console.log('go up')
                 switch(this.state.atSection) {
                     case 0:
                         newAtTop = true
@@ -195,9 +193,7 @@ class MainWrapper extends React.Component {
                     default:
                         newAtSection = this.state.atSection -1
                 }
-                console.log('to '+newAtSection)
             } else {
-                console.log('go down')
                 switch(this.state.atSection) {
                     case 0:
                         if (this.state.atTop) {
@@ -216,7 +212,6 @@ class MainWrapper extends React.Component {
                     default:
                         newAtSection = this.state.atSection +1
                 }
-                console.log('to '+newAtSection)
             }
             this.setState({
                 atTop: newAtTop,
