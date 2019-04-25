@@ -270,7 +270,7 @@ class MainWrapper extends React.Component {
             <Router>
                 <Swipe onSwipeMove={this.onSwipeMove} onSwipeEnd={() =>  {if(swipeDirection) this.handleScroll(swipeDirection)} }>
                 <Header handler={this.toggleNavBtn} nameHandler={this.handleNameClick} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links} device={this.state.device}> 
-                    <Nav handler={this.navClickHandler} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
+                    <Nav handler={this.handleNavClick} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
                 </Header>
                 <main id="main" {...WheelReact.events}>
                     <article className={this.state.atTop ? 'container' : 'container rollupTop'}>

@@ -72,17 +72,12 @@
         position: relative;
         font-size: 0;
         line-height: 0;
-        text-indent: 80px;
         cursor: pointer; 
-        transition: text-indent 1s;
+        transition: border-color 0.75s;
         
         &.active {
             border-color: $secondary-highlight;
-            text-indent: -80px;
-            &.mid {
-                box-shadow: 0 0 5px 5px $secondary-highlight;
-                z-index: 1; }
-        }
+            transition: border-color 0.5s; }
 
     }
 

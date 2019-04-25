@@ -1,50 +1,8 @@
-/* RESET */
+@import 'reset';
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
-    box-sizing: border-box; }
+@import 'extensions';
 
-/* HTML5 */
-
-div, main, article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
-    box-sizing: border-box; }
-
-/* VARIABLES */
-
-    /*colors*/
-$primary-highlight: #222222;
-$primary-highlight-fore: #D6D1E6;
-$secondary-highlight: #68566D;
-$secondary-highlight-fore: #FFFFFF;
-$default-fore: #F4F4F4;
-$default-back: #333333;
-
-    /*fonts*/
-$primary-font: 'Dosis', Verdana, sans-serif;
-$secondary-font: 'Righteous', Impact, cursive;
-
-    /*dimensions*/
-$rowV: 3vw;
-$rowH: 5vw;
-$rowPad: $rowV $rowH;
-$colPad: calc(20px + 2vmin);
+@import 'variables';
 
 /* GLOBAL */
 
@@ -117,8 +75,6 @@ button {
         background-color: $secondary-highlight-fore; }
 }
 
-
-
 .primary-background {
     background-color: $primary-highlight;
     color: $primary-highlight-fore; }
@@ -130,6 +86,10 @@ button {
 .text-center {
     text-align: center; }
 
+.paralax-container {
+    @extend %full-screen;
+}
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0; }
@@ -138,27 +98,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace; }
 
-/* HEADINGS */
+
+/* HEADINGS MIXIN */
     
-    @mixin headings($h1: 42px, $decreaseBy: 6px) {
-        @for $i from 1 through 6 {
-            h#{$i} {
-                font-size: ($h1+$decreaseBy) - $i * $decreaseBy;
-                font-family: $primary-font;
-                letter-spacing: 1.5px; }
-        }
+@mixin headings($h1: 42px, $decreaseBy: 6px) {
+    @for $i from 1 through 6 {
+        h#{$i} {
+            font-size: ($h1+$decreaseBy) - $i * $decreaseBy;
+            font-family: $primary-font;
+            letter-spacing: 1.5px; }
     }
+}
 
-/* GRID */
-
-$grid_tab: 600;
-$grid_lap: 900;
-$grid_desk: 1200;
-$grid_max: 1400px;
-$grid_cols: 12;
-
-$map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $grid_desk);
-
+/* MEDIA QUERY & COLUMN MIXINS */
 @mixin mq($break) {
     @if($break == 0) {
         @content;
@@ -190,15 +142,10 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
 }
 
 #root {
-    width: 100%;
-    height: 100%;
+    @extend %full-screen;
 
     #main {
-        width: 100%;
-        height: 100%;
-        max-width: $grid_max;
-        padding: $rowPad;
-        margin: 0 auto; }
+        @extend %full-screen; }
 
     .row {
         width: 100%;
@@ -226,11 +173,7 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
         padding: $rowPad; }
 
     article {
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
+        @extend %full-screen;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -260,7 +203,7 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
         }
     }
 
-    article:not(.rollupTop) + section > * {
+    article:not(.rollupTop) + section {
         filter: blur(10px) brightness(0.75);
         z-index: -1;
 
@@ -269,53 +212,28 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
     }
 
     section {
-        width: 100%;
-        height: 100%;
+        @extend %full-screen;
         z-index: 1;
     
         .switch-wrapper,
-        .switch-wrapper > div{
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-        #section-content{
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            // perspective: 1px;
-            // overflow-x: hidden;
-            // overflow-y: auto;
-            -ms-overflow-style: none;  // IE 10+
-            scrollbar-width: none;  // Firefox
-            &::-webkit-scrollbar { 
-                display: none; }  // Safari and Chrome
-            
-            .content-wrap{
+        .switch-wrapper > div {
+            @extend %full-screen; }
+
+        #section-content {
+            @extend %full-screen;
+            @extend %hide-scrollbar;
+
+            .content-wrap {
+                @extend %full-screen;
                 margin: 15vh 10vw;
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                // transform: translateZ(0); // for pure css paralax
                 display: flex;
                 justify-content: center;
                 align-items: center; 
                 z-index: 2;
             }
     
-            .content-background{
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                // transform: translateZ(-3px) scale(5); // for pure css paralax
+            .content-background {
+                @extend %full-screen;
                 background-repeat: no-repeat;
                 background-size: cover;
                 opacity: 0.33;
@@ -323,16 +241,6 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
                 z-index: 1;
             }
 
-            &.mobile {
-
-                .content-wrap,
-                .content-background{
-                    width: 100vw;
-                    height: 100vh;
-                    right: auto;
-                    bottom: auto;
-                }
-            }
         }
     
     }

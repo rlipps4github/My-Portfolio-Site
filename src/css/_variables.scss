@@ -1,0 +1,32 @@
+/* VARIABLES */
+
+    /*colors*/
+$primary-highlight: #222222;
+$primary-highlight-fore: #D6D1E6;
+
+$secondary-highlight: #68566D;
+$secondary-highlight-fore: #FFFFFF;
+
+$default-fore: #F4F4F4;
+$default-back: #333333;
+
+    /*fonts*/
+$primary-font: 'Dosis', Verdana, sans-serif;
+$secondary-font: 'Righteous', Impact, cursive;
+
+    /*dimensions*/
+$rowV: 3vw;
+$rowH: 5vw;
+$rowPad: $rowV $rowH;
+
+$colPad: calc(20px + 2vmin);
+
+    /* GRID */
+
+$grid_tab: 600;
+$grid_lap: 900;
+$grid_desk: 1200;
+$grid_max: 1400px;
+$grid_cols: 12;
+
+$map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $grid_desk);

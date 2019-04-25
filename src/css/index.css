@@ -24,10 +24,26 @@ footer, header, hgroup, menu, nav, section {
   display: block;
   box-sizing: border-box; }
 
+/* EXTENSIONS */
+.paralax-container, #root, #root #main, #root article, #root section, #root section .switch-wrapper,
+#root section .switch-wrapper > div, #root section #section-content, #root section #section-content .content-wrap, #root section #section-content .content-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+#root section #section-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none; }
+  #root section #section-content::-webkit-scrollbar {
+    display: none; }
+
 /* VARIABLES */
 /*colors*/
 /*fonts*/
 /*dimensions*/
+/* GRID */
 /* GLOBAL */
 html, body {
   overflow: hidden; }
@@ -111,306 +127,256 @@ table {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace; }
 
-/* HEADINGS */
-/* GRID */
-#root {
+/* HEADINGS MIXIN */
+/* MEDIA QUERY & COLUMN MIXINS */
+#root .row {
   width: 100%;
-  height: 100%; }
-  #root #main {
-    width: 100%;
-    height: 100%;
-    max-width: 1400px;
-    padding: 3vw 5vw;
-    margin: 0 auto; }
-  #root .row {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center; }
-    #root .row::before, #root .row::after {
-      content: '';
-      clear: both; }
-    #root .row .col {
-      float: left; }
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+  #root .row::before, #root .row::after {
+    content: '';
+    clear: both; }
+  #root .row .col {
+    float: left; }
+#root h1 {
+  font-size: 26px;
+  font-family: "Dosis", Verdana, sans-serif;
+  letter-spacing: 1.5px; }
+#root h2 {
+  font-size: 22px;
+  font-family: "Dosis", Verdana, sans-serif;
+  letter-spacing: 1.5px; }
+#root h3 {
+  font-size: 18px;
+  font-family: "Dosis", Verdana, sans-serif;
+  letter-spacing: 1.5px; }
+#root h4 {
+  font-size: 14px;
+  font-family: "Dosis", Verdana, sans-serif;
+  letter-spacing: 1.5px; }
+#root h5 {
+  font-size: 10px;
+  font-family: "Dosis", Verdana, sans-serif;
+  letter-spacing: 1.5px; }
+#root h6 {
+  font-size: 6px;
+  font-family: "Dosis", Verdana, sans-serif;
+  letter-spacing: 1.5px; }
+#root .col-mob-1 {
+  width: 8.3333333333%; }
+#root .col-mob-2 {
+  width: 16.6666666667%; }
+#root .col-mob-3 {
+  width: 25%; }
+#root .col-mob-4 {
+  width: 33.3333333333%; }
+#root .col-mob-5 {
+  width: 41.6666666667%; }
+#root .col-mob-6 {
+  width: 50%; }
+#root .col-mob-7 {
+  width: 58.3333333333%; }
+#root .col-mob-8 {
+  width: 66.6666666667%; }
+#root .col-mob-9 {
+  width: 75%; }
+#root .col-mob-10 {
+  width: 83.3333333333%; }
+#root .col-mob-11 {
+  width: 91.6666666667%; }
+#root .col-mob-12 {
+  width: 100%; }
+@media screen and (min-width: 600px) {
   #root h1 {
-    font-size: 26px;
+    font-size: 34px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
   #root h2 {
-    font-size: 22px;
+    font-size: 30px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
   #root h3 {
-    font-size: 18px;
+    font-size: 26px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
   #root h4 {
-    font-size: 14px;
+    font-size: 22px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
   #root h5 {
-    font-size: 10px;
+    font-size: 18px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
   #root h6 {
-    font-size: 6px;
+    font-size: 14px;
     font-family: "Dosis", Verdana, sans-serif;
     letter-spacing: 1.5px; }
-  #root .col-mob-1 {
+  #root .col-tab-1 {
     width: 8.3333333333%; }
-  #root .col-mob-2 {
+  #root .col-tab-2 {
     width: 16.6666666667%; }
-  #root .col-mob-3 {
+  #root .col-tab-3 {
     width: 25%; }
-  #root .col-mob-4 {
+  #root .col-tab-4 {
     width: 33.3333333333%; }
-  #root .col-mob-5 {
+  #root .col-tab-5 {
     width: 41.6666666667%; }
-  #root .col-mob-6 {
+  #root .col-tab-6 {
     width: 50%; }
-  #root .col-mob-7 {
+  #root .col-tab-7 {
     width: 58.3333333333%; }
-  #root .col-mob-8 {
+  #root .col-tab-8 {
     width: 66.6666666667%; }
-  #root .col-mob-9 {
+  #root .col-tab-9 {
     width: 75%; }
-  #root .col-mob-10 {
+  #root .col-tab-10 {
     width: 83.3333333333%; }
-  #root .col-mob-11 {
+  #root .col-tab-11 {
     width: 91.6666666667%; }
-  #root .col-mob-12 {
-    width: 100%; }
-  @media screen and (min-width: 600px) {
-    #root h1 {
-      font-size: 34px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h2 {
-      font-size: 30px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h3 {
-      font-size: 26px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h4 {
-      font-size: 22px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h5 {
-      font-size: 18px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h6 {
-      font-size: 14px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root .col-tab-1 {
-      width: 8.3333333333%; }
-    #root .col-tab-2 {
-      width: 16.6666666667%; }
-    #root .col-tab-3 {
-      width: 25%; }
-    #root .col-tab-4 {
-      width: 33.3333333333%; }
-    #root .col-tab-5 {
-      width: 41.6666666667%; }
-    #root .col-tab-6 {
-      width: 50%; }
-    #root .col-tab-7 {
-      width: 58.3333333333%; }
-    #root .col-tab-8 {
-      width: 66.6666666667%; }
-    #root .col-tab-9 {
-      width: 75%; }
-    #root .col-tab-10 {
-      width: 83.3333333333%; }
-    #root .col-tab-11 {
-      width: 91.6666666667%; }
-    #root .col-tab-12 {
-      width: 100%; } }
-  @media screen and (min-width: 900px) {
-    #root h1 {
-      font-size: 42px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h2 {
-      font-size: 36px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h3 {
-      font-size: 30px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h4 {
-      font-size: 24px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h5 {
-      font-size: 18px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h6 {
-      font-size: 12px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root .col-lap-1 {
-      width: 8.3333333333%; }
-    #root .col-lap-2 {
-      width: 16.6666666667%; }
-    #root .col-lap-3 {
-      width: 25%; }
-    #root .col-lap-4 {
-      width: 33.3333333333%; }
-    #root .col-lap-5 {
-      width: 41.6666666667%; }
-    #root .col-lap-6 {
-      width: 50%; }
-    #root .col-lap-7 {
-      width: 58.3333333333%; }
-    #root .col-lap-8 {
-      width: 66.6666666667%; }
-    #root .col-lap-9 {
-      width: 75%; }
-    #root .col-lap-10 {
-      width: 83.3333333333%; }
-    #root .col-lap-11 {
-      width: 91.6666666667%; }
-    #root .col-lap-12 {
-      width: 100%; } }
-  @media screen and (min-width: 1200px) {
-    #root h1 {
-      font-size: 42px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h2 {
-      font-size: 36px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h3 {
-      font-size: 30px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h4 {
-      font-size: 24px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h5 {
-      font-size: 18px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root h6 {
-      font-size: 12px;
-      font-family: "Dosis", Verdana, sans-serif;
-      letter-spacing: 1.5px; }
-    #root .col-desk-1 {
-      width: 8.3333333333%; }
-    #root .col-desk-2 {
-      width: 16.6666666667%; }
-    #root .col-desk-3 {
-      width: 25%; }
-    #root .col-desk-4 {
-      width: 33.3333333333%; }
-    #root .col-desk-5 {
-      width: 41.6666666667%; }
-    #root .col-desk-6 {
-      width: 50%; }
-    #root .col-desk-7 {
-      width: 58.3333333333%; }
-    #root .col-desk-8 {
-      width: 66.6666666667%; }
-    #root .col-desk-9 {
-      width: 75%; }
-    #root .col-desk-10 {
-      width: 83.3333333333%; }
-    #root .col-desk-11 {
-      width: 91.6666666667%; }
-    #root .col-desk-12 {
-      width: 100%; } }
-  #root .column-pad {
-    padding-left: calc(20px + 2vmin);
-    padding-right: calc(20px + 2vmin); }
-  #root .row-pad {
-    padding: 3vw 5vw; }
-  #root article {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
+  #root .col-tab-12 {
+    width: 100%; } }
+@media screen and (min-width: 900px) {
+  #root h1 {
+    font-size: 42px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h2 {
+    font-size: 36px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h3 {
+    font-size: 30px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h4 {
+    font-size: 24px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h5 {
+    font-size: 18px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h6 {
+    font-size: 12px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root .col-lap-1 {
+    width: 8.3333333333%; }
+  #root .col-lap-2 {
+    width: 16.6666666667%; }
+  #root .col-lap-3 {
+    width: 25%; }
+  #root .col-lap-4 {
+    width: 33.3333333333%; }
+  #root .col-lap-5 {
+    width: 41.6666666667%; }
+  #root .col-lap-6 {
+    width: 50%; }
+  #root .col-lap-7 {
+    width: 58.3333333333%; }
+  #root .col-lap-8 {
+    width: 66.6666666667%; }
+  #root .col-lap-9 {
+    width: 75%; }
+  #root .col-lap-10 {
+    width: 83.3333333333%; }
+  #root .col-lap-11 {
+    width: 91.6666666667%; }
+  #root .col-lap-12 {
+    width: 100%; } }
+@media screen and (min-width: 1200px) {
+  #root h1 {
+    font-size: 42px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h2 {
+    font-size: 36px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h3 {
+    font-size: 30px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h4 {
+    font-size: 24px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h5 {
+    font-size: 18px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root h6 {
+    font-size: 12px;
+    font-family: "Dosis", Verdana, sans-serif;
+    letter-spacing: 1.5px; }
+  #root .col-desk-1 {
+    width: 8.3333333333%; }
+  #root .col-desk-2 {
+    width: 16.6666666667%; }
+  #root .col-desk-3 {
+    width: 25%; }
+  #root .col-desk-4 {
+    width: 33.3333333333%; }
+  #root .col-desk-5 {
+    width: 41.6666666667%; }
+  #root .col-desk-6 {
+    width: 50%; }
+  #root .col-desk-7 {
+    width: 58.3333333333%; }
+  #root .col-desk-8 {
+    width: 66.6666666667%; }
+  #root .col-desk-9 {
+    width: 75%; }
+  #root .col-desk-10 {
+    width: 83.3333333333%; }
+  #root .col-desk-11 {
+    width: 91.6666666667%; }
+  #root .col-desk-12 {
+    width: 100%; } }
+#root .column-pad {
+  padding-left: calc(20px + 2vmin);
+  padding-right: calc(20px + 2vmin); }
+#root .row-pad {
+  padding: 3vw 5vw; }
+#root article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.5s; }
+  #root article.rollupTop {
+    opacity: 0;
+    z-index: -1; }
+  #root article p {
+    font-size: calc(14px + 2vmin); }
+  #root article .welcomeButton {
+    color: inherit;
+    font-size: 25px;
+    cursor: pointer; }
+  #root article.mobile p {
+    font-size: 3vmin; }
+  #root article.mobile br {
+    display: none; }
+#root article:not(.rollupTop) + section {
+  filter: blur(10px) brightness(0.75);
+  z-index: -1; }
+  #root article:not(.rollupTop) + section .content-wrap {
+    opacity: 0; }
+#root section {
+  z-index: 1; }
+  #root section #section-content .content-wrap {
+    margin: 15vh 10vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 1;
-    transition: opacity 0.5s; }
-    #root article.rollupTop {
-      opacity: 0;
-      z-index: -1; }
-    #root article p {
-      font-size: calc(14px + 2vmin); }
-    #root article .welcomeButton {
-      color: inherit;
-      font-size: 25px;
-      cursor: pointer; }
-    #root article.mobile p {
-      font-size: 3vmin; }
-    #root article.mobile br {
-      display: none; }
-  #root article:not(.rollupTop) + section > * {
-    filter: blur(10px) brightness(0.75);
-    z-index: -1; }
-    #root article:not(.rollupTop) + section > * .content-wrap {
-      opacity: 0; }
-  #root section {
-    width: 100%;
-    height: 100%;
+    z-index: 2; }
+  #root section #section-content .content-background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.33;
+    display: block;
     z-index: 1; }
-    #root section .switch-wrapper,
-    #root section .switch-wrapper > div {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0; }
-    #root section #section-content {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      perspective: 1px;
-      -ms-overflow-style: none;
-      scrollbar-width: none; }
-      #root section #section-content::-webkit-scrollbar {
-        display: none; }
-      #root section #section-content .content-wrap {
-        margin: 15vh 10vw;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2; }
-      #root section #section-content .content-background {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-repeat: no-repeat;
-        background-size: cover;
-        opacity: 0.33;
-        display: block;
-        z-index: 1; }
-      #root section #section-content.mobile .content-wrap,
-      #root section #section-content.mobile .content-background {
-        width: 100vw;
-        height: 100vh;
-        right: auto;
-        bottom: auto; }
 
 #header {
   width: 100vw;
@@ -677,15 +643,11 @@ code {
     position: relative;
     font-size: 0;
     line-height: 0;
-    text-indent: 80px;
     cursor: pointer;
-    transition: text-indent 1s; }
+    transition: border-color 0.75s; }
     #header #scrollNav-wrap a.active {
       border-color: #68566D;
-      text-indent: -80px; }
-      #header #scrollNav-wrap a.active.mid {
-        box-shadow: 0 0 5px 5px #68566D;
-        z-index: 1; }
+      transition: border-color 0.5s; }
   #header #scrollNav-wrap .scrollNav.mid {
     width: 0;
     height: 0;
