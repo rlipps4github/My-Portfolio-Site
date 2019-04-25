@@ -21,7 +21,7 @@ class Nav extends Component {
     }
 
     renderScrollLinks = () => {
-        let scrollLinks = [], theHtml
+        let scrollLinks = []
         for (let i=0; i<this.props.links.length; i++) {
             scrollLinks.push(
                 <NavLink 

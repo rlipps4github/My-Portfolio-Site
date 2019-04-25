@@ -52,6 +52,8 @@ html,body{
     overflow:hidden; }
 
 body {
+    width: 100%;
+    height: 100%;
     background-color: $default-back;
     color: $default-fore;
     font-family: $primary-font;
@@ -106,6 +108,24 @@ button {
     &:hover {
         background-color: $secondary-highlight; }
 }
+
+.secondary-button {
+    background-color: $secondary-highlight;
+    color: $primary-highlight-fore;
+    
+    &:hover {
+        background-color: $secondary-highlight-fore; }
+}
+
+
+
+.primary-background {
+    background-color: $primary-highlight;
+    color: $primary-highlight-fore; }
+
+.secondary-background {
+    background-color: $secondary-highlight;
+    color: $secondary-highlight-fore; }
 
 .text-center {
     text-align: center; }
@@ -171,10 +191,11 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
 
 #root {
     width: 100%;
-    margin: 100px 0;
+    height: 100%;
 
     #main {
         width: 100%;
+        height: 100%;
         max-width: $grid_max;
         padding: $rowPad;
         margin: 0 auto; }
@@ -222,23 +243,34 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
         }
 
         p {
-            font-size: calc(14px + 1vmin); }
+            font-size: calc(14px + 2vmin); }
 
-        .welcomeButton{
+        .welcomeButton {
             color: inherit; 
             font-size: 25px;
             cursor: pointer; }
+
+        &.mobile {
+
+            p { 
+                font-size: 3vmin; }
+
+            br {
+                display: none; }
+        }
     }
 
     article:not(.rollupTop) + section > * {
         filter: blur(10px) brightness(0.75);
         z-index: -1;
+
+        .content-wrap {
+            opacity: 0; }
     }
 
     section {
         width: 100%;
-        height: 100vh;
-        margin: 50px 0;
+        height: 100%;
         z-index: 1;
     
         .switch-wrapper,
@@ -255,15 +287,16 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
             position: fixed;
             top: 0;
             left: 0;
-            perspective: 1px;
-            overflow-x: hidden;
-            overflow-y: auto;
+            // perspective: 1px;
+            // overflow-x: hidden;
+            // overflow-y: auto;
             -ms-overflow-style: none;  // IE 10+
             scrollbar-width: none;  // Firefox
             &::-webkit-scrollbar { 
                 display: none; }  // Safari and Chrome
             
             .content-wrap{
+                margin: 15vh 10vw;
                 position: fixed;
                 top: 0;
                 right: 0;
@@ -282,7 +315,7 @@ $map-grid-props: ('-mob': 0, '-tab': $grid_tab, '-lap': $grid_lap, '-desk': $gri
                 right: 0;
                 bottom: 0;
                 left: 0;
-                // transform: translateZ(-3px) scale(4.5); // for pure css paralax
+                // transform: translateZ(-3px) scale(5); // for pure css paralax
                 background-repeat: no-repeat;
                 background-size: cover;
                 opacity: 0.33;

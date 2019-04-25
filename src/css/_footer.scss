@@ -36,6 +36,7 @@
             }
 
             button.closeFooter {
+                height: 0;
                 color: inherit; 
                 font-size: 25px;
                 transform: rotate(180deg);
@@ -51,6 +52,7 @@
             transform: translateY(0); 
         
             button.closeFooter {
+                height: inherit;
                 opacity: 1;
                 transform: rotate(0); }
         }

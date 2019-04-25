@@ -20,7 +20,7 @@ class Footer extends Component {
     
     render() {
         return (
-            <footer id="footer" className="container">
+            <footer id="footer" className={this.props.device}>
                 <div className={ 'footer-wrap '+ (this.props.atTop ? 'rollupTop' : '') +' '+ (this.props.atBottom ? 'rollupBtm' : '') }>
                     <div className="contact-card">
                         <button 

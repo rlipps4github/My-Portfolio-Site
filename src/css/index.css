@@ -33,6 +33,8 @@ html, body {
   overflow: hidden; }
 
 body {
+  width: 100%;
+  height: 100%;
   background-color: #333333;
   color: #F4F4F4;
   font-family: "Dosis", Verdana, sans-serif;
@@ -85,6 +87,20 @@ button {
   .primary-button:hover {
     background-color: #68566D; }
 
+.secondary-button {
+  background-color: #68566D;
+  color: #D6D1E6; }
+  .secondary-button:hover {
+    background-color: #FFFFFF; }
+
+.primary-background {
+  background-color: #222222;
+  color: #D6D1E6; }
+
+.secondary-background {
+  background-color: #68566D;
+  color: #FFFFFF; }
+
 .text-center {
   text-align: center; }
 
@@ -99,9 +115,10 @@ code {
 /* GRID */
 #root {
   width: 100%;
-  margin: 100px 0; }
+  height: 100%; }
   #root #main {
     width: 100%;
+    height: 100%;
     max-width: 1400px;
     padding: 3vw 5vw;
     margin: 0 auto; }
@@ -330,18 +347,23 @@ code {
       opacity: 0;
       z-index: -1; }
     #root article p {
-      font-size: calc(14px + 1vmin); }
+      font-size: calc(14px + 2vmin); }
     #root article .welcomeButton {
       color: inherit;
       font-size: 25px;
       cursor: pointer; }
+    #root article.mobile p {
+      font-size: 3vmin; }
+    #root article.mobile br {
+      display: none; }
   #root article:not(.rollupTop) + section > * {
     filter: blur(10px) brightness(0.75);
     z-index: -1; }
+    #root article:not(.rollupTop) + section > * .content-wrap {
+      opacity: 0; }
   #root section {
     width: 100%;
-    height: 100vh;
-    margin: 50px 0;
+    height: 100%;
     z-index: 1; }
     #root section .switch-wrapper,
     #root section .switch-wrapper > div {
@@ -357,13 +379,12 @@ code {
       top: 0;
       left: 0;
       perspective: 1px;
-      overflow-x: hidden;
-      overflow-y: auto;
       -ms-overflow-style: none;
       scrollbar-width: none; }
       #root section #section-content::-webkit-scrollbar {
         display: none; }
       #root section #section-content .content-wrap {
+        margin: 15vh 10vw;
         position: fixed;
         top: 0;
         right: 0;
@@ -422,7 +443,7 @@ code {
       width: auto; }
     #header .header-wrap.rollupTop .contact-card > div, #header.mobile .header-wrap .contact-card > div {
       height: 50px; }
-    #header .header-wrap.rollupTop .contact-card > div > div:not(.navBtn), #header.mobile .header-wrap .contact-card > div > div:not(.navBtn) {
+    #header .header-wrap.rollupTop .contact-card > div > div, #header.mobile .header-wrap .contact-card > div > div {
       width: 0;
       height: 0;
       transition: all 0s 0.33s; }
@@ -501,7 +522,7 @@ code {
       width: 300px;
       margin: 0;
       cursor: pointer; }
-    #header .header-wrap .contact-card div:not(.navBtn) > div:not(.navBtn) {
+    #header .header-wrap .contact-card div > div {
       width: 300px;
       text-align: right;
       overflow: hidden;
@@ -556,6 +577,7 @@ code {
         #footer .footer-wrap .contact-card a:hover {
           transform: scale(1.15); }
       #footer .footer-wrap .contact-card button.closeFooter {
+        height: 0;
         color: inherit;
         font-size: 25px;
         transform: rotate(180deg);
@@ -566,6 +588,7 @@ code {
     #footer .footer-wrap.rollupBtm {
       transform: translateY(0); }
       #footer .footer-wrap.rollupBtm button.closeFooter {
+        height: inherit;
         opacity: 1;
         transform: rotate(0); }
 
@@ -610,12 +633,17 @@ code {
     min-width: 100px;
     height: 50px;
     padding: 25px 1vw;
+    position: relative;
     font-size: inherit;
     font-weight: bold;
     text-align: center;
     line-height: 0;
-    transition: font-size 0.25s; }
-    #header #nav a.active, #header #nav a:hover {
+    transition: font-size 0.25s, background-color 0.5s; }
+    #header #nav a.active {
+      background-color: #68566D; }
+      #header #nav a.active:hover {
+        background-color: #222222; }
+    #header #nav a:hover {
       font-size: 110%; }
   #header #nav:hover {
     background-color: #68566D; }
@@ -675,8 +703,8 @@ code {
   background-image: url("https://picsum.photos/id/4/1280/900");
   filter: grayscale(1); }
 #section-content.resume .content-wrap #resume {
-  width: 80%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
   z-index: 10;
   cursor: ns-resize; }
 #section-content.resume .content-wrap #downloadResume {

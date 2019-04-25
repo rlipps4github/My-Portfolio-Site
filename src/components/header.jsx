@@ -67,7 +67,7 @@ class Header extends Component {
     
     render() {
         return (
-            <header id="header" className="container">
+            <header id="header" className={this.props.device}>
                 <div className={'header-wrap '+ (this.props.atTop ? '' : 'rollupTop')}>
                     <LogoCarousel len={this.state.logoLen} arr={this.state.logoArr} idx={this.state.logoIdx} />
                     <div className="contact-card">

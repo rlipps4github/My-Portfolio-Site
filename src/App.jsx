@@ -4,6 +4,8 @@ import {
     Route,
 } from 'react-router-dom'
 import { spring ,AnimatedSwitch } from 'react-router-transition';
+import Swipe from 'react-easy-swipe'
+import WheelReact from 'wheel-react'
 
 import Header from './components/header'
 import Nav from './components/nav'
@@ -12,12 +14,13 @@ import Samples from './components/samples'
 import Resume from './components/resume'
 import Footer from './components/footer' 
 
-let _scrollTimeout = null // to enforce proper scroll animation & event control
+let _scrollTimeout = null, swipeDirection = null  // to enforce proper scroll animation & event control
 
 /* CLICK ROUTING */
 
-function setRoute(navIdx) { // function to click router links when mouse scroll is detected
-    document.getElementById('nav').getElementsByTagName('a')[navIdx].click()
+function setRoute(navIdx,oldIdx) { // function to click router links when mouse scroll is detected
+    oldIdx = oldIdx || ''
+    if (navIdx !== oldIdx) document.getElementById('nav').getElementsByTagName('a')[navIdx].click()
 }
 
 /* ROUTING SWITCH ANIMATION */
@@ -25,14 +28,14 @@ function setRoute(navIdx) { // function to click router links when mouse scroll 
 function mapStyles(styles) {
     return {
         opacity: styles.opacity,
-        transform: `scale(${styles.scale})`,
+        //transform: `scale(${styles.scale})`,
     };
 }
 
 function bounce(val) {
     return spring(val, {
         stiffness: 120,
-        damping: 10,
+        damping: 12,
     });
 }
 
@@ -96,6 +99,22 @@ class MainWrapper extends React.Component {
                 ['envelope','Email','mailto:rdl.work@gmail.com'],
             ],
         }
+        WheelReact.config({
+            up: () => {
+                this.handleScroll('down',350)
+            },
+            down: () => {
+                this.handleScroll('up',350)
+            },
+        })
+    }
+
+    onSwipeMove(position,event) {
+        swipeDirection = position.y < 0  ? 'down' : 'up'
+    }
+
+    onSwipeEnd(event) {
+        this.handleScroll(swipeDirection)
     }
     
     componentDidMount() {
@@ -105,12 +124,15 @@ class MainWrapper extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.customResponse)
+        WheelReact.clearTimeout()
     }  
 
     customResponse = () => { // provides section & componenent level awareness for response
         let breakPoints = {desktop: 1200, laptop: 900, tablet: 600}
         let responsiveElements = document.getElementsByClassName('container')
-        let currentWidth = window.innerWidth, currentDevice = null
+        let currentWidth = window.innerWidth
+        let currentHeight = window.innerHeight
+        let currentDevice = null
         switch (true) {
             case currentWidth >= breakPoints['desktop']: 
                 currentDevice = 'desktop'
@@ -125,17 +147,17 @@ class MainWrapper extends React.Component {
                 currentDevice = 'mobile'
         } 
         this.setState({
-            device: currentDevice,
+            device: currentHeight > breakPoints['tablet'] ? currentDevice : 'mobile',
         })
         for (let el=0; el<responsiveElements.length; el++) {
             let thisElement = responsiveElements[el]
             let thisWidth = thisElement.offsetWidth
             thisElement.classList.remove('desktop','laptop','tablet','mobile')
             switch (true) {
-                case thisWidth >= breakPoints['desktop']: 
+                case thisWidth >= breakPoints['desktop'] && currentHeight > breakPoints['tablet']: 
                     thisElement.classList.add('desktop')
                     break
-                case thisWidth >= breakPoints['laptop']: 
+                case thisWidth >= breakPoints['laptop'] && currentHeight > breakPoints['tablet']: 
                     thisElement.classList.add('laptop')
                     break
                 case thisWidth >= breakPoints['tablet']:
@@ -146,14 +168,22 @@ class MainWrapper extends React.Component {
             } 
         }
     }
+
+    handleNameClick = (e) => { // clicks on site name badge 
+        setRoute(0)
+        this.setState({
+            atTop: true,
+        })
+        this.toggleNavBtn('off')
+    }
     
-    handleNavClick = (e) => { // main nav item click
+    handleNavClick = (e) => { // update our state on main nav item click
         const clickIdx = parseInt(e.target.getAttribute('data-idx'))
         this.setState({
+            atTop: false,
             atSection: clickIdx,
         })
         this.toggleNavBtn('off')
-
     }
     
     toggleNavBtn = (arg) => { // mobile nav hamburger toggle on click
@@ -172,54 +202,59 @@ class MainWrapper extends React.Component {
 
     }
 
-    handleScroll = (direction) => { // take mouse scroll direction and increment route accordingly
+    handleScroll = (direction,timeout) => { // take mousewheel or swipe direction and increment route accordingly
         clearTimeout(_scrollTimeout)
         _scrollTimeout = setTimeout(() => { 
-            let newAtTop = false, newAtBtm = false, newAtSection = null
-            if (direction === 'up') {
-                switch(this.state.atSection) {
+            let newAtTop = false, newAtBtm = false, newAtSection = 0
+            const atLinkLen = this.state.links.length - 1
+            const oldAtTop = this.state.atTop
+            const oldAtBottom = this.state.atBottom
+            const oldAtSection = this.state.atSection
+            if (direction === 'up') { // mouse scroll up
+                switch(oldAtSection) {
                     case 0:
                         newAtTop = true
-                        newAtSection = 0
                         break
-                    case this.state.links.length - 1:
-                        if (this.state.atBottom) { 
+                    case atLinkLen:
+                        if (oldAtBottom) { 
                             newAtBtm = false
-                            newAtSection = this.state.links.length - 1
+                            newAtSection = atLinkLen
                         } else {
-                            newAtSection = this.state.atSection -1
+                            newAtSection = oldAtSection > 0 ? oldAtSection-1 : 0
                         }
                         break
                     default:
-                        newAtSection = this.state.atSection -1
+                        newAtSection = oldAtSection > 0 ? oldAtSection-1 : 0
                 }
-            } else {
-                switch(this.state.atSection) {
+            } else { // mouse scroll down
+                switch(oldAtSection) {
                     case 0:
-                        if (this.state.atTop) {
+                        if (oldAtTop) { 
                             newAtTop = false
                             newAtSection = 0
                         } else {
-                            newAtSection = this.state.atSection +1
+                             newAtSection = oldAtSection+1
                         }
                         break
-                    case (this.state.links.length - 1):
-                        if (! this.state.atBottom) { 
+                    case atLinkLen:
+                        if (!oldAtBottom) { 
                             newAtBtm = true
-                            newAtSection = this.state.links.length - 1
-                        } 
+                            newAtSection = atLinkLen
+                        } else {
+                            newAtSection = atLinkLen
+                        }
                         break
                     default:
-                        newAtSection = this.state.atSection +1
+                        newAtSection = oldAtSection < atLinkLen ? oldAtSection+1 : atLinkLen
                 }
             }
+            setRoute(newAtSection,oldAtSection)
             this.setState({
                 atTop: newAtTop,
                 atBottom: newAtBtm,
                 atSection: newAtSection,
             })
-            setRoute(this.state.atSection)
-        },500)
+        },timeout)
     }
 
     handleFooterCollapseClick = (e) => { // retract (close) footer  
@@ -233,27 +268,21 @@ class MainWrapper extends React.Component {
     render() {
         return(
             <Router>
-                <Header handler={this.toggleNavBtn} nameHandler={() => setRoute(0)} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links}> 
-                    <Nav handler={this.handleNavClick} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
+                <Swipe onSwipeMove={this.onSwipeMove} onSwipeEnd={() =>  {if(swipeDirection) this.handleScroll(swipeDirection)} }>
+                <Header handler={this.toggleNavBtn} nameHandler={this.handleNameClick} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links} device={this.state.device}> 
+                    <Nav handler={this.navClickHandler} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
                 </Header>
-                <main id="main" onWheel={ event => {
-                        if (event.nativeEvent.wheelDelta > 0) {
-                            this.handleScroll('up') 
-                        } else {
-                            this.handleScroll('down') 
-                        }
-                    }}
-                >
-                    <article className={this.state.atTop ? '' : 'rollupTop'}>
+                <main id="main" {...WheelReact.events}>
+                    <article className={this.state.atTop ? 'container' : 'container rollupTop'}>
                         <div className="row row-pad">
                             <div className="col col-mob-12 column-pad text-center">
                                 <header>
                                     <h1>Welcome!</h1>
-                                    <p>My name is Ron and I am a Web Developer<br />specializing in Front End developement and<br />educating myself for a Full Stack role.</p>
+                                    <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement and <br />a long term goal of working in a Full Stack role.</p>
                                     <p>Thanks for visiting! Scroll down to see more...</p>
                                     <button 
                                         onClick={this.handleFooterCollapseClick} 
-                                        className="welcomeButton fas fa-arrow-circle-down"
+                                        className="welcomeButton fas fa-arrow-down"
                                     ></button>
                                 </header>
                             </div>
@@ -279,7 +308,8 @@ class MainWrapper extends React.Component {
                         </AnimatedSwitch>
                     </section>
                 </main>
-                <Footer handler={this.handleFooterCollapseClick} atTop={this.state.atTop} atBottom={this.state.atBottom} links={this.state.footLinks} />
+                <Footer handler={this.handleFooterCollapseClick} atTop={this.state.atTop} atBottom={this.state.atBottom} links={this.state.footLinks} device={this.state.device} />
+                </Swipe>
             </Router>
         )  
     }
