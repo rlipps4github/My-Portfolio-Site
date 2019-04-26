@@ -12,7 +12,8 @@ class Footer extends Component {
         return (
             <div key={i}>
                 <a href={theLink} target={theTarget} rel={theRel}>
-                    <i className={iconPrefix+theIcon}></i>&nbsp;&nbsp;{theLabel}
+                    <i className={iconPrefix+theIcon}></i>&nbsp;&nbsp;
+                    <span>{theLabel}</span>
                 </a>
             </div>
         )

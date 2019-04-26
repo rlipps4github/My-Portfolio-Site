@@ -3,7 +3,7 @@ import {
     BrowserRouter as Router,
     Route,
 } from 'react-router-dom'
-import { spring ,AnimatedSwitch } from 'react-router-transition';
+import { AnimatedSwitch } from 'react-router-transition';
 import Swipe from 'react-easy-swipe'
 import WheelReact from 'wheel-react'
 
@@ -22,40 +22,6 @@ function setRoute(navIdx,oldIdx) { // function to click router links when mouse 
     oldIdx = oldIdx || ''
     if (navIdx !== oldIdx) document.getElementById('nav').getElementsByTagName('a')[navIdx].click()
 }
-
-/* ROUTING SWITCH ANIMATION */
-
-function mapStyles(styles) {
-    return {
-        opacity: styles.opacity,
-        //transform: `scale(${styles.scale})`,
-    };
-}
-
-function bounce(val) {
-    return spring(val, {
-        stiffness: 120,
-        damping: 12,
-    });
-}
-
-const routeTransition = {
-    atEnter: {
-        opacity: 0,
-        scale: 1.2,
-        left: 10,
-    },
-    atLeave: {
-        opacity: bounce(0),
-        scale: bounce(0.8),
-        left: -10,
-    },
-    atActive: {
-        opacity: bounce(1),
-        scale: bounce(1),
-        left: 0,
-    },
-};
 
 /* MAIN APP */
 
@@ -269,46 +235,45 @@ class MainWrapper extends React.Component {
         return(
             <Router>
                 <Swipe onSwipeMove={this.onSwipeMove} onSwipeEnd={() =>  {if(swipeDirection) this.handleScroll(swipeDirection)} }>
-                <Header handler={this.toggleNavBtn} nameHandler={this.handleNameClick} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links} device={this.state.device}> 
-                    <Nav handler={this.handleNavClick} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
-                </Header>
-                <main id="main" {...WheelReact.events}>
-                    <article className={this.state.atTop ? 'container' : 'container rollupTop'}>
-                        <div className="row row-pad">
-                            <div className="col col-mob-12 column-pad text-center">
-                                <header>
-                                    <h1>Welcome!</h1>
-                                    <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement and <br />a long term goal of working in a Full Stack role.</p>
-                                    <p>Thanks for visiting! Scroll down to see more...</p>
-                                    <button 
-                                        onClick={this.handleFooterCollapseClick} 
-                                        className="welcomeButton fas fa-arrow-down"
-                                    ></button>
-                                </header>
-                            </div>
-                        </div>
-                    </article>
-                    <section>
-                        <AnimatedSwitch
-                            atEnter={routeTransition.atEnter}
-                            atLeave={routeTransition.atLeave}
-                            atActive={routeTransition.atActive}
-                            mapStyles={mapStyles}
-                            className="switch-wrapper"
+                    <Header handler={this.toggleNavBtn} nameHandler={this.handleNameClick} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links} device={this.state.device}> 
+                        <Nav handler={this.handleNavClick} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
+                    </Header>
+                    <main id="main" {...WheelReact.events}>
+                        <article 
+                            className={this.state.atTop ? 'container' : 'container rollupTop'} 
+                            onClick={this.handleFooterCollapseClick} 
                         >
-                            <Route exact path='/' render={() => (
-                                <About handleView={this.state.device} />
-                            )} />
-                            <Route exact path='/samples' render={() => (
-                                <Samples handleView={this.state.device} />
-                            )} />
-                            <Route exact path='/resume' render={() => (
-                                <Resume handleView={this.state.device} />
-                            )} />
-                        </AnimatedSwitch>
-                    </section>
-                </main>
-                <Footer handler={this.handleFooterCollapseClick} atTop={this.state.atTop} atBottom={this.state.atBottom} links={this.state.footLinks} device={this.state.device} />
+                            <div className="row row-pad">
+                                <div className="col col-mob-12 column-pad text-center">
+                                    <header>
+                                        <h1>Welcome!</h1>
+                                        <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement and <br />a long term goal of working in a Full Stack role.</p>
+                                        <p>Thanks for visiting! Scroll down or click to see more...</p>
+                                        <button className="welcomeButton fas fa-arrow-down"></button>
+                                    </header>
+                                </div>
+                            </div>
+                        </article>
+                        <section>
+                            <AnimatedSwitch
+                                atEnter={{opacity:0}}
+                                atLeave={{opacity:0}}
+                                atActive={{opacity:1}}
+                                className="switch-wrapper"
+                            >
+                                <Route exact path='/' render={() => (
+                                    <About handleView={this.state.device} />
+                                )} />
+                                <Route exact path='/samples' render={() => (
+                                    <Samples handleView={this.state.device} />
+                                )} />
+                                <Route exact path='/resume' render={() => (
+                                    <Resume handleView={this.state.device} />
+                                )} />
+                            </AnimatedSwitch>
+                        </section>
+                    </main>
+                    <Footer handler={this.handleFooterCollapseClick} atTop={this.state.atTop} atBottom={this.state.atBottom} links={this.state.footLinks} device={this.state.device} />
                 </Swipe>
             </Router>
         )  

@@ -65,6 +65,7 @@
     .footer-wrap {
         height: 50px; 
         background: none;
+        transform: translateY(0); 
 
         .contact-card {
             width: 100%;
@@ -75,8 +76,10 @@
             align-items: center;
             
             a {
-                line-height: 0;
-                font-size: 0;
+
+                span {
+                    line-height: 0;
+                    font-size: 0; }
             
                 i {
                     font-size: 18px; }

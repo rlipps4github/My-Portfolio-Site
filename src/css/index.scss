@@ -142,7 +142,6 @@ code {
 }
 
 #root {
-    @extend %full-screen;
 
     #main {
         @extend %full-screen; }
@@ -196,7 +195,7 @@ code {
         &.mobile {
 
             p { 
-                font-size: 3vmin; }
+                font-size: 5vmin; }
 
             br {
                 display: none; }
@@ -212,12 +211,14 @@ code {
     }
 
     section {
-        @extend %full-screen;
-        z-index: 1;
+        width: 100%;
+        height:100%; 
+        position: fixed;
     
         .switch-wrapper,
         .switch-wrapper > div {
-            @extend %full-screen; }
+            width: 100%;
+            height:100%; }
 
         #section-content {
             @extend %full-screen;

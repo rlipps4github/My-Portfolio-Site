@@ -22,7 +22,7 @@
         font-weight: bold;
         text-align: center;
         line-height: 0;
-        transition: font-size 0.25s, background-color 0.5s;
+        transition: font-size 0.05s, background-color 0.5s;
         
         &.active {
             background-color: $secondary-highlight;

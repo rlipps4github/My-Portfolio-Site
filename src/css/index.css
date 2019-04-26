@@ -25,8 +25,7 @@ footer, header, hgroup, menu, nav, section {
   box-sizing: border-box; }
 
 /* EXTENSIONS */
-.paralax-container, #root, #root #main, #root article, #root section, #root section .switch-wrapper,
-#root section .switch-wrapper > div, #root section #section-content, #root section #section-content .content-wrap, #root section #section-content .content-background {
+.paralax-container, #root #main, #root article, #root section #section-content, #root section #section-content .content-wrap, #root section #section-content .content-background {
   position: absolute;
   top: 0;
   right: 0;
@@ -355,7 +354,7 @@ code {
     font-size: 25px;
     cursor: pointer; }
   #root article.mobile p {
-    font-size: 3vmin; }
+    font-size: 5vmin; }
   #root article.mobile br {
     display: none; }
 #root article:not(.rollupTop) + section {
@@ -364,7 +363,13 @@ code {
   #root article:not(.rollupTop) + section .content-wrap {
     opacity: 0; }
 #root section {
-  z-index: 1; }
+  width: 100%;
+  height: 100%;
+  position: fixed; }
+  #root section .switch-wrapper,
+  #root section .switch-wrapper > div {
+    width: 100%;
+    height: 100%; }
   #root section #section-content .content-wrap {
     margin: 15vh 10vw;
     display: flex;
@@ -378,18 +383,12 @@ code {
     display: block;
     z-index: 1; }
 
-#header {
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0; }
-
 #header .header-wrap.rollupTop, #header.mobile .header-wrap {
   min-height: 55px;
   padding-top: 1vh;
   padding-bottom: 1vh;
   background-color: transparent;
-  font-size: calc(5px + 1vmin); }
+  font-size: calc(10px + 1vmin); }
   #header .header-wrap.rollupTop .logos-ticker, #header.mobile .header-wrap .logos-ticker {
     height: 40px; }
   #header .header-wrap.rollupTop div[class*="logo-"], #header.mobile .header-wrap div[class*="logo-"],
@@ -408,26 +407,32 @@ code {
     #header .header-wrap.rollupTop .contact-card h2, #header.mobile .header-wrap .contact-card h2 {
       width: auto; }
     #header .header-wrap.rollupTop .contact-card > div, #header.mobile .header-wrap .contact-card > div {
-      height: 50px; }
+      height: 30px; }
     #header .header-wrap.rollupTop .contact-card > div > div, #header.mobile .header-wrap .contact-card > div > div {
       width: 0;
       height: 0;
       transition: all 0s 0.33s; }
     #header .header-wrap.rollupTop .contact-card #navBtn, #header.mobile .header-wrap .contact-card #navBtn {
-      width: 50px;
-      height: 50px;
-      transform: scale(0.75, 0.66);
+      width: 30px;
+      height: 30px;
+      border-color: inherit;
       opacity: 1;
-      transition: all 0.75s; }
-      #header .header-wrap.rollupTop .contact-card #navBtn:hover, #header.mobile .header-wrap .contact-card #navBtn:hover {
-        transform: scale(0.75, 0.75); }
+      transition: all 0.25s; }
+      #header .header-wrap.rollupTop .contact-card #navBtn:hover div, #header.mobile .header-wrap .contact-card #navBtn:hover div {
+        border-color: #68566D; }
       #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(1), #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(1) {
-        transform: rotate(-45deg) translate(-10px, 13px); }
+        transform: rotate(-45deg) translate(-7px, 7px); }
       #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(2), #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(2) {
         transform: rotate(-210deg);
         opacity: 0; }
       #header .header-wrap.rollupTop .contact-card #navBtn.open div:nth-child(3), #header.mobile .header-wrap .contact-card #navBtn.open div:nth-child(3) {
-        transform: rotate(45deg) translate(-10px, -13px); }
+        transform: rotate(45deg) translate(-7px, -7px); }
+
+#header {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0; }
 
 #header .header-wrap {
   width: 100%;
@@ -510,7 +515,14 @@ code {
         width: 50px;
         height: 0;
         border: 1px solid;
-        transition: transform 0.5s, opacity 0.4s 0.1s; }
+        transition: border-color 0.5s, transform 0.5s, opacity 0.4s 0.1s; }
+
+#header.mobile .header-wrap:not(.rollupTop) .contact-card > div > div {
+  width: auto;
+  height: 50%; }
+#header.mobile .header-wrap:not(.rollupTop) #navBtn {
+  width: 0;
+  height: 0; }
 
 #footer {
   height: auto;
@@ -561,7 +573,8 @@ code {
 #footer.tablet .footer-wrap,
 #footer.mobile .footer-wrap {
   height: 50px;
-  background: none; }
+  background: none;
+  transform: translateY(0); }
   #footer.tablet .footer-wrap .contact-card,
   #footer.mobile .footer-wrap .contact-card {
     width: 100%;
@@ -570,13 +583,13 @@ code {
     flex-direction: row;
     justify-content: space-around;
     align-items: center; }
-    #footer.tablet .footer-wrap .contact-card a,
-    #footer.mobile .footer-wrap .contact-card a {
+    #footer.tablet .footer-wrap .contact-card a span,
+    #footer.mobile .footer-wrap .contact-card a span {
       line-height: 0;
       font-size: 0; }
-      #footer.tablet .footer-wrap .contact-card a i,
-      #footer.mobile .footer-wrap .contact-card a i {
-        font-size: 18px; }
+    #footer.tablet .footer-wrap .contact-card a i,
+    #footer.mobile .footer-wrap .contact-card a i {
+      font-size: 18px; }
     #footer.tablet .footer-wrap .contact-card button.closeFooter,
     #footer.mobile .footer-wrap .contact-card button.closeFooter {
       display: none; }
@@ -604,7 +617,7 @@ code {
     font-weight: bold;
     text-align: center;
     line-height: 0;
-    transition: font-size 0.25s, background-color 0.5s; }
+    transition: font-size 0.05s, background-color 0.5s; }
     #header #nav a.active {
       background-color: #68566D; }
       #header #nav a.active:hover {
@@ -654,7 +667,7 @@ code {
     border: 0; }
 
 #section-content.about .content-background {
-  background-image: url("../img/about-bg.png");
+  background-image: url("../img/about-bg.jpg");
   filter: blur(2px) grayscale(1); }
 
 #section-content.samples .content-background {
