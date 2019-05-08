@@ -22,7 +22,7 @@
         font-weight: bold;
         text-align: center;
         line-height: 0;
-        transition: font-size 0.05s, background-color 0.5s;
+        transition: all 0.5s;
         
         &.active {
             background-color: $secondary-highlight;
@@ -32,7 +32,7 @@
         }
 
         &:hover {
-            font-size: 110%; }
+            @extend %hover-text; }
     }
 
     &:hover {
@@ -67,24 +67,35 @@
     a {
         width: 0;
         height: 30%;
-        border: 5px solid;
+        border: 5px solid $secondary-highlight;
         border-radius: 5px;
         position: relative;
         font-size: 0;
         line-height: 0;
         cursor: pointer; 
         transition: border-color 0.75s;
+
+        &::before {
+            content: '';
+            width: 0;
+            height: 100%;
+            border: 6px solid $primary-highlight-fore;
+            border-radius: 6px;
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            opacity: 0.5;
+            z-index: -1;
+        }
         
         &.active {
-            border-color: $secondary-highlight;
-            transition: border-color 0.5s; }
+            border-color: $primary-highlight-fore;
+            transition: border-color 0.5s;
+            box-shadow: 0 0 10px 5px $secondary-highlight;
+        
+            &::before { border-color: $secondary-highlight; }
+        }
 
-    }
-
-    .scrollNav.mid {
-        width: 0;
-        height: 0;
-        border: 0;
     }
 }
 

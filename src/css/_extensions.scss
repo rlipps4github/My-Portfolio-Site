@@ -7,6 +7,12 @@
     bottom: 0;
     left: 0; }
 
+%hidden { 
+    display: none !important;
+    visibility: none !important; }
+
+%hover-text { text-shadow: 0 0 3px; }
+
 %hide-scrollbar {
     -ms-overflow-style: none;  // IE 10+
     scrollbar-width: none;  // Firefox
@@ -19,8 +25,6 @@
     overflow-x: hidden;
     overflow-y: auto; }
 
-%paralax_fore {
-    transform: translateZ(0); }
+%paralax_fore { transform: translateZ(0); }
 
-%paralax_back {
-    transform: translateZ(-3px) scale(5); }
+%paralax_back { transform: translateZ(-3px) scale(5); }

@@ -1,7 +1,313 @@
 #section-content.samples {
 
-    .content-background{
+    .content-background {
         background-image: url("../img/samples-bg.jpg");
         filter: grayscale(1); }
-    
+
+    .content-wrap {
+
+        .swipe-wrap {
+            width: 100%;
+            height: 100%; }
+
+        .row-scroll {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        
+            .col { 
+                width: 100%;
+                height: 100%;
+                background-size: contain;
+                background-repeat: no-repeat;
+                flex-shrink: 0;
+                perspective: 1px;
+                transform-style: preserve-3d;
+                image-rendering: optimizeQuality;
+                opacity: 0;
+                filter: blur(10px);
+                transition: margin-left 0.33s, filter 0.33s linear 0.15s, opacity 0.33s linear 0.15s;
+
+                img{ display: none; }
+
+                &.active { 
+                    opacity: 1;
+                    filter: blur(0);
+                
+                    .heroText {
+                        transform: scale(1);
+                        filter: blur(0);
+                        opacity: 1;
+                        cursor: pointer;
+                    }
+                }
+
+                &:nth-child(odd) { 
+                    background-position: top left;
+                    
+                    .heroText { left: 50%; }
+                }
+
+                &:nth-child(even) { 
+                    background-position: bottom right;
+
+                    .heroText { left: 10%; }
+                }
+
+                .heroText { 
+                    width: 40%;
+                    height: 30%;
+                    min-height: 200px;
+                    padding: calc(10px + 4vmin);
+                    border: 1px solid;
+                    position: absolute;
+                    top: 50%;
+                    background-color: rgba(0,0,0,0.88);
+                    transform: scale(1.25);
+                    filter: blur(10px);
+                    opacity: 0.5;
+                    box-shadow: 0 50px 50px 25px rgba(0,0,0,0.5);
+                    transition: 0.25s;
+                    overflow: hidden;
+                
+                    button { display: none; }
+                    
+                    &:not(.active):hover { transform: scale(1.05); }
+
+                    &::after { 
+                        content: 'Click to see more';
+                        width: 100%;
+                        position: absolute;
+                        bottom: 25px;
+                        left: 0;
+                        text-align: center;
+                        display: block; }
+
+                    &::before { 
+                        content: '';
+                        width: 100%;
+                        height: 0;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        box-shadow: 0 0 100px 75px #000;
+                        display: block; }
+
+                    &.active { 
+                        width:100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                    
+                        button { 
+                            display: inline-block;
+                            margin: 10px; }
+
+                        &::after { content: 'Click to hide'; }
+                    }
+                }
+
+            }
+        }
+
+        .modal {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,0.9);
+            color: inherit;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.66s;
+            display: none;
+            justify-content: center;
+            align-items: center;
+
+            .modalContent {
+                margin: 15vh 10vw;
+
+                .modalCloser {
+                    width: 32px;
+                    height: 32px;
+                    position: relative;
+                    left: 100%;
+                    text-align: right;
+                    cursor: pointer;
+                    z-index: 10; }
+
+                video { 
+                    max-width: 80vw;
+                    max-height: 70vh; }
+            }
+
+            &.pop {
+                opacity: 1;
+                display: flex;
+            }
+        }
+
+        .row-scroll-ctrl { 
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: calc(50% - 25px);
+            background-color: transparent;
+            color: $primary-highlight-fore;
+            text-align: center;
+            transition: all 0.33s;
+            opacity: 0.15;
+            cursor: none;
+
+            &:hover { @extend %hover-text; }
+
+            &.lt { left: -50px; }
+
+            &.rt { right: -50px; }
+
+            &.active { 
+                opacity: 1;
+                cursor: pointer; }
+        
+        }  
+    }
+
 }
+
+@media (orientation: portrait) { /* start tablet portrait */
+
+    #section-content.samples.tablet {  
+        .content-wrap {
+            .row-scroll {    
+                
+                .col { 
+                    background-position: top center;
+                    background-size: auto 45%;
+
+                    .heroText { 
+                        width: calc(100% - 40px);
+                        min-height: 50%;
+                        margin: 0 20px;
+                        top: 50%;
+                        left: 0; 
+                    
+                        &:not(.active):hover { transform: none; }
+
+                        &::before,
+                        &::after { display: none; }
+
+                        button { 
+                            display: inline-block;
+                            margin: 10px; }
+                    }
+                }
+            }
+
+            .row-scroll-ctrl { 
+                width: 32px;
+                height: 32px;
+                top: calc(50% - 16px);
+
+                &.lt { left: -32px; }
+
+                &.rt { right: -32px; }
+            
+            }  
+        }
+    }
+
+} /* end mobile portrait */
+
+@media (orientation: landscape) { /* start mobile landscape */
+
+    #section-content.samples.mobile {  
+        .content-wrap {
+            .row-scroll {    
+                
+                .col { 
+                    background-position: center;
+
+                    .heroText { 
+                        width: 100%;
+                        min-height: 100%;
+                        top: 0;
+                        left: 0; 
+                        background-color: rgba(0,0,0,0.66); 
+                        box-shadow: none;
+                    
+                        &:not(.active):hover { transform: none; }
+
+                        &::before,
+                        &::after { display: none; }
+
+                        button { 
+                            display: inline-block;
+                            margin: 10px; }
+                    }
+                }
+            }
+
+            .row-scroll-ctrl { 
+                width: 32px;
+                height: 32px;
+                top: calc(50% - 16px);
+
+                &.lt { left: -32px; }
+
+                &.rt { right: -32px; }
+            
+            }  
+        }
+    }
+
+} /* end mobile landscape */
+
+@media (orientation: portrait) { /* start mobile portrait */
+
+    #section-content.samples.mobile {  
+        .content-wrap {
+            .row-scroll {    
+                height: calc(100% - 40px);
+                position: relative;
+                top: -20px;
+                
+                .col { 
+                    background-position: center;
+
+                    .heroText { 
+                        width: 100%;
+                        min-height: 100%;
+                        top: 0;
+                        left: 0; 
+                        background-color: rgba(0,0,0,0.66); 
+                        box-shadow: none;
+                    
+                        &:not(.active):hover { transform: none; }
+
+                        &::before,
+                        &::after { display: none; }
+
+                        button { 
+                            display: inline-block;
+                            margin: 10px; }
+                    }
+                }
+            }
+
+            .row-scroll-ctrl { 
+                width: 32px;
+                height: 32px;
+                top: calc(100% - 32px);
+
+                &.lt { left: calc(50% - 50px); }
+
+                &.rt { right: calc(50% - 50px); }
+            
+            }  
+        }
+    }
+
+} /* end mobile portrait */

@@ -91,3 +91,8 @@
     }
 
 }
+
+/* HIDE BEHIND MODALS */
+body.modal-popped #footer{ 
+    opacity: 0;
+    pointer-events: none; }

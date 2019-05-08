@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+let logoTimer = null
+
 function HeadLogo(props) {
     let thisIcon = props.ico
     let thisLabel = props.lbl
@@ -50,8 +52,13 @@ class Header extends Component {
     }
     
     componentDidMount() {
-        setInterval(this.advanceIdx, 2000)
+        clearInterval(logoTimer)
+        logoTimer = setInterval(this.advanceIdx, 2000)
         this.advanceIdx()
+    }
+
+    componentWillUnmount() {
+        clearInterval(logoTimer)
     }
     
     advanceIdx = () => {

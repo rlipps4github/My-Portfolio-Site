@@ -14,13 +14,14 @@ import Samples from './components/samples'
 import Resume from './components/resume'
 import Footer from './components/footer' 
 
-let _scrollTimeout = null, swipeDirection = null  // to enforce proper scroll animation & event control
+let _scrollTimeout = null, swipeDirection = null  // to enforce proper event control
 
 /* CLICK ROUTING */
 
-function setRoute(navIdx,oldIdx) { // function to click router links when mouse scroll is detected
+function setRoute(navIdx,oldIdx) {
     oldIdx = oldIdx || ''
-    if (navIdx !== oldIdx) document.getElementById('nav').getElementsByTagName('a')[navIdx].click()
+    if (navIdx !== oldIdx) document.getElementById('nav').getElementsByTagName('a')[navIdx].click() // trigger click router links
+    if (document.getElementsByClassName('modal, pop').length) document.getElementsByClassName('modal, pop').classList.remove('pop') // close any modals if they exist
 }
 
 /* MAIN APP */
@@ -76,11 +77,8 @@ class MainWrapper extends React.Component {
     }
 
     onSwipeMove(position,event) {
-        swipeDirection = position.y < 0  ? 'down' : 'up'
-    }
-
-    onSwipeEnd(event) {
-        this.handleScroll(swipeDirection)
+        if (Math.abs(position.x) < 20 && Math.abs(position.y) > 50) swipeDirection = position.y < 0  ? 'down' : 'up'
+        else swipeDirection = null
     }
     
     componentDidMount() {
@@ -89,7 +87,7 @@ class MainWrapper extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.customResponse)
+        window.removeEventListener('resize')
         WheelReact.clearTimeout()
     }  
 
@@ -99,7 +97,7 @@ class MainWrapper extends React.Component {
         let currentWidth = window.innerWidth
         let currentHeight = window.innerHeight
         let currentDevice = null
-        switch (true) {
+        switch (true) { 
             case currentWidth >= breakPoints['desktop']: 
                 currentDevice = 'desktop'
                 break
@@ -135,10 +133,12 @@ class MainWrapper extends React.Component {
         }
     }
 
-    handleNameClick = (e) => { // clicks on site name badge 
+    handleNameClick = () => { // clicks on site name badge 
         setRoute(0)
         this.setState({
             atTop: true,
+            atBottom: false,
+            atSection: 0,
         })
         this.toggleNavBtn('off')
     }
@@ -147,6 +147,7 @@ class MainWrapper extends React.Component {
         const clickIdx = parseInt(e.target.getAttribute('data-idx'))
         this.setState({
             atTop: false,
+            atBottom: false,
             atSection: clickIdx,
         })
         this.toggleNavBtn('off')
@@ -223,8 +224,7 @@ class MainWrapper extends React.Component {
         },timeout)
     }
 
-    handleFooterCollapseClick = (e) => { // retract (close) footer  
-        e.preventDefault()
+    handleFooterCollapseClick = () => { // retract footer  
         this.setState({ 
             atTop: false,
             atBottom: false,
@@ -234,11 +234,11 @@ class MainWrapper extends React.Component {
     render() {
         return(
             <Router>
-                <Swipe onSwipeMove={this.onSwipeMove} onSwipeEnd={() =>  {if(swipeDirection) this.handleScroll(swipeDirection)} }>
+                <Swipe className="swipe-wrap" tolerance={100} onSwipeMove={this.onSwipeMove} onSwipeEnd={() =>  {if(swipeDirection) this.handleScroll(swipeDirection)} } {...WheelReact.events}>
                     <Header handler={this.toggleNavBtn} nameHandler={this.handleNameClick} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links} device={this.state.device}> 
                         <Nav handler={this.handleNavClick} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
                     </Header>
-                    <main id="main" {...WheelReact.events}>
+                    <main id="main">
                         <article 
                             className={this.state.atTop ? 'container' : 'container rollupTop'} 
                             onClick={this.handleFooterCollapseClick} 
@@ -247,9 +247,9 @@ class MainWrapper extends React.Component {
                                 <div className="col col-mob-12 column-pad text-center">
                                     <header>
                                         <h1>Welcome!</h1>
-                                        <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement and <br />a long term goal of working in a Full Stack role.</p>
+                                        <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement and <br />plans to eventually take on a Full Stack role.</p>
                                         <p>Thanks for visiting! Scroll down or click to see more...</p>
-                                        <button className="welcomeButton fas fa-arrow-down"></button>
+                                        <button className="welcomeButton fas fa-2x fa-arrow-circle-down"></button>
                                     </header>
                                 </div>
                             </div>
@@ -259,7 +259,7 @@ class MainWrapper extends React.Component {
                                 atEnter={{opacity:0}}
                                 atLeave={{opacity:0}}
                                 atActive={{opacity:1}}
-                                className="switch-wrapper"
+                                className="switch-wrap"
                             >
                                 <Route exact path='/' render={() => (
                                     <About handleView={this.state.device} />
