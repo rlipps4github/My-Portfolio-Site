@@ -4,57 +4,56 @@
     
     .footer-wrap{
         width: 100vw;
-        height: 200px; 
+        height: 50px; 
         padding: $rowPad;
         position: fixed;
         left: 0;
         bottom: 0;
-        transform: translateY(100%);
-        transform-origin: bottom;
-        background-color: $primary-highlight;
-        color: $primary-highlight-fore;
-        font-size: 100%;
-        transition: transform 0.5s; 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        background: none;
+        transform: translateY(0); 
 
         .contact-card {
-            position: relative;
+            width: 100%;
             text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
             
             a {
-                line-height: 30px;
-                transform: scale(1);
-                transform-origin: center;
-                transition: transform 0.33s;
 
-                &:hover {
-                    transform: scale(1.15)}
-            
+                span {
+                    line-height: 0;
+                    font-size: 0; }
             }
-
-            button.closeFooter {
-                height: 0;
-                color: inherit; 
-                font-size: 25px;
-                transform: rotate(180deg);
-                transition: transform 1s 0.5s;
-                opacity: 0; }
-        }
-        
-        &.rollupTop {
-            transform: translateY(0); 
         }
         
         &.rollupBtm {
-            transform: translateY(0); 
-        
-            button.closeFooter {
-                height: inherit;
-                opacity: 1;
-                transform: rotate(0); }
+            height: 200px; 
+            background-color: $primary-highlight;
+            color: $primary-highlight-fore;
+            font-size: 100%;
+            transition: all 0.5s; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            .contact-card {
+                position: relative;
+                text-align: center;
+                
+                a {
+                    line-height: 30px;
+                    transform: scale(1);
+                    transform-origin: center;
+                    transition: transform 0.33s;
+    
+                    &:hover {
+                        transform: scale(1.15)}
+                
+                }
+            }
         }
     }
 }
@@ -72,7 +71,7 @@
             text-align: center;
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             
             a {
@@ -80,13 +79,7 @@
                 span {
                     line-height: 0;
                     font-size: 0; }
-            
-                i {
-                    font-size: 18px; }
             }
-
-            button.closeFooter {
-                display: none; }
         }
     }
 

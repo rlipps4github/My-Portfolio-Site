@@ -8,7 +8,7 @@ class Footer extends Component {
         const theLink = i[2]
         const theTarget = theLink.includes('http') ? '_blank' : '_self'
         const theRel = theTarget === '_blank' ? 'noopener noreferrer' : '' 
-        const iconPrefix = theIcon === 'envelope' ? 'fas fa-' : 'fab fa-'
+        const iconPrefix = theIcon === 'envelope' ? 'fas fa-2x fa-' : 'fab fa-2x fa-'
         return (
             <div key={i}>
                 <a href={theLink} target={theTarget} rel={theRel}>
@@ -22,17 +22,11 @@ class Footer extends Component {
     render() {
         return (
             <footer id="footer" className={this.props.device}>
-                <div className={ 'footer-wrap '+ (this.props.atTop ? 'rollupTop' : '') +' '+ (this.props.atBottom ? 'rollupBtm' : '') }>
+                <div className={ 'footer-wrap '+ (this.props.atTop ? 'rollupBtm' : '') }>
                     <div className="contact-card">
-                        <button 
-                            onClick={this.props.handler} 
-                            className="closeFooter fas fa-arrow-circle-down"
-                        ></button>
-                        {
-                            this.props.links.map( (key,val) => {
-                                return this.renderLinks(key)
-                            })
-                        }
+                        {this.props.links.map( (key,val) => {
+                            return this.renderLinks(key)
+                        })}
                     </div>
                 </div>
             </footer>

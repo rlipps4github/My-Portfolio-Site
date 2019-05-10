@@ -62,6 +62,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    cursor: url(../img/scroll-lite.png), url(../img/scroll-lite.svg), row-resize;
     z-index: 300;
 
     a {
@@ -72,7 +73,7 @@
         position: relative;
         font-size: 0;
         line-height: 0;
-        cursor: pointer; 
+        cursor: url(../img/scroll-lite.png), url(../img/scroll-lite.svg), row-resize;
         transition: border-color 0.75s;
 
         &::before {

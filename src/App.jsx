@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
     BrowserRouter as Router,
     Route,
 } from 'react-router-dom'
-import { AnimatedSwitch } from 'react-router-transition';
-import Swipe from 'react-easy-swipe'
-import WheelReact from 'wheel-react'
+import { AnimatedSwitch } from 'react-router-transition'
 
 import Header from './components/header'
 import Nav from './components/nav'
@@ -14,25 +12,27 @@ import Samples from './components/samples'
 import Resume from './components/resume'
 import Footer from './components/footer' 
 
-let _scrollTimeout = null, swipeDirection = null  // to enforce proper event control
+let xDown = null, yDown = null // touch listeners
+
+let _scrollTimeout = null, _scrolling = false // to enforce proper event control
+
+let slideCnt = null
 
 /* CLICK ROUTING */
 
-function setRoute(navIdx,oldIdx) {
-    oldIdx = oldIdx || ''
-    if (navIdx !== oldIdx) document.getElementById('nav').getElementsByTagName('a')[navIdx].click() // trigger click router links
+function triggerRoute(navIdx) {
+    document.getElementById('nav').getElementsByTagName('a')[navIdx].click() // trigger click router links
     if (document.getElementsByClassName('modal, pop').length) document.getElementsByClassName('modal, pop').classList.remove('pop') // close any modals if they exist
 }
 
 /* MAIN APP */
 
-class MainWrapper extends React.Component {    
+class MainWrapper extends Component {    
     constructor(props) {
         super(props);
         this.state = {
             device: 'mobile',
-            scrollPosition: 0,
-            sectOffset: 0,
+        // header
             logos: [
                 ['html5','HTML5'],
                 ['css3-alt','CSS3'],
@@ -57,8 +57,15 @@ class MainWrapper extends React.Component {
                 ['Resume','/resume']
             ],
             atTop: true,
-            atBottom: false,
             atSection: 0,
+        // slider
+            slideIdx: 0,
+            slideCount: 0,
+            swipeDirection: null,
+        // modal
+            showText: false,
+            showModal: '',
+        // footer
             footLinks: [
                 ['linkedin','Linkedin','https://www.linkedin.com/in/ron-lipps-ab324171/'],
                 ['github','GitHub','https://github.com/rlipps4github'],
@@ -66,33 +73,26 @@ class MainWrapper extends React.Component {
                 ['envelope','Email','mailto:rdl.work@gmail.com'],
             ],
         }
-        WheelReact.config({
-            up: () => {
-                this.handleScroll('down',350)
-            },
-            down: () => {
-                this.handleScroll('up',350)
-            },
-        })
-    }
-
-    onSwipeMove(position,event) {
-        if (Math.abs(position.x) < 20 && Math.abs(position.y) > 50) swipeDirection = position.y < 0  ? 'down' : 'up'
-        else swipeDirection = null
     }
     
     componentDidMount() {
         this.customResponse()
-        window.addEventListener('resize', this.customResponse)
+        window.addEventListener('resize', this.customResponse) 
+        document.addEventListener('touchstart', this.handleTouchStart, false)       
+        document.addEventListener('touchmove', this.handleTouchMove, false)     
+        document.addEventListener('touchend', this.handleTouchEnd, false)
     }
 
     componentWillUnmount() {
+        clearTimeout(_scrollTimeout)
         window.removeEventListener('resize')
-        WheelReact.clearTimeout()
+        document.removeEventListener('touchstart')     
+        document.removeEventListener('touchmove')     
+        document.addEventListener('touchend')
     }  
 
     customResponse = () => { // provides section & componenent level awareness for response
-        let breakPoints = {desktop: 1200, laptop: 900, tablet: 600}
+        let breakPoints = {desktop: 1500, laptop: 900, tablet: 600}
         let responsiveElements = document.getElementsByClassName('container')
         let currentWidth = window.innerWidth
         let currentHeight = window.innerHeight
@@ -111,11 +111,12 @@ class MainWrapper extends React.Component {
                 currentDevice = 'mobile'
         } 
         this.setState({
-            device: currentHeight > breakPoints['tablet'] ? currentDevice : 'mobile',
+            device: currentHeight >= breakPoints['tablet'] ? currentDevice : 'mobile',
         })
         for (let el=0; el<responsiveElements.length; el++) {
             let thisElement = responsiveElements[el]
             let thisWidth = thisElement.offsetWidth
+            let thisHeight = thisElement.offsetHeight
             thisElement.classList.remove('desktop','laptop','tablet','mobile')
             switch (true) {
                 case thisWidth >= breakPoints['desktop'] && currentHeight > breakPoints['tablet']: 
@@ -125,7 +126,8 @@ class MainWrapper extends React.Component {
                     thisElement.classList.add('laptop')
                     break
                 case thisWidth >= breakPoints['tablet']:
-                    thisElement.classList.add('tablet')
+                    if (thisHeight >= breakPoints['tablet']) thisElement.classList.add('tablet')
+                    else thisElement.classList.add('mobile')
                     break
                 default:
                     thisElement.classList.add('mobile')
@@ -133,148 +135,234 @@ class MainWrapper extends React.Component {
         }
     }
 
-    handleNameClick = () => { // clicks on site name badge 
-        setRoute(0)
+    /* TOUCH EVENTS */
+
+    getTouches = (e) => {
+        return e.touches || e.originalEvent.touches
+      }
+
+    handleTouchStart = (e) => {
+        const firstTouch = this.getTouches(e)[0]                                    
+        xDown = firstTouch.clientX                                   
+        yDown = firstTouch.clientY   
+        this.setState( () => ({
+            swipeDirection: null
+        }))                                     
+    };                                                
+    
+    handleTouchMove = (e) => {
+        if ( ! xDown || ! yDown ) return
+        var xUp = e.touches[0].clientX                                  
+        var yUp = e.touches[0].clientY    
+        var xDiff = xDown - xUp
+        var yDiff = yDown - yUp
+        if ( Math.abs( xDiff ) > 10 && Math.abs( yDiff ) < 10 ) {
+            this.setState( () => ({
+                swipeDirection: xDiff > 0 ? 'right' : 'left'
+            }))                    
+        } else if ( Math.abs( xDiff ) < 10 && Math.abs( yDiff ) > 10 ) {
+            this.setState( () => ({
+                swipeDirection: yDiff > 0 ? 'down' : 'up'
+            }))                    
+        } 
+        xDown = null
+        yDown = null                                           
+    };
+
+    handleTouchEnd = (e) => {
+        if (this.state.swipeDirection) {
+            const foundSlider = document.getElementsByClassName('row-scroll').length ? document.getElementsByClassName('row-scroll')[0] : null
+            const isVert = this.state.swipeDirection === 'left' || this.state.swipeDirection === 'right'
+            if (isVert && foundSlider) document.querySelectorAll('[data-dir="'+ this.state.swipeDirection +'"]')[0].click()
+            if (! isVert) this.handleScrollSwipeNav(this.state.swipeDirection,1000)
+        }
+    }; 
+
+    handleScrollSwipeNav = (direction,timeout) => { // take mousewheel or swipe direction, route accordingly
+        if (! _scrolling) { 
+            _scrolling = true
+            const atLinkLen = this.state.links.length - 1
+            if (direction === 'up') {   // scroll/swipe up
+                console.log('scroll/swipe up')
+                this.setState( prevState => ({
+                    atTop: prevState.atSection === 0 ? true : false,
+                    atSection: prevState.atSection-1 >= 0 ? prevState.atSection-1 : prevState.atSection,
+                }));
+            } else {                    // scroll/swipe down
+                console.log('scroll/swipe down')
+                this.setState( prevState => ({
+                    atTop: false,
+                    atSection: ! prevState.atTop && prevState.atSection+1 <= atLinkLen ? prevState.atSection+1 : prevState.atSection,
+                }));
+
+            }
+            triggerRoute(this.state.atSection)
+        }
+        _scrollTimeout = setTimeout(() => { _scrolling = false },timeout)
+    }
+
+    /* CLICK EVENTS */
+
+    handleNameClick = (e) => { // clicks on site name badge 
+        e.stopPropagation()
         this.setState({
             atTop: true,
-            atBottom: false,
-            atSection: 0,
         })
-        this.toggleNavBtn('off')
+        document.getElementById('nav').classList.remove('open')
+        document.getElementById('navBtn').classList.remove('open')
+        triggerRoute(0)
     }
     
     handleNavClick = (e) => { // update our state on main nav item click
+        e.stopPropagation()
         const clickIdx = parseInt(e.target.getAttribute('data-idx'))
-        this.setState({
-            atTop: false,
-            atBottom: false,
+        this.setState( () => ({
             atSection: clickIdx,
-        })
-        this.toggleNavBtn('off')
+            slideIdx: 0,
+        }))
+        document.getElementById('nav').classList.remove('open')
+        document.getElementById('navBtn').classList.remove('open')
     }
     
-    toggleNavBtn = (arg) => { // mobile nav hamburger toggle on click
-        if (arg === 'off') {
-            document.getElementById('nav').classList.remove('open')
-            document.getElementById('navBtn').classList.remove('open')    
+    toggleNavBtn = (e) => { // mobile nav hamburger toggle on click
+        e.stopPropagation()
+        const theNav = document.getElementById('nav')
+        const theNavBtn = document.getElementById('navBtn')
+        if (theNav.classList.contains('open') || theNavBtn.classList.contains('open')) {
+            theNav.classList.remove('open')
+            theNavBtn.classList.remove('open')
         } else {
-            if (document.getElementById('nav').classList.contains('open') || document.getElementById('navBtn').classList.contains('open')) {
-                document.getElementById('nav').classList.remove('open')
-                document.getElementById('navBtn').classList.remove('open')
-            } else {
-                document.getElementById('nav').classList.add('open')
-                document.getElementById('navBtn').classList.add('open')
-            }
+            theNav.classList.add('open')
+            theNavBtn.classList.add('open')
         }
-
     }
 
-    handleScroll = (direction,timeout) => { // take mousewheel or swipe direction and increment route accordingly
-        clearTimeout(_scrollTimeout)
-        _scrollTimeout = setTimeout(() => { 
-            let newAtTop = false, newAtBtm = false, newAtSection = 0
-            const atLinkLen = this.state.links.length - 1
-            const oldAtTop = this.state.atTop
-            const oldAtBottom = this.state.atBottom
-            const oldAtSection = this.state.atSection
-            if (direction === 'up') { // mouse scroll up
-                switch(oldAtSection) {
-                    case 0:
-                        newAtTop = true
-                        break
-                    case atLinkLen:
-                        if (oldAtBottom) { 
-                            newAtBtm = false
-                            newAtSection = atLinkLen
-                        } else {
-                            newAtSection = oldAtSection > 0 ? oldAtSection-1 : 0
-                        }
-                        break
-                    default:
-                        newAtSection = oldAtSection > 0 ? oldAtSection-1 : 0
-                }
-            } else { // mouse scroll down
-                switch(oldAtSection) {
-                    case 0:
-                        if (oldAtTop) { 
-                            newAtTop = false
-                            newAtSection = 0
-                        } else {
-                             newAtSection = oldAtSection+1
-                        }
-                        break
-                    case atLinkLen:
-                        if (!oldAtBottom) { 
-                            newAtBtm = true
-                            newAtSection = atLinkLen
-                        } else {
-                            newAtSection = atLinkLen
-                        }
-                        break
-                    default:
-                        newAtSection = oldAtSection < atLinkLen ? oldAtSection+1 : atLinkLen
-                }
-            }
-            setRoute(newAtSection,oldAtSection)
-            this.setState({
-                atTop: newAtTop,
-                atBottom: newAtBtm,
-                atSection: newAtSection,
-            })
-        },timeout)
+    sliderArrowClick = (e) => {
+        e.stopPropagation()
+        slideCnt = document.getElementsByClassName('row-scroll').length ? document.getElementsByClassName('row-scroll')[0].children.length : null
+        const direction = e.target.getAttribute('data-dir')
+        if (direction === 'left') {
+            this.setState( prevState => ({ 
+                slideIdx: prevState.slideIdx > 0 ? prevState.slideIdx-1 : 0,
+                slideCount: prevState.slideCount !== slideCnt ? slideCnt : prevState.slideCount,
+            }))
+        } else {
+            this.setState( prevState => ({ 
+                slideIdx: prevState.slideIdx < slideCnt-1 ? prevState.slideIdx+1 : slideCnt-1,
+                slideCount: prevState.slideCount !== slideCnt ? slideCnt : prevState.slideCount,
+            }))
+        }
     }
 
-    handleFooterCollapseClick = () => { // retract footer  
-        this.setState({ 
+    invokeText = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        e.target.classList.toggle('active')
+    }
+
+    invokeModal = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const name = e.target.getAttribute('data-video') || null
+        if (name) {
+            this.setState(() => ({
+                showModal: name,
+            }))
+        }
+    }
+
+    clearModal = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        this.setState({
+            showModal: '',
+        })
+    }
+
+    handleWelcomeClick = (e) => { // dismiss welcome screen 
+        e.stopPropagation()
+        this.setState({
             atTop: false,
-            atBottom: false,
-         })
+        })
     }
 
     render() {
         return(
             <Router>
-                <Swipe className="swipe-wrap" tolerance={100} onSwipeMove={this.onSwipeMove} onSwipeEnd={() =>  {if(swipeDirection) this.handleScroll(swipeDirection)} } {...WheelReact.events}>
-                    <Header handler={this.toggleNavBtn} nameHandler={this.handleNameClick} atTop={this.state.atTop} logos={this.state.logos} links={this.state.links} device={this.state.device}> 
-                        <Nav handler={this.handleNavClick} atTop={this.state.atTop} atSection={this.state.atSection} links={this.state.links} />
-                    </Header>
-                    <main id="main">
-                        <article 
-                            className={this.state.atTop ? 'container' : 'container rollupTop'} 
-                            onClick={this.handleFooterCollapseClick} 
-                        >
-                            <div className="row row-pad">
-                                <div className="col col-mob-12 column-pad text-center">
-                                    <header>
-                                        <h1>Welcome!</h1>
-                                        <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement and <br />plans to eventually take on a Full Stack role.</p>
-                                        <p>Thanks for visiting! Scroll down or click to see more...</p>
-                                        <button className="welcomeButton fas fa-2x fa-arrow-circle-down"></button>
-                                    </header>
-                                </div>
+
+                <Header 
+                    toggleNavBtn={this.toggleNavBtn} 
+                    handleNameClick={this.handleNameClick} 
+                    atTop={this.state.atTop} 
+                    logos={this.state.logos} 
+                    links={this.state.links} 
+                    device={this.state.device}
+                > 
+                    <Nav 
+                        handleNavClick={this.handleNavClick} 
+                        handleScrollSwipeNav={this.handleScrollSwipeNav} 
+                        atTop={this.state.atTop} 
+                        atSection={this.state.atSection} 
+                        links={this.state.links} 
+                    />
+                </Header>
+
+                <main id="main">
+
+                    <article 
+                        className={this.state.atTop ? 'container' : 'container rollupTop'} 
+                        onClick={this.handleWelcomeClick} 
+                    >
+                        <div className="row row-pad">
+                            <div className="col col-mob-12 column-pad text-center">
+                                <header>
+                                    <h1>Welcome!</h1>
+                                    <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement with <br />plans to eventually take on a Full Stack role.</p>
+                                    <p>Thanks for visiting! Scroll down or click to see more...</p>
+                                    <button className="welcomeButton fas fa-2x fa-arrow-circle-down"></button>
+                                </header>
                             </div>
-                        </article>
-                        <section>
-                            <AnimatedSwitch
-                                atEnter={{opacity:0}}
-                                atLeave={{opacity:0}}
-                                atActive={{opacity:1}}
-                                className="switch-wrap"
-                            >
-                                <Route exact path='/' render={() => (
-                                    <About handleView={this.state.device} />
-                                )} />
-                                <Route exact path='/samples' render={() => (
-                                    <Samples handleView={this.state.device} />
-                                )} />
-                                <Route exact path='/resume' render={() => (
-                                    <Resume handleView={this.state.device} />
-                                )} />
-                            </AnimatedSwitch>
-                        </section>
-                    </main>
-                    <Footer handler={this.handleFooterCollapseClick} atTop={this.state.atTop} atBottom={this.state.atBottom} links={this.state.footLinks} device={this.state.device} />
-                </Swipe>
+                        </div>
+                    </article>
+
+                    <section>
+                        <AnimatedSwitch
+                            atEnter={{opacity:0}}
+                            atLeave={{opacity:0}}
+                            atActive={{opacity:1}}
+                            className="switch-wrap"
+                        >
+                            <Route exact path='/' key="about" render={() => (
+                                <About 
+                                    device={this.state.device} 
+                                    slideIndex={this.state.slideIdx} 
+                                    slideCount={this.state.slideCount} 
+                                    sliderArrowClick={this.sliderArrowClick} 
+                                />
+                            )} />
+                            <Route path='/samples' key="samples" render={() => (
+                                <Samples 
+                                    device={this.state.device} 
+                                    slideIndex={this.state.slideIdx} 
+                                    slideCount={this.state.slideCount} 
+                                    sliderArrowClick={this.sliderArrowClick} 
+                                    invokeText={this.invokeText} 
+                                    showText={this.state.showText} 
+                                    invokeModal={this.invokeModal} 
+                                    clearModal={this.clearModal} 
+                                    showModal={this.state.showModal}  />
+                            )} />
+                            <Route path='/resume' key="resume" render={() => (
+                                <Resume device={this.state.device} />
+                            )} />
+                            <Route path="/" component={About} />
+                        </AnimatedSwitch>
+                    </section>
+
+                </main>
+
+                <Footer atTop={this.state.atTop} links={this.state.footLinks} device={this.state.device} />
+
             </Router>
         )  
     }

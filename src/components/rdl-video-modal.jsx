@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-class VideoModal extends Component {
+class RDLVideoModal extends Component {
 
-    makeMe = () => {
-        if (this.props.videoName === '') {
+    makeMe() {
+        if (this.props.showModal === '') {
             document.body.classList.remove('modal-popped')
             return <div className="modal"></div>
         } else {
@@ -11,10 +11,10 @@ class VideoModal extends Component {
             return (
                 <div className="modal pop">
                     <div className="modalContent">
-                        <div className="modalCloser" onClick={this.props.clickHandler}><i className={this.props.handleView == 'mobile' ? 'fas fa-times-circle' : 'fas fa-2x fa-times-circle'}></i></div>
+                        <div className="modalCloser" onClick={this.props.clearModal}><i className={this.props.device === 'mobile' ? 'fas fa-times-circle' : 'fas fa-2x fa-times-circle'}></i></div>
                         <video controlsList="nofullscreen nodownload" autoPlay loop>
-                            <source src={'video/'+this.props.videoName+'.webm'} type="video/webm" />
-                            <source src={'video/'+this.props.videoName+'.mp4'} type="video/mp4" />
+                            <source src={'video/'+this.props.showModal+'.webm'} type="video/webm" />
+                            <source src={'video/'+this.props.showModal+'.mp4'} type="video/mp4" />
                             I'm sorry, your browser appears to have become technologically irrelevant.
                         </video>
                     </div>
@@ -29,4 +29,4 @@ class VideoModal extends Component {
 
 }
 
-export default VideoModal
+export default RDLVideoModal

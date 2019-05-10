@@ -1,6 +1,7 @@
 @import 'reset';
 @import 'extensions';
 @import 'variables';
+@import 'animations';
 
 /* GLOBAL */
 
@@ -55,6 +56,8 @@ button {
     border-radius: 0;
     background-color: transparent;
     font-size: inherit;
+    font-size: 100;
+    letter-spacing: 0.25em;
     outline: none;
     cursor: pointer;
     transition: 0.33s; }
@@ -62,7 +65,8 @@ button {
 .primary-button {
     background-color: $primary-highlight;
     color: $primary-highlight-fore;
-    
+    border: 1px solid;
+
     &:hover { background-color: $secondary-highlight; }
 }
 
@@ -83,6 +87,31 @@ button {
 
 .text-center { text-align: center; }
 
+.text-box { 
+    min-height: 200px;
+    padding: calc(20px + 5vmin);
+    border: 1px solid #666;
+    background-color: rgba(0,0,0,0.78);
+    box-shadow: 0 25px 25px 12px rgba(0, 0, 0, 0.5);
+
+    &:empty::before {
+        content: '';
+        width: 30px;
+        height: 30px;
+        border: inset 5px;
+        border-radius: 50%;
+        position: absolute;
+        top: calc(50% - 15px);
+        left: calc(50% - 15px);
+        -webkit-animation: spin 4s linear infinite;
+        animation: spin 4s linear infinite;
+        display: block; }
+}
+
+.fas.fa-2x,
+.fab.fa-2x,
+.fa.fa-2x { font-size: calc(10px + 3vmin);  }
+
 .paralax-container { @extend %full-screen; }
 
 .hidden { @extend %hidden }
@@ -94,7 +123,8 @@ button {
         h#{$i} {
             font-size: ($h1+$decreaseBy) - $i * $decreaseBy;
             font-family: $primary-font;
-            letter-spacing: 1.5px; }
+            font-weight: 100;
+            letter-spacing: 0.4em; }
     }
 }
 
@@ -233,7 +263,11 @@ button {
 
             .hidden-desktop { @extend %hidden; }
 
-            .content-wrap { margin: 15vh auto; }
+            p { font-size: calc(14px + 1vmin); }
+
+            .content-wrap {
+                margin: 15vh auto;
+                padding: 0 $rowH; }
         }
 
         #section-content.laptop { 

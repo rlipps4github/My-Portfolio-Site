@@ -29,11 +29,12 @@ class LogoCarousel extends Component {
     
     render() {
         return(
-            React.createElement('div', {className: 'logos-ticker'}, 
+            <div className="logos-ticker"> { 
                 this.props.arr.map((key,val) => {
                     return this.renderLogo(val)
                 })
-            )
+            }</div>
+            
         )
         
         
@@ -42,12 +43,11 @@ class LogoCarousel extends Component {
 
 class Header extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            logos: this.props.logos,
-            logoLen: 0,
             logoArr: [],
-            logoIdx: -1,
+            logoLen: 0,
+            logoIdx: 0,
         }
     }
     
@@ -62,14 +62,12 @@ class Header extends Component {
     }
     
     advanceIdx = () => {
-        const editArr = this.state.logos
-        const nextIdx = this.state.logoIdx + 1
-        const newIdx = nextIdx < editArr.length ? nextIdx : 0;
-        this.setState({
-            logoLen: editArr.length,
-            logoIdx: newIdx,
+        const editArr = this.props.logos
+        this.setState( prevState => ({
             logoArr: editArr, 
-        });
+            logoLen: editArr.length,
+            logoIdx: prevState.logoIdx+1 < editArr.length ? prevState.logoIdx+1 : 0,
+        }));
     }
     
     render() {
@@ -78,15 +76,11 @@ class Header extends Component {
                 <div className={'header-wrap '+ (this.props.atTop ? '' : 'rollupTop')}>
                     <LogoCarousel len={this.state.logoLen} arr={this.state.logoArr} idx={this.state.logoIdx} />
                     <div className="contact-card">
-                        <h2 onClick={this.props.nameHandler}>Ron&nbsp;Lipps</h2>
+                        <h2 onClick={this.props.handleNameClick}>Ron&nbsp;Lipps</h2>
                         <div>
                             <div>Web Developer</div>
-                            <div>San Diego, CA.</div>
-                            <div id="navBtn" onClick={this.props.handler}>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
+                            <div>San Diego CA</div>
+                            <div id="navBtn" onClick={this.props.toggleNavBtn}><div></div><div></div><div></div></div>
                         </div>
                     </div>
                 </div>

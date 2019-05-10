@@ -63,12 +63,13 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        text-align: right;
+        text-align: center;
         transition: width 0.5s;
         
         h2 {  
             width: 300px;
             margin: 0;
+            line-height: 1.33;
             cursor: pointer;
         
             &:hover { @extend %hover-text; }
@@ -76,9 +77,10 @@
         
         div > div {
             width: 300px;
-            text-align: right;
             overflow: hidden;
-            transition: width 0.33s, font-size 0.15s; }
+            line-height: 1.33;
+            letter-spacing: 0.55em;
+            transition: width 0.33s, font-size 0.15s, letter-spacing 0.33s; }
         
         #navBtn {
             width: 0;
@@ -114,10 +116,13 @@
     &:not(.rollupTop) {
 
         .contact-card {
+
+            h2 { font-size: 18px; }
             
             > div > div {
                 width: auto;
-                height: 50%; }
+                height: 50%;
+                letter-spacing: 0; }
 
             #navBtn { 
                 width: 0;

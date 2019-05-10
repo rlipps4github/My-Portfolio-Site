@@ -1,0 +1,27 @@
+
+/*
+*   SPIN ANIMATION
+*
+*   usage: 
+*   -webkit-animation: spin 1s linear infinite;
+*   animation: spin 1s linear infinite; 
+*
+*/
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+/*
+*   BLINK ANIMATION
+*
+*   usage: 
+*   -webkit-animation: blink 1s linear infinite;
+*   animation: blink 1s linear infinite; 
+*
+*/
+
+@-moz-keyframes blink { 0% { opacity: 0; } 100% { opacity: 1; } }
+@-webkit-keyframes blink { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
