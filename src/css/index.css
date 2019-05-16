@@ -182,7 +182,7 @@ button {
 
 .text-box {
   min-height: 200px;
-  padding: calc(20px + 5vmin);
+  padding: calc(20px + 7vmin);
   border: 1px solid #666;
   background-color: rgba(0, 0, 0, 0.78);
   box-shadow: 0 25px 25px 12px rgba(0, 0, 0, 0.5); }
@@ -1039,8 +1039,7 @@ body.modal-popped #footer {
       #section-content.samples.tablet .content-wrap .row-scroll .col .heroText::before, #section-content.samples.tablet .content-wrap .row-scroll .col .heroText::after {
         display: none; }
       #section-content.samples.tablet .content-wrap .row-scroll .col .heroText button {
-        display: inline-block;
-        margin: 10px; }
+        display: inline-block; }
   #section-content.samples.tablet .content-wrap .row-scroll-ctrl {
     width: 32px;
     height: 32px;
@@ -1066,8 +1065,7 @@ body.modal-popped #footer {
     #section-content.samples.mobile .content-wrap .row-scroll .col .heroText::before, #section-content.samples.mobile .content-wrap .row-scroll .col .heroText::after {
       display: none; }
     #section-content.samples.mobile .content-wrap .row-scroll .col .heroText button {
-      display: inline-block;
-      margin: 10px; }
+      display: inline-block; }
   #section-content.samples.mobile .content-wrap .row-scroll-ctrl {
     width: 32px;
     height: 32px;
@@ -1097,8 +1095,7 @@ body.modal-popped #footer {
       #section-content.samples.mobile .content-wrap .row-scroll .col .heroText::before, #section-content.samples.mobile .content-wrap .row-scroll .col .heroText::after {
         display: none; }
       #section-content.samples.mobile .content-wrap .row-scroll .col .heroText button {
-        display: inline-block;
-        margin: 10px; }
+        display: inline-block; }
   #section-content.samples.mobile .content-wrap .row-scroll-ctrl {
     width: 32px;
     height: 32px;

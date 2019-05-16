@@ -1,23 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import WheelReact from 'wheel-react'
 
 class Nav extends Component {
-    constructor(props) {
-        super(props);
-        WheelReact.config({
-            up: () => {
-                this.props.handleScrollSwipeNav('down',1000)
-            },
-            down: () => {
-                this.props.handleScrollSwipeNav('up',1000)
-            },
-        })
-    }
-
-    componentWillUnmount() {
-        WheelReact.clearTimeout()
-    }
     
     renderLinks = () => {   
         let navLinks = []
@@ -41,6 +25,7 @@ class Nav extends Component {
         for (let i=0; i<this.props.links.length; i++) {
             scrollLinks.push(
                 <NavLink 
+                    className="scrl-nav"
                     key={'scrl-nav'+i} 
                     onClick={this.props.handleNavClick}
                     data-idx={i}
@@ -59,7 +44,7 @@ class Nav extends Component {
             <nav id="nav" className={this.props.atTop ? '' : 'rollupTop'}>
                 {this.renderLinks()}
             </nav>
-            <div id="scrollNav-wrap" {...WheelReact.events}>
+            <div id="scrollNav-wrap">
                 {this.renderScrollLinks()}
             </div>
             </>

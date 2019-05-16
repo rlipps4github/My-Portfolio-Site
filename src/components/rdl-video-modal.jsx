@@ -12,7 +12,7 @@ class RDLVideoModal extends Component {
                 <div className="modal pop">
                     <div className="modalContent">
                         <div className="modalCloser" onClick={this.props.clearModal}><i className={this.props.device === 'mobile' ? 'fas fa-times-circle' : 'fas fa-2x fa-times-circle'}></i></div>
-                        <video controlsList="nofullscreen nodownload" autoPlay loop>
+                        <video controls controlsList="nodownload" autoPlay loop>
                             <source src={'video/'+this.props.showModal+'.webm'} type="video/webm" />
                             <source src={'video/'+this.props.showModal+'.mp4'} type="video/mp4" />
                             I'm sorry, your browser appears to have become technologically irrelevant.

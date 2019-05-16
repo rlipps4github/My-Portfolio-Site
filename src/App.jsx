@@ -18,14 +18,14 @@ let _scrollTimeout = null, _scrolling = false // to enforce proper event control
 
 let slideCnt = null
 
-/* CLICK ROUTING */
+    /* NON-CLICK ROUTING */
 
 function triggerRoute(navIdx) {
     document.getElementById('nav').getElementsByTagName('a')[navIdx].click() // trigger click router links
     if (document.getElementsByClassName('modal, pop').length) document.getElementsByClassName('modal, pop').classList.remove('pop') // close any modals if they exist
 }
 
-/* MAIN APP */
+    /* MAIN APP */
 
 class MainWrapper extends Component {    
     constructor(props) {
@@ -80,7 +80,8 @@ class MainWrapper extends Component {
         window.addEventListener('resize', this.customResponse) 
         document.addEventListener('touchstart', this.handleTouchStart, false)       
         document.addEventListener('touchmove', this.handleTouchMove, false)     
-        document.addEventListener('touchend', this.handleTouchEnd, false)
+        document.addEventListener('touchend', this.handleTouchEnd, false)   
+        document.addEventListener('wheel', this.handleMouseWheel, false)
     }
 
     componentWillUnmount() {
@@ -88,7 +89,8 @@ class MainWrapper extends Component {
         window.removeEventListener('resize')
         document.removeEventListener('touchstart')     
         document.removeEventListener('touchmove')     
-        document.addEventListener('touchend')
+        document.removeEventListener('touchend')   
+        document.removeEventListener('wheel')
     }  
 
     customResponse = () => { // provides section & componenent level awareness for response
@@ -135,7 +137,22 @@ class MainWrapper extends Component {
         }
     }
 
-    /* TOUCH EVENTS */
+        /* WHEEL EVENTS */
+
+    handleMouseWheel = (e) => {
+        if (e.target.classList.contains('scrl-nav')) { 
+            const atLinkLen = this.state.links.length - 1
+            let direction = null
+            if (e.deltaY < 0) {         console.log('scroll up')
+                direction = 'up'
+            } else {                    console.log('scroll down')
+                direction = 'down'
+            }
+            this.handleScrollSwipeNav(direction,1000)
+        }
+    }
+
+        /* TOUCH EVENTS */
 
     getTouches = (e) => {
         return e.touches || e.originalEvent.touches
@@ -182,14 +199,12 @@ class MainWrapper extends Component {
         if (! _scrolling) { 
             _scrolling = true
             const atLinkLen = this.state.links.length - 1
-            if (direction === 'up') {   // scroll/swipe up
-                console.log('scroll/swipe up')
+            if (direction === 'up') {   // console.log('swipe up')
                 this.setState( prevState => ({
                     atTop: prevState.atSection === 0 ? true : false,
                     atSection: prevState.atSection-1 >= 0 ? prevState.atSection-1 : prevState.atSection,
                 }));
-            } else {                    // scroll/swipe down
-                console.log('scroll/swipe down')
+            } else {                    // console.log('swipe down')
                 this.setState( prevState => ({
                     atTop: false,
                     atSection: ! prevState.atTop && prevState.atSection+1 <= atLinkLen ? prevState.atSection+1 : prevState.atSection,
@@ -199,7 +214,7 @@ class MainWrapper extends Component {
             triggerRoute(this.state.atSection)
         }
         _scrollTimeout = setTimeout(() => { _scrolling = false },timeout)
-    }
+    } 
 
     /* CLICK EVENTS */
 
@@ -300,7 +315,6 @@ class MainWrapper extends Component {
                 > 
                     <Nav 
                         handleNavClick={this.handleNavClick} 
-                        handleScrollSwipeNav={this.handleScrollSwipeNav} 
                         atTop={this.state.atTop} 
                         atSection={this.state.atSection} 
                         links={this.state.links} 
@@ -316,9 +330,9 @@ class MainWrapper extends Component {
                         <div className="row row-pad">
                             <div className="col col-mob-12 column-pad text-center">
                                 <header>
-                                    <h1>Welcome!</h1>
-                                    <p>My name is Ron and I am a Web Developer <br />specializing in Front End developement with <br />plans to eventually take on a Full Stack role.</p>
-                                    <p>Thanks for visiting! Scroll down or click to see more...</p>
+                                    <h1>Thanks for visiting!</h1>
+                                    <p> My name is Ron and I am a Web Developer <br />specializing in Front End development.<br />I like PM's with a great sense of humor and long walks on the beach...</p>
+                                    <p> Scroll or click to see more!</p>
                                     <button className="welcomeButton fas fa-2x fa-arrow-circle-down"></button>
                                 </header>
                             </div>

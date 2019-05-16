@@ -18,21 +18,19 @@ class Samples extends Component {
                                 className={this.props.showText ? 'text-box heroText active' : 'text-box heroText'}
                                 onClick={this.props.invokeText}
                             >
-                                <h3>Automotive</h3>
+                                <h3>Themes</h3>
                                 <p>I built and maintained over a dozen digital portfolio themes, supporting over 30 brands and 7 languages.</p>
-                                <p>All themes were custom built for a proprietary CMS using PHP, Vanilla JS, jQuery, HTML5 and CSS3</p>
+                                <p className="hidden-mobile">Design composition files were supplied in PSD format to be converted to working code. All themes were custom 
+                                    built for <strong>Search Optics</strong>'&reg; proprietary CMS called <strong>Blueprint</strong>&reg;, a very robust 
+                                    and powerful application. I used PHP, JS, jQuery, HTML5 and CSS3 implementing internal and external APIs and widgets.</p>
+                                <p className="hidden-mobile">&nbsp;</p>
+                                <p>&nbsp;</p>
                                 <button 
                                     className="primary-button" 
                                     type="button" 
-                                    data-video="three-basics"
+                                    data-video="Landers"
                                     onClick={this.props.invokeModal}
-                                >DESKTOP</button> 
-                                <button 
-                                    className="primary-button" 
-                                    type="button" 
-                                    data-video="basic-mob"
-                                    onClick={this.props.invokeModal}
-                                >MOBILE</button>
+                                >LANDING PAGES VIDEO</button> 
                             </div>
                         </div>
 
@@ -43,14 +41,43 @@ class Samples extends Component {
                                 onClick={this.props.invokeText}
                             >
                                 <h3>Animation</h3>
-                                <p>I built and maintained over a dozen digital portfolio themes, supporting over 30 brands and 7 languages.</p>
-                                <p>All themes were custom built for a proprietary CMS using PHP, Vanilla JS, jQuery, HTML5 and CSS3</p>
+                                <p>Animations are visually appealing and I think they really lift up a theme when they are done right.</p>
+                                <p className="hidden-mobile">I especially appreciate animations that visually aid in the intuitiveness of an application as opposed
+                                    to gratuitous transitions. In this sample of my work the design called for extensive animations which
+                                    need to be long enough for users to understand but fast enough that they arent waiing.</p>
+                                <p className="hidden-mobile">This concept theme was never used but it was very fun to build!</p>
+                                <p>&nbsp;</p>
+                                <p className="hidden-mobile">&nbsp;</p>
                                 <button 
                                     className="primary-button" 
                                     type="button" 
-                                    data-video="visual-theme"
+                                    data-video="Animation"
                                     onClick={this.props.invokeModal}
-                                >DESKTOP</button> 
+                                >ANIMATIONS VIDEO</button> 
+                            </div>
+                        </div>
+
+                        <div className={this.props.slideIndex === 2 ? 'col col-mob-12 active' : 'col col-mob-12'}>
+                            <img alt="basic themes" src="img/basic.png" />
+                            <div 
+                                className={this.props.showText ? 'text-box heroText active' : 'text-box heroText'}
+                                onClick={this.props.invokeText}
+                            >
+                                <h3>Working Smarter</h3>
+                                <p className="hidden-mobile">Among my greatest contributions to my work at Search Optics was the creation of web components that would 
+                                    come to be called <strong>Smart Blocks&trade;</strong>.</p>
+                                <p className="hidden-mobile">These components are built to automatically inherit a user-customizable branding styles and are extensible 
+                                    providing configurable options to the CMS users as needs change and grow.</p>
+                                <p>The sample here demonstrates a single web component used in various themes for hero banner/sliders, multi-tile
+                                    tile carousels and more complex HTML tile carousels.</p>
+                                <p className="hidden-mobile">&nbsp;</p>
+                                <p>&nbsp;</p>
+                                <button 
+                                    className="primary-button" 
+                                    type="button" 
+                                    data-video="Sliders"
+                                    onClick={this.props.invokeModal}
+                                >SLIDERS VIDEO</button> 
                             </div>
                         </div>
                     </div>

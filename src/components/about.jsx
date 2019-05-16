@@ -11,28 +11,39 @@ class About extends Component {
                 <div className="content-wrap">
                     
                     <div className="row row-scroll">  
-                        <div className={this.props.slideIndex === 0 ? 'col col-mob-12 column-pad text-box active' : 'col col-mob-12 column-pad text-box'} style={{ marginLeft: percentLeft }}>
-                            <h3>About The Build</h3>
-                            <p>My portfolio site was concieved of and built by myself at home in the span of about 2 weeks. 
-                                The content itself took another 2 weeks.</p>
-                            <p className="hidden-mobile">If you are thinking "this guy is not a designer", you are right and I know it's evident here. But this 
-                                gives a sense for my execution of UI and UX within a custom reponsive layout.</p>
-                            <p>The tools I used are Visual Studio Code, Koala and Affinity and the site was engineered from scratch
-                                with React &amp; Node using Javascript, JSX and SCSS.</p>
+                        <div className={this.props.slideIndex === 0 ? 'col col-mob-12 text-box active' : 'col col-mob-12 text-box'} style={{ marginLeft: percentLeft }}>
+                            <h3>About The Site</h3>
+                            <div>
+                                <p>My portfolio site was conceived of and built by myself at home in the span of about 2 weeks. 
+                                    The content itself took another 2 weeks to compile and implement.</p>
+                                <p className="hidden-mobile">I decided to execute a minimalist design with a focus on making a stateful
+                                    and performant application. If you are thinking "this guy is not a designer", you are right 
+                                    and I know it's evident here. But I hope it communicates my sensibilities of UI/UX within a custom 
+                                    responsive layout.</p>
+                                <p>The tools I used are Visual Studio Code, Koala, iMovie, Avidemux, Miro and Affinity. The site was hand-coded
+                                    using React &amp; Node with JSX and SCSS.</p>
+                            </div>
                         </div>
 
-                        <div className={this.props.slideIndex === 1 ? 'col col-mob-12 column-pad text-box active' : 'col col-mob-12 column-pad text-box'} >
-                            <h3>About The Site</h3>
-                            <p>This portfolio site features a Single-Page Architecture.</p>
-                            <p>If you are thinking "this guy is not a designer" you are right- and it's evident. But this 
-                                will give you a sense for my execution of UI and UX within a reponsive layout.</p>
+                        <div className={this.props.slideIndex === 1 ? 'col col-mob-12 text-box active' : 'col col-mob-12 text-box'} >
+                            <h3>About The Build</h3>
+                            <div>
+                                <p>This portfolio site features a <span className="blink header-footer">Single Page Architecture</span>. I have 
+                                    incorporated a custom swipe navigation for mobile and a Wheel React for mouse driven devices when 
+                                    hovered over the <span className="blink scroll-navigation">scroll navigation indicators</span>.</p>
+                                <p className="hidden-mobile">I created a <span className="blink row-scroll-controls">custom slider</span> setup that is also swipe-able on touch 
+                                    devices.</p>
+                                <p>All imagery and media was produced by myself. Typography is courtesy of Google Fonts and Fontwaesome for icons.</p>
+                            </div>
                         </div>
                         
-                        <div className={this.props.slideIndex === 2 ? 'col col-mob-12 column-pad text-box active' : 'col col-mob-12 column-pad text-box'} >
+                        <div className={this.props.slideIndex === 2 ? 'col col-mob-12 text-box active' : 'col col-mob-12 text-box'} >
                             <h3>About Me</h3>
-                            <p>I really enjoy making things that look good and that run well.</p>
-                            <p>If you are thinking "this guy is not a designer" you are right- and it's evident. But this 
-                                will give you a sense for my execution of UI and UX within a reponsive layout.</p>
+                            <div>
+                                <p>I enjoy making websites that look good and that run well.</p>
+                                <p>While server side scripting is interesting and can be sufficiently challenging, I find bringing a PSD to life in a browser
+                                    satisfies my inner perfectionist. Making something work well is cool- making something work well and look awesome is exciting!</p>
+                            </div>
                         </div>
                     </div>
 
