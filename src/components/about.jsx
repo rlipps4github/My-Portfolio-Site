@@ -29,11 +29,11 @@ class About extends Component {
                             <h3>About The Build</h3>
                             <div>
                                 <p>This portfolio site features a <span className="blink header-footer">Single Page Architecture</span>. I have 
-                                    incorporated a custom swipe navigation for mobile and a Wheel React for mouse driven devices when 
-                                    hovered over the <span className="blink scroll-navigation">scroll navigation indicators</span>.</p>
+                                    incorporated a custom swipe events function for mobile and a wheel events function for mouse driven devices when 
+                                    using the <span className="blink scroll-navigation">scroll navigation indicators</span>.</p>
                                 <p className="hidden-mobile">I created a <span className="blink row-scroll-controls">custom slider</span> setup that is also swipe-able on touch 
                                     devices.</p>
-                                <p>All imagery and media was produced by myself. Typography is courtesy of Google Fonts and Fontwaesome for icons.</p>
+                                <p>All imagery and media was produced by myself. Typography is courtesy of Google Fonts and FontAwesome for icons.</p>
                             </div>
                         </div>
                         

@@ -140,15 +140,11 @@ class MainWrapper extends Component {
         /* WHEEL EVENTS */
 
     handleMouseWheel = (e) => {
-        if (e.target.classList.contains('scrl-nav')) { 
-            const atLinkLen = this.state.links.length - 1
-            let direction = null
-            if (e.deltaY < 0) {         console.log('scroll up')
-                direction = 'up'
-            } else {                    console.log('scroll down')
-                direction = 'down'
-            }
-            this.handleScrollSwipeNav(direction,1000)
+        if (e.deltaY < -10 && e.deltaX === 0) { //console.log('scroll up')
+            this.handleScrollSwipeNav('up',1000)
+        } 
+        else if (e.deltaY > 10 && e.deltaX === 0) { //console.log('scroll down')
+            this.handleScrollSwipeNav('down',1000)
         }
     }
 
@@ -331,7 +327,7 @@ class MainWrapper extends Component {
                             <div className="col col-mob-12 column-pad text-center">
                                 <header>
                                     <h1>Thanks for visiting!</h1>
-                                    <p> My name is Ron and I am a Web Developer <br />specializing in Front End development.<br />I like PM's with a great sense of humor and long walks on the beach...</p>
+                                    <p> My name is Ron and I am a Web Developer <br />specializing in Front End development.<br />My goals include learning design and mobile development.</p>
                                     <p> Scroll or click to see more!</p>
                                     <button className="welcomeButton fas fa-2x fa-arrow-circle-down"></button>
                                 </header>
