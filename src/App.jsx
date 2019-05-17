@@ -297,6 +297,28 @@ class MainWrapper extends Component {
         })
     }
 
+    /* HOVER EVENTS */
+
+    handleHoverEffect = (e) => {
+        const hoverTarget = e.target.classList
+        console.log(hoverTarget)
+        switch(true) {
+            case hoverTarget.contains('blink-header-footer'):
+                document.getElementById('header').classList.toggle('blinkMe')
+                document.getElementById('footer').classList.toggle('blinkMe')
+                break;
+            case hoverTarget.contains('blink-scroll-navigation'):
+                document.getElementById('scrollNav-wrap').classList.toggle('blinkMe')
+                break;
+            case hoverTarget.contains('blink-row-scroll-controls'):
+                document.getElementsByClassName('row-scroll-ctrl')[0].classList.toggle('blinkMe')
+                document.getElementsByClassName('row-scroll-ctrl')[1].classList.toggle('blinkMe')
+                break;
+            default: 
+                break;
+        }
+    }
+
     render() {
         return(
             <Router>
@@ -348,6 +370,7 @@ class MainWrapper extends Component {
                                     slideIndex={this.state.slideIdx} 
                                     slideCount={this.state.slideCount} 
                                     sliderArrowClick={this.sliderArrowClick} 
+                                    handleHoverEffect={this.handleHoverEffect}
                                 />
                             )} />
                             <Route path='/samples' key="samples" render={() => (

@@ -143,6 +143,14 @@ q:before, q:after {
   content: '';
   content: none; }
 
+.link {
+  text-decoration: underline;
+  cursor: pointer; }
+
+.blinkMe {
+  -webkit-animation: blink 1s linear 5s;
+  animation: blink 0.5s linear 5; }
+
 .button,
 button {
   padding: 10px 15px;

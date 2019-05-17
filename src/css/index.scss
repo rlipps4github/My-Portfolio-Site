@@ -47,7 +47,15 @@ code { font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", mon
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
-	content: none; }
+    content: none; }
+    
+.link { 
+    text-decoration: underline;
+    cursor: pointer; }
+
+.blinkMe { 
+    -webkit-animation: blink 1s linear 5s;
+    animation: blink 0.5s linear 5; }
 
 .button,
 button {

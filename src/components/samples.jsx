@@ -41,11 +41,11 @@ class Samples extends Component {
                                 onClick={this.props.invokeText}
                             >
                                 <h3>Animation</h3>
-                                <p>Animations are visually appealing and I think they really lift up a theme when they are done right.</p>
+                                <p>Animations are visually appealing and I think they really lift up a theme when they are done right. This concept theme was never 
+                                    used but it was very fun to build!</p>
                                 <p className="hidden-mobile">I especially appreciate animations that visually aid in the intuitiveness of an application as opposed
                                     to gratuitous transitions. In this sample of my work the design called for extensive animations which
-                                    need to be long enough for users to understand but fast enough that they arent waiing.</p>
-                                <p className="hidden-mobile">This concept theme was never used but it was very fun to build!</p>
+                                    need to be long enough for users to understand but fast enough that they arent waiting.</p>
                                 <p>&nbsp;</p>
                                 <p className="hidden-mobile">&nbsp;</p>
                                 <button 
@@ -63,13 +63,13 @@ class Samples extends Component {
                                 className={this.props.showText ? 'text-box heroText active' : 'text-box heroText'}
                                 onClick={this.props.invokeText}
                             >
-                                <h3>Working Smarter</h3>
-                                <p className="hidden-mobile">Among my greatest contributions to my work at Search Optics was the creation of web components that would 
-                                    come to be called <strong>Smart Blocks&trade;</strong>.</p>
-                                <p className="hidden-mobile">These components are built to automatically inherit a user-customizable branding styles and are extensible 
+                                <h3>Work Smarter</h3>
+                                <p className="hidden-mobile">Among my greatest contributions to my work at <strong>Search Optics</strong> was the creation of web 
+                                    components that would come to be called <strong>Smart Blocks&trade;</strong>.</p>
+                                <p className="hidden-mobile">These components are built to automatically inherit user-customizable branding styles and are extensible, 
                                     providing configurable options to the CMS users as needs change and grow.</p>
-                                <p>The sample here demonstrates a single web component used in various themes for hero banner/sliders, multi-tile
-                                    tile carousels and more complex HTML tile carousels.</p>
+                                <p>The sample here demonstrates a single web component used in various themes for hero banner/sliders, a multi-tile
+                                    carousel and a feature carousel for mobile.</p>
                                 <p className="hidden-mobile">&nbsp;</p>
                                 <p>&nbsp;</p>
                                 <button 

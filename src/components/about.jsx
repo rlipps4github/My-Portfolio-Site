@@ -28,10 +28,10 @@ class About extends Component {
                         <div className={this.props.slideIndex === 1 ? 'col col-mob-12 text-box active' : 'col col-mob-12 text-box'} >
                             <h3>About The Build</h3>
                             <div>
-                                <p>This portfolio site features a <span className="blink header-footer">Single Page Architecture</span>. I have 
+                                <p>This portfolio site features a <span className="link blink-header-footer" onMouseOver={this.props.handleHoverEffect}>Single Page Architecture</span>. I have 
                                     incorporated a custom swipe events function for mobile and a wheel events function for mouse driven devices when 
-                                    using the <span className="blink scroll-navigation">scroll navigation indicators</span>.</p>
-                                <p className="hidden-mobile">I created a <span className="blink row-scroll-controls">custom slider</span> setup that is also swipe-able on touch 
+                                    routing to pages as indicated by <span className="link blink-scroll-navigation" onMouseOver={this.props.handleHoverEffect}>scroll navigation indicators</span>.</p>
+                                <p className="hidden-mobile">I created a <span className="link blink-row-scroll-controls" onMouseOver={this.props.handleHoverEffect}>custom slider</span> setup that is also swipe-able on touch 
                                     devices.</p>
                                 <p>All imagery and media was produced by myself. Typography is courtesy of Google Fonts and FontAwesome for icons.</p>
                             </div>
@@ -41,8 +41,8 @@ class About extends Component {
                             <h3>About Me</h3>
                             <div>
                                 <p>I enjoy making websites that look good and that run well.</p>
-                                <p>While server side scripting is interesting and can be sufficiently challenging, I find bringing a PSD to life in a browser
-                                    satisfies my inner perfectionist. Making something work well is cool- making something work well and look awesome is exciting!</p>
+                                <p>Server side scripting is interesting and can be sufficiently challenging, but I find bringing a PSD to life in a browser
+                                    satisfies my inner perfectionist. Making something work well is cool- making something work well and look awesome is the best!</p>
                             </div>
                         </div>
                     </div>
